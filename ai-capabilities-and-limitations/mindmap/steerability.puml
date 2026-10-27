@@ -1,0 +1,57 @@
+@startuml steerability
+' Render: java -jar plantuml.jar -tsvg steerability.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Steerability: How Much Am I in Control?\n<size:12><color:#777>La pilotabilité : dans quelle mesure ai-je le contrôle ?</color></size>
+
+rectangle "Fine-tuning\n<size:11><color:#777>Réglage fin</color></size>" as FT #EEEEEE
+rectangle "**Steerability**\n<size:11><color:#777>Pilotabilité</color></size>" as ST #CFCBDD
+rectangle "Description\n<size:11><color:#777>Description</color></size>" as DESC #BCD3CB
+
+rectangle "Capability zone\n<size:11><color:#777>Zone de compétence</color></size>" as CZ #EEEEEE
+rectangle "Limitation zone\n<size:11><color:#777>Zone des limites</color></size>" as LZ #EEEEEE
+
+rectangle "**Failures**\n<size:11><color:#777>Échecs</color></size>" as FAIL #F9F8F4 {
+  rectangle "Reasoning drift\n<size:11><color:#777>Dérive du raisonnement</color></size>" as RD #F6D5D1
+  rectangle "Letter over spirit\n<size:11><color:#777>La lettre plutôt que l'esprit</color></size>" as LS #F6D5D1
+  rectangle "Prompt injection\n<size:11><color:#777>Injection de prompt</color></size>" as PI #F6D5D1
+}
+
+rectangle "**Product features**\n<size:11><color:#777>Fonctionnalités produit</color></size>" as PF #F9F8F4 {
+  rectangle "System prompts and custom instructions\n<size:11><color:#777>Prompts système et instructions personnalisées</color></size>" as SP #E3E9E6
+  rectangle "Code execution\n<size:11><color:#777>Exécution de code</color></size>" as CE #E3E9E6
+  rectangle "Visible reasoning\n<size:11><color:#777>Raisonnement visible</color></size>" as VR #E3E9E6
+  rectangle "Structured output modes\n<size:11><color:#777>Sorties structurées</color></size>" as SO #E3E9E6
+}
+
+' The card's order, top to bottom.
+RD -[hidden]down- LS
+LS -[hidden]down- PI
+SP -[hidden]down- CE
+CE -[hidden]down- VR
+VR -[hidden]down- SO
+
+FT --> ST
+ST --> DESC
+ST --> CZ
+ST --> LZ
+LZ --> FAIL
+PF --> LZ
+VR --> RD
+SO --> LS
+
+@enduml

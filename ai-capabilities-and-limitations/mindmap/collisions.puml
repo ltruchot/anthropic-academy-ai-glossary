@@ -1,0 +1,50 @@
+@startuml collisions
+' Render: java -jar plantuml.jar -tsvg collisions.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title When Properties Collide\n<size:12><color:#777>Quand les propriétés entrent en collision</color></size>
+
+rectangle "**Next token prediction**\n<size:11><color:#777>Prédiction du token suivant</color></size>" as NTP #CFCBDD
+rectangle "**Knowledge**\n<size:11><color:#777>Connaissances</color></size>" as KN #CFCBDD
+rectangle "**Working memory**\n<size:11><color:#777>Mémoire de travail</color></size>" as WM #CFCBDD
+rectangle "**Steerability**\n<size:11><color:#777>Pilotabilité</color></size>" as ST #CFCBDD
+
+rectangle "Hallucination\n<size:11><color:#777>Hallucination</color></size>" as HALLU #F6D5D1
+rectangle "Agreeable bad premises\n<size:11><color:#777>Prémisses erronées acceptées</color></size>" as ABP #F6D5D1
+rectangle "Stale context vs. trained knowledge\n<size:11><color:#777>Contexte obsolète contre connaissances</color></size>\n<size:11><color:#777>acquises à l'entraînement</color></size>" as SC #F6D5D1
+rectangle "Confidently wrong reasoning\n<size:11><color:#777>Raisonnement faux mené avec assurance</color></size>" as CWM #F6D5D1
+rectangle "Long-conversation drift\n<size:11><color:#777>Dérive au fil d'une longue conversation</color></size>" as LCD #F6D5D1
+
+' The card's order, left to right.
+HALLU -[hidden]right- ABP
+ABP -[hidden]right- SC
+SC -[hidden]right- CWM
+CWM -[hidden]right- LCD
+
+' Each collision: the two properties that meet in it.
+NTP --> HALLU
+KN --> HALLU
+KN --> ABP
+ST --> ABP
+KN --> SC
+WM --> SC
+NTP --> CWM
+ST --> CWM
+WM --> LCD
+ST --> LCD
+
+@enduml

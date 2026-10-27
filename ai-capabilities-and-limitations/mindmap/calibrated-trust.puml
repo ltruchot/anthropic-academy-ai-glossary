@@ -1,0 +1,64 @@
+@startuml calibrated-trust
+' Render: java -jar plantuml.jar -tsvg calibrated-trust.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+left to right direction
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Calibrated Trust: a Habit, not an Attitude\n<size:12><color:#777>La confiance calibrée : une habitude, pas une attitude</color></size>
+
+rectangle "**AI properties**\n<size:11><color:#777>Propriétés de l'IA</color></size>" as AI #F9F8F4 {
+  rectangle "Next token prediction\n<size:11><color:#777>Prédiction du token suivant</color></size>" as NTP #CFCBDD
+  rectangle "Knowledge\n<size:11><color:#777>Connaissances</color></size>" as KN #CFCBDD
+  rectangle "Working memory\n<size:11><color:#777>Mémoire de travail</color></size>" as WM #CFCBDD
+  rectangle "Steerability\n<size:11><color:#777>Pilotabilité</color></size>" as ST #CFCBDD
+}
+
+rectangle "**Check, before you hand it to an AI**\n<size:11><color:#777>Vérifier, avant de confier la tâche à l'IA</color></size>" as CHECK #F9F8F4 {
+  rectangle "Well-worn territory or sparse?\n<size:11><color:#777>Terrain connu ou peu fréquenté ?</color></size>" as Q1 #EEEEEE
+  rectangle "Topic recent or stable?\n<size:11><color:#777>Sujet récent ou stable ?</color></size>" as Q2 #EEEEEE
+  rectangle "Material comfortably inside the window?\n<size:11><color:#777>Le contenu tient-il largement</color></size>\n<size:11><color:#777>dans la fenêtre de contexte ?</color></size>" as Q3 #EEEEEE
+  rectangle "Instructions concrete, or room\nbetween my words and my intent?\n<size:11><color:#777>Instructions concrètes, ou un écart</color></size>\n<size:11><color:#777>entre mes mots et mon intention ?</color></size>" as Q4 #EEEEEE
+}
+
+rectangle "**Then adjust**\n<size:11><color:#777>Puis ajuster</color></size>" as ADJUST #F9F8F4 {
+  rectangle "More verification,\nwhere fabrication can concentrate\n<size:11><color:#777>Plus de vérification,</color></size>\n<size:11><color:#777>là où les inventions se concentrent</color></size>" as A1 #E3E9E6
+  rectangle "More context,\nwhere the model can't guess what you mean\n<size:11><color:#777>Plus de contexte, là où le modèle</color></size>\n<size:11><color:#777>ne peut pas deviner ce que vous voulez dire</color></size>" as A2 #E3E9E6
+  rectangle "More checkpoints,\nwhen reasoning chains run too long\n<size:11><color:#777>Plus de points de contrôle, quand les</color></size>\n<size:11><color:#777>chaînes de raisonnement s'allongent trop</color></size>" as A3 #E3E9E6
+  rectangle "Features that extend\nthe models' capabilities\n<size:11><color:#777>Des fonctionnalités qui étendent</color></size>\n<size:11><color:#777>les capacités des modèles</color></size>" as A4 #E3E9E6
+}
+
+rectangle "**Calibrated trust**\n<size:11><color:#777>Confiance calibrée</color></size>\nLocate the task, set your habits accordingly\n<size:11><color:#777>Situer la tâche, adapter ses habitudes en conséquence</color></size>" as CT #BCD3CB
+
+' Left to right: "left" stacks downward. The course's order, top to bottom.
+NTP -[hidden]left- KN
+KN -[hidden]left- WM
+WM -[hidden]left- ST
+Q1 -[hidden]left- Q2
+Q2 -[hidden]left- Q3
+Q3 -[hidden]left- Q4
+A1 -[hidden]left- A2
+A2 -[hidden]left- A3
+A3 -[hidden]left- A4
+
+' Each question asks where the task lands on one property (its words, in the table's order).
+NTP --> Q1
+KN --> Q2
+WM --> Q3
+ST --> Q4
+CHECK --> ADJUST
+ADJUST --> CT
+
+@enduml

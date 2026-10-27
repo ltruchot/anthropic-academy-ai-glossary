@@ -1,0 +1,64 @@
+@startuml next-token-prediction
+' Render: java -jar plantuml.jar -tsvg next-token-prediction.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Autocomplete at Scale\n<size:12><color:#777>L'autocomplétion à grande échelle</color></size>
+
+rectangle "**Next token prediction**\n<size:11><color:#777>Prédiction du token suivant</color></size>" as NTP #CFCBDD
+rectangle "Sampling\n<size:11><color:#777>Échantillonnage</color></size>" as SA #EEEEEE
+rectangle "**Sampling parameters**\n<size:11><color:#777>Paramètres d'échantillonnage</color></size>" as SP #F9F8F4 {
+  rectangle "Temperature\n<size:11><color:#777>Température</color></size>" as TEMP #EEEEEE
+  rectangle "Tail trimming\n<size:11><color:#777>Troncature</color></size>" as TT #EEEEEE
+}
+rectangle "Discernment\n<size:11><color:#777>Discernement</color></size>" as DIS #BCD3CB
+
+rectangle "Capability zone\n<size:11><color:#777>Zone de compétence</color></size>" as CZ #EEEEEE
+rectangle "Limitation zone\n<size:11><color:#777>Zone des limites</color></size>" as LZ #EEEEEE
+
+rectangle "**Failures**\n<size:11><color:#777>Échecs</color></size>" as FAIL #F9F8F4 {
+  rectangle "Hallucination\n<size:11><color:#777>Hallucination</color></size>" as HA #F6D5D1
+  rectangle "Confabulation\n<size:11><color:#777>Confabulation</color></size>" as CO #F6D5D1
+  rectangle "Inconsistency\n<size:11><color:#777>Variabilité des réponses</color></size>" as IN #F6D5D1
+  rectangle "Misplaced confidence\n<size:11><color:#777>Excès de confiance</color></size>" as MC #F6D5D1
+}
+
+rectangle "**Product features**\n<size:11><color:#777>Fonctionnalités produit</color></size>" as PF #F9F8F4 {
+  rectangle "Citations and source grounding\n<size:11><color:#777>Citations et ancrage dans les sources</color></size>" as CIT #E3E9E6
+  rectangle "Uncertainty signaling\n<size:11><color:#777>Expression de l'incertitude</color></size>" as UNC #E3E9E6
+  rectangle "Constrained generation and skills\n<size:11><color:#777>Génération contrainte et Skills</color></size>" as CON #E3E9E6
+  rectangle "Generator-verifier loop\n<size:11><color:#777>Boucle générateur-vérificateur</color></size>" as GV #E3E9E6
+}
+
+' The card's order, top to bottom.
+HA -[hidden]down- CO
+CO -[hidden]down- IN
+IN -[hidden]down- MC
+CIT -[hidden]down- UNC
+UNC -[hidden]down- CON
+CON -[hidden]down- GV
+TEMP -[hidden]right- TT
+
+NTP --> SA
+NTP --> CZ
+NTP --> LZ
+NTP --> DIS
+LZ --> FAIL
+SA --> IN
+SP --> SA
+PF --> LZ
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml ai-character
+' Render: java -jar plantuml.jar -tsvg ai-character.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title How AI Gets Its Character\n<size:12><color:#777>D'où vient la personnalité de l'IA</color></size>
+
+rectangle "**Pretraining**\n<size:11><color:#777>Préentraînement</color></size>" as PRE #CFCBDD
+rectangle "**Fine-tuning**\n<size:11><color:#777>Réglage fin</color></size>" as FT #CFCBDD
+
+rectangle "**Shadow areas of AI's helpfulness**\n<size:11><color:#777>La part d'ombre d'une IA serviable</color></size>" as SHADOW #F9F8F4 {
+  rectangle "Sycophancy\n<size:11><color:#777>Complaisance</color></size>" as SY #F6D5D1
+  rectangle "Verbosity\n<size:11><color:#777>Verbosité</color></size>" as VE #F6D5D1
+  rectangle "Over-caution\n<size:11><color:#777>Excès de prudence</color></size>" as OC #F6D5D1
+  rectangle "Loose confidence calibration\n<size:11><color:#777>Mauvaise calibration de la confiance</color></size>" as LC #F6D5D1
+}
+
+' Top to bottom: "down" stacks downward. The course slide's order.
+SY -[hidden]down- VE
+VE -[hidden]down- OC
+OC -[hidden]down- LC
+
+PRE --> FT
+FT --> SHADOW
+
+@enduml

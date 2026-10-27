@@ -1,0 +1,68 @@
+@startuml working-memory
+' Render: java -jar plantuml.jar -tsvg working-memory.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title The Context Window: AI's Working Memory\n<size:12><color:#777>La fenêtre de contexte : la mémoire de travail de l'IA</color></size>
+
+rectangle "**Working memory**\n<size:11><color:#777>Mémoire de travail</color></size>" as WM #CFCBDD
+rectangle "Context window\n<size:11><color:#777>Fenêtre de contexte</color></size>" as CW #EEEEEE
+rectangle "Description\n<size:11><color:#777>Description</color></size>" as DESC #BCD3CB
+
+rectangle "Capability zone\n<size:11><color:#777>Zone de compétence</color></size>" as CZ #EEEEEE
+rectangle "Limitation zone\n<size:11><color:#777>Zone des limites</color></size>" as LZ #EEEEEE
+
+rectangle "Serial position effect\n<size:11><color:#777>Effet de position sérielle</color></size>" as SPE #EEEEEE
+rectangle "Context degradation\n<size:11><color:#777>Dégradation du contexte</color></size>" as CD #EEEEEE
+rectangle "Context engineering\n<size:11><color:#777>Ingénierie du contexte</color></size>" as CE #EEEEEE
+
+rectangle "**Failures**\n<size:11><color:#777>Échecs</color></size>" as FAIL #F9F8F4 {
+  rectangle "Silent truncation\n<size:11><color:#777>Troncature silencieuse</color></size>" as ST #F6D5D1
+  rectangle "Lost in the middle\n<size:11><color:#777>Perte au milieu</color></size>" as LM #F6D5D1
+  rectangle "No persistent memory\n<size:11><color:#777>Pas de mémoire persistante</color></size>" as NPM #F6D5D1
+  rectangle "No learning from you\n<size:11><color:#777>Le modèle n'apprend pas de vous</color></size>" as NL #F6D5D1
+}
+
+rectangle "**Product features**\n<size:11><color:#777>Fonctionnalités produit</color></size>" as PF #F9F8F4 {
+  rectangle "Memory\n<size:11><color:#777>Mémoire</color></size>" as MEM #E3E9E6
+  rectangle "Compaction or summarization\n<size:11><color:#777>Compaction ou résumé</color></size>" as COMP #E3E9E6
+  rectangle "Projects and workspaces\n<size:11><color:#777>Projets (espaces de travail)</color></size>" as PROJ #E3E9E6
+  rectangle "Skills\n<size:11><color:#777>Skills</color></size>" as SK #E3E9E6
+  rectangle "Multi-agent workflows\n<size:11><color:#777>Flux de travail multi-agents</color></size>" as MAW #E3E9E6
+  rectangle "Larger context windows\n<size:11><color:#777>Fenêtres de contexte plus grandes</color></size>" as LCW #E3E9E6
+}
+
+' The card's order, top to bottom.
+ST -[hidden]down- LM
+LM -[hidden]down- NPM
+NPM -[hidden]down- NL
+MEM -[hidden]down- COMP
+COMP -[hidden]down- PROJ
+PROJ -[hidden]down- SK
+SK -[hidden]down- MAW
+MAW -[hidden]down- LCW
+
+WM --> CW
+WM --> DESC
+WM --> CZ
+WM --> LZ
+LZ --> FAIL
+PF --> LZ
+SPE --> LM
+LM --> CD
+CD --> CE
+
+@enduml

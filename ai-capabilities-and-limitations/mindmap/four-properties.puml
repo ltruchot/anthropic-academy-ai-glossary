@@ -1,0 +1,63 @@
+@startuml four-properties
+' Render: java -jar plantuml.jar -tsvg four-properties.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+left to right direction
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title 4Ds AI Interaction Mental Framework\n<size:12><color:#777>Les 4D : un schéma mental pour interagir avec l'IA</color></size>
+
+rectangle "**Human competencies**\n<size:11><color:#777>Compétences humaines</color></size>" as HUMAN #F9F8F4 {
+  rectangle "Delegation\n<size:11><color:#777>Délégation</color></size>" as DEL #BCD3CB
+  rectangle "Description\n<size:11><color:#777>Description</color></size>" as DES #BCD3CB
+  rectangle "Discernment\n<size:11><color:#777>Discernement</color></size>" as DIS #BCD3CB
+  rectangle "Diligence\n<size:11><color:#777>Diligence</color></size>" as DIL #BCD3CB
+}
+
+rectangle "**AI properties**\n<size:11><color:#777>Propriétés de l'IA</color></size>" as AI #F9F8F4 {
+  rectangle "Steerability\n<size:11><color:#777>Pilotabilité</color></size>" as ST #CFCBDD
+  rectangle "Working memory\n<size:11><color:#777>Mémoire de travail</color></size>" as WM #CFCBDD
+  rectangle "Next token prediction\n<size:11><color:#777>Prédiction du token suivant</color></size>" as NTP #CFCBDD
+  rectangle "Knowledge\n<size:11><color:#777>Connaissances</color></size>" as KN #CFCBDD
+}
+
+rectangle "Context window\n<size:11><color:#777>Fenêtre de contexte</color></size>" as CW #EEEEEE
+rectangle "Long-conversation drift\n<size:11><color:#777>Dérive au fil d'une longue conversation</color></size>" as DRIFT #F6D5D1
+rectangle "Gap\n<size:11><color:#777>Lacune</color></size>" as GAP #EEEEEE
+rectangle "Hallucination\n<size:11><color:#777>Hallucination</color></size>" as HALLU #F6D5D1
+
+' Left to right: "left" stacks downward, "down" places side by side.
+' The course slide's order, each 4D facing its property.
+DEL -[hidden]left- DES
+DES -[hidden]left- DIS
+DIS -[hidden]left- DIL
+ST -[hidden]left- WM
+WM -[hidden]left- NTP
+NTP -[hidden]left- KN
+' Understanding a property makes you better at its 4D (the conclusion's three pairs);
+' Diligence and Knowledge only face each other on the slide.
+DEL <.down. ST : <size:11>where control is high</size>\n<size:11><color:#777>où le contrôle est fort</color></size>
+DES <.down. WM : <size:11>context is leverage</size>\n<size:11><color:#777>le contexte est un levier</color></size>
+DIS <.down. NTP : <size:11>fluency ≠ accuracy</size>\n<size:11><color:#777>fluidité ≠ exactitude</color></size>
+DIL -[hidden]down- KN
+
+WM --> CW
+CW --> DRIFT
+ST --> DRIFT
+KN --> GAP
+NTP --> HALLU
+GAP --> HALLU
+
+@enduml

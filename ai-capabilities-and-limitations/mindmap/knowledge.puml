@@ -1,0 +1,68 @@
+@startuml knowledge
+' Render: java -jar plantuml.jar -tsvg knowledge.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title What the Model Read, and When It Stopped Reading\n<size:12><color:#777>Ce que le modèle a lu, et quand il a cessé de lire</color></size>
+
+rectangle "Training data\n<size:11><color:#777>Données d'entraînement</color></size>" as TD #EEEEEE
+rectangle "**Knowledge**\n<size:11><color:#777>Connaissances</color></size>" as KN #CFCBDD
+rectangle "Delegation\n<size:11><color:#777>Délégation</color></size>" as DEL #BCD3CB
+rectangle "Discernment\n<size:11><color:#777>Discernement</color></size>" as DIS #BCD3CB
+
+rectangle "Capability zone\n<size:11><color:#777>Zone de compétence</color></size>" as CZ #EEEEEE
+rectangle "Limitation zone\n<size:11><color:#777>Zone des limites</color></size>" as LZ #EEEEEE
+
+rectangle "Embeddings\n<size:11><color:#777>Embeddings</color></size>" as EMB #EEEEEE
+rectangle "Similarity search\n<size:11><color:#777>Recherche de similarité</color></size>" as SS #EEEEEE
+rectangle "Cosine similarity\n<size:11><color:#777>Similarité cosinus</color></size>" as CS #EEEEEE
+
+rectangle "**Failures**\n<size:11><color:#777>Échecs</color></size>" as FAIL #F9F8F4 {
+  rectangle "Knowledge cutoff\n<size:11><color:#777>Date limite des connaissances</color></size>" as KC #F6D5D1
+  rectangle "Staleness\n<size:11><color:#777>Obsolescence des connaissances</color></size>" as ST #F6D5D1
+  rectangle "Uneven coverage\n<size:11><color:#777>Couverture inégale</color></size>" as UC #F6D5D1
+  rectangle "Inherited bias\n<size:11><color:#777>Biais hérité</color></size>" as IB #F6D5D1
+  rectangle "Source amnesia\n<size:11><color:#777>Amnésie de la source</color></size>" as SAM #F6D5D1
+}
+
+rectangle "**Product features**\n<size:11><color:#777>Fonctionnalités produit</color></size>" as PF #F9F8F4 {
+  rectangle "Web search\n<size:11><color:#777>Recherche web</color></size>" as WS #E3E9E6
+  rectangle "Retrieval (RAG) and MCPs\n<size:11><color:#777>Récupération (RAG) et serveurs MCP</color></size>" as RAG #E3E9E6
+  rectangle "Tool use\n<size:11><color:#777>Utilisation d'outils</color></size>" as TU #E3E9E6
+  rectangle "Explicit cutoff disclosure\n<size:11><color:#777>Indication explicite de la date limite des connaissances</color></size>" as ECD #E3E9E6
+}
+
+' The card's order, top to bottom.
+KC -[hidden]down- ST
+ST -[hidden]down- UC
+UC -[hidden]down- IB
+IB -[hidden]down- SAM
+WS -[hidden]down- RAG
+RAG -[hidden]down- TU
+TU -[hidden]down- ECD
+
+TD --> KN
+KN --> DEL
+KN --> DIS
+KN --> EMB
+KN --> CZ
+KN --> LZ
+LZ --> FAIL
+PF --> LZ
+EMB --> SS
+SS --> CS
+
+@enduml
