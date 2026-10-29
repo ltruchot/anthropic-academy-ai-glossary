@@ -1,0 +1,50 @@
+@startuml builders-toolkit
+' Render: java -jar plantuml.jar -tsvg builders-toolkit.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 170
+}
+</style>
+
+title The builder's toolkit: where AI fits\n<size:12><color:#777>La boîte à outils du builder : la place de l'IA</color></size>
+
+rectangle "AI can help with all six, but it's much stronger at some than others\n<size:11><color:#777>L'IA peut aider pour les six, mais elle est bien plus forte pour certaines</color></size>" as TOOLKIT #FFFFFF {
+  ' Smetana lays the capabilities out in reverse order of declaration.
+  rectangle "**6. Shipping**\n<size:11><color:#777>Livraison</color></size>\n\nAI moderate (widget)\n<size:11><color:#777>apport de l'IA moyen (widget)</color></size>\nthe video: at the edges\n<size:11><color:#777>la vidéo : aux extrémités</color></size>\n\nin front of users, iterating\n<size:11><color:#777>devant les utilisateurs, itérer</color></size>\nresponsibility is yours\n<size:11><color:#777>la responsabilité vous revient</color></size>" as SHIP #E8E4D8
+
+  rectangle "**5. Judgment**\n<size:11><color:#777>Jugement</color></size>\n\nAI weak\n<size:11><color:#777>apport de l'IA faible</color></size>\n\nright, good enough,\n<size:11><color:#777>juste, assez bon,</color></size>\nworth shipping?\n<size:11><color:#777>digne d'être livré ?</color></size>\nAI can't own the call\n<size:11><color:#777>l'IA ne peut pas trancher à votre place</color></size>" as JUDG #CFCBDD
+
+  rectangle "**4. Implementation**\n<size:11><color:#777>Implémentation</color></size>\n\nAI strong\n<size:11><color:#777>apport de l'IA fort</color></size>\n\nwrite, debug, iterate on code\n<size:11><color:#777>écrire, déboguer, itérer sur le code</color></size>\ndelegate most aggressively\n<size:11><color:#777>à déléguer le plus largement</color></size>" as IMPL #BCD3CB
+
+  rectangle "**3. Architecture**\n<size:11><color:#777>Architecture</color></size>\n\nAI moderate\n<size:11><color:#777>apport de l'IA moyen</color></size>\n\nAI knows patterns;\n<size:11><color:#777>l'IA connaît les solutions types ;</color></size>\nyour constraints are yours\n<size:11><color:#777>vos contraintes, à vous</color></size>\nto specify\n<size:11><color:#777>de les préciser</color></size>" as ARCH #E8E4D8
+
+  rectangle "**2. Design**\n<size:11><color:#777>Design</color></size>\n\nAI moderate\n<size:11><color:#777>apport de l'IA moyen</color></size>\n\nAI generates options;\n<size:11><color:#777>l'IA génère des options ;</color></size>\nwhich one fits is yours\n<size:11><color:#777>laquelle convient, à vous</color></size>\nto judge\n<size:11><color:#777>d'en juger</color></size>" as DES #E8E4D8
+
+  rectangle "**1. Empathy**\n<size:11><color:#777>Empathie</color></size>\n\nAI weak\n<size:11><color:#777>apport de l'IA faible</color></size>\n\nwho you're building for\n<size:11><color:#777>pour qui vous construisez</color></size>\nAI can surface data\n<size:11><color:#777>l'IA peut faire ressortir</color></size>\nand personas\n<size:11><color:#777>données et personas</color></size>" as EMP #CFCBDD
+}
+
+rectangle "**Strongest in the middle, weakest at the edges**\n<size:11><color:#777>La plus forte au milieu, la plus faible aux extrémités</color></size>\n\nthe edges are where the human work lives,\n<size:11><color:#777>c'est aux extrémités que se trouve le travail humain,</color></size>\nwhere the value is\n<size:11><color:#777>et la valeur</color></size>" as SHAPE #F9F8F4
+
+rectangle "**Acceptance tests, before code**\n<size:11><color:#777>Les tests d'acceptation, avant le code</color></size>\n\na shared definition of done\n<size:11><color:#777>une définition commune de « terminé »</color></size>" as TESTS #F9F8F4
+
+EMP -[hidden]right- DES
+DES -[hidden]right- ARCH
+ARCH -[hidden]right- IMPL
+IMPL -[hidden]right- JUDG
+JUDG -[hidden]right- SHIP
+
+TOOLKIT -down-> SHAPE : <size:11>the shape of the list</size>\n<size:11><color:#777>la forme de la liste</color></size>
+SHAPE -[hidden]right- TESTS
+TESTS -up-> IMPL : <size:11>before entering it</size>\n<size:11><color:#777>avant d'y entrer</color></size>
+
+@enduml

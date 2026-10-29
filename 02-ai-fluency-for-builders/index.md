@@ -15,7 +15,7 @@ Schémas, avec un sommaire et une légende pour chacun : [mindmap.md](mindmap.md
 
 ### Builder *(Builder)*
 
-Someone who owns the full arc from customer problem to shipped solution: figuring out what problem was actually worth solving, making hundreds of small decisions about how it should work, then getting it into people's hands and learning from what happened next. Writing code is only a small part of the job: a builder owns the full building process, not just the coding slice in the middle. Builders (product people, engineers, designers and makers) are uniquely positioned to leverage AI to amplify what they create, but only if they can approach it intentionally, with clear judgment and purpose; AI is changing almost every part of that process. Their AI collaboration skills are the [4D Framework](#4d-framework-cadre-4d) applied to real builder tasks, from framing a customer problem to shipping a product, integrating AI responsibly across the full arc of building.
+Someone who owns the full arc from customer problem to shipped solution: figuring out what problem was actually worth solving, making hundreds of small decisions about how it should work, then getting it into people's hands and learning from what happened next. Writing code is only a small part of the job: a builder owns the full building process, not just the coding slice in the middle. Builders (product people, engineers, designers and makers) are uniquely positioned to leverage AI to amplify what they create, but only if they can approach it intentionally, with clear judgment and purpose; AI is changing almost every part of that process. Their AI collaboration skills are the [4D Framework](#4d-framework-cadre-4d) applied to real builder tasks, from framing a customer problem to shipping a product, integrating AI responsibly across the full arc of building. Every builder carries a [toolkit](#builders-toolkit-boîte-à-outils-du-builder) of six capabilities. The builders who thrive in this era won't be the ones who prompt the fastest: they will be the ones who frame problems clearly, who know what good looks like before they start, and who can tell the difference between code that runs and code that matters.
 
 → [schéma des 4D du builder](mindmap/builder-4ds.png)
 
@@ -33,7 +33,7 @@ The framework at the center of the course, developed by professors Joseph Feller
 
 ### Delegation *(Délégation)*
 
-Decomposing a problem into parts and deciding what role AI plays at each stage: if, when and where to delegate to AI in the builder process, and defining done before you write a line of code. Delegating implementation to AI is usually fine (safe); delegating judgment, the call about whether something is actually good and ready, is usually not advised. The best builders know the difference. Delegation means deciding what AI handles and what stays with you: what work should be done by humans, what work should be done by AI, and how to distribute tasks between them. Good Delegation starts with understanding the work itself (a routine status update where AI can handle a first draft, or a sensitive negotiation where tone and nuance need to come directly from you), and you need to understand your tools as well (with confidential data, the privacy and security features of the AI system you're using); then you can thoughtfully split tasks to leverage the strengths of each. With Diligence, it forms the [outer loop](#outer-loop-boucle-externe). One of the competencies of the [4D Framework](#4d-framework-cadre-4d).
+Decomposing a problem into parts and deciding what role AI plays at each stage: if, when and where to delegate to AI in the builder process, and defining done before you write a line of code. Delegating [implementation](#implementation-implémentation) to AI is usually fine (safe); delegating [judgment](#judgment-jugement), the call about whether something is actually good and ready, is usually not advised. The best builders know the difference. Delegation means deciding what AI handles and what stays with you: what work should be done by humans, what work should be done by AI, and how to distribute tasks between them. Good Delegation starts with understanding the work itself (a routine status update where AI can handle a first draft, or a sensitive negotiation where tone and nuance need to come directly from you), and you need to understand your tools as well (with confidential data, the privacy and security features of the AI system you're using); then you can thoughtfully split tasks to leverage the strengths of each. In the builder sense, imagine yourself as the lead on a project and AI as your team: a great lead doesn't just assign tasks; they frame the problem so everyone understands what they're solving, set goals so the team knows what good looks like, decide what to tackle first, and know which decisions to make themselves and which ones to hand off. It starts well before any code gets written: decomposing the problem first, then deciding what AI handles at each step, across the [builder's toolkit](#builders-toolkit-boîte-à-outils-du-builder). Good Delegation in practice: spending real time at the beginning of a project getting clear on who you're building for and defining what success means ([acceptance tests](#acceptance-test-test-dacceptation)), inspecting the results skeptically, and keeping judgment calls in your own hands. Resist the temptation, once you have a tool that can write code instantly, to skip straight to building and treat empathy and design work as overhead. With Diligence, it forms the [outer loop](#outer-loop-boucle-externe). One of the competencies of the [4D Framework](#4d-framework-cadre-4d).
 
 → [schéma des 4D du builder](mindmap/builder-4ds.png)
 
@@ -51,7 +51,7 @@ How you evaluate what AI gives you: not just does it run, but does it run well? 
 
 ### Diligence *(Diligence)*
 
-Full ownership of the outcome, not just the output: taking full ownership of what you build with AI. Shipping is a skill with its own technical realities that AI rarely surfaces proactively: migrations, rate limiting, monitoring. What happens when something breaks at 2 a.m. and you're the one who built it? Prototype freely, ship selectively, and be willing to veto something you built when the evidence says it isn't right. Diligence means owning the final result fully, regardless of AI's role: taking responsibility for how you use AI, being thoughtful about which AI systems you use and how you interact with them, being honest about AI's role in your work with the people who need to know, and verifying and vouching for the outputs you use or share. You're always accountable for the final result. With Delegation, it forms the [outer loop](#outer-loop-boucle-externe). One of the competencies of the [4D Framework](#4d-framework-cadre-4d).
+Full ownership of the outcome, not just the output: taking full ownership of what you build with AI. [Shipping](#shipping-livraison) is a skill with its own technical realities that AI rarely surfaces proactively: migrations, rate limiting, monitoring. What happens when something breaks at 2 a.m. and you're the one who built it? Prototype freely, ship selectively, and be willing to veto something you built when the evidence says it isn't right. Diligence means owning the final result fully, regardless of AI's role: taking responsibility for how you use AI, being thoughtful about which AI systems you use and how you interact with them, being honest about AI's role in your work with the people who need to know, and verifying and vouching for the outputs you use or share. You're always accountable for the final result. With Delegation, it forms the [outer loop](#outer-loop-boucle-externe). One of the competencies of the [4D Framework](#4d-framework-cadre-4d).
 
 → [schéma des 4D du builder](mindmap/builder-4ds.png)
 
@@ -156,3 +156,51 @@ One of the current strengths of [LLMs](#large-language-model-grand-modèle-de-la
 A technique researchers use to address current limitations of [generative AI](#generative-ai-ia-générative): it connects models to external knowledge and data sources (alongside expanding their ability to use tools and improving their reasoning capabilities). Some limitations will likely remain for the foreseeable future.
 
 → [schéma des trois piliers de l'IA générative](mindmap/three-pillars.png)
+
+### Builder's toolkit *(Boîte à outils du builder)*
+
+The six capabilities every [builder](#builder-builder) carries, maybe without knowing it, and can reach for at any moment in a build: [Empathy](#empathy-empathie), [Design](#design-design), [Architecture](#architecture-architecture), [Implementation](#implementation-implémentation), [Judgment](#judgment-jugement) and [Shipping](#shipping-livraison). AI can help with all six, but it's much stronger at some than others, and knowing the difference is a key part of AI fluency for builders. Implementation sits right in the middle, and that's where AI is the strongest; empathy, judgment, and shipping sit at the edges, and that's where AI is the weakest. The key insight of the course: AI is the strongest in the middle of the toolkit, and weakest at the edges; the edges are where the human work lives, and where the value is. The faster AI makes implementation, the more your value shifts to everything around it: framing problems and raising the bar. [Delegation](#delegation-délégation) decides what AI handles at each step.
+
+→ [schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)
+
+### Empathy *(Empathie)*
+
+The first capability of the [builder's toolkit](#builders-toolkit-boîte-à-outils-du-builder): understanding who you're building for. What does the person we're building for actually need? Not what they said that they want, but what will truly help their work. This is where you talk to users and observe what frustrates them. AI can surface data and personas, and help you organize what you learn, but it can't feel the gap: it can't sit with a clinic receptionist and notice that she checks her phone 40 times a day because patients keep calling to ask about wait times. That observation is all you. At the edges of the toolkit, where AI is the weakest (the course's widget: « AI weak »).
+
+→ [schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)
+
+### Design *(Design)*
+
+The second capability of the [builder's toolkit](#builders-toolkit-boîte-à-outils-du-builder): what should we build, and why? Translating user needs into an experience worth having. This is where you weigh trade-offs, make bets, and decide what matters (a text message or a web page? exact wait times or ranges?): those are judgment calls. AI generates options and patterns quickly, but the judgment about which option fits is yours: you bring taste and context. The course's widget: « AI moderate ». Treating empathy and design work as overhead, once a tool can write code instantly, is a temptation to resist.
+
+→ [schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)
+
+### Architecture *(Architecture)*
+
+The third capability of the [builder's toolkit](#builders-toolkit-boîte-à-outils-du-builder): how should the thing be structured? What are the pieces, and how do they fit together? Structuring a system that holds up under real conditions. AI knows patterns: it's seen a thousand systems like the one you're sketching, but it doesn't know your constraints, your team skills, or what you need to change six months from now; your constraints are yours to specify. « Human plus AI » works really well here. The course's widget: « AI moderate ».
+
+→ [schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)
+
+### Implementation *(Implémentation)*
+
+The fourth capability of the [builder's toolkit](#builders-toolkit-boîte-à-outils-du-builder): writing the actual code (write, debug, and iterate on code). It sits right in the middle of the toolkit, where AI is the strongest: once you know what you're building, and how it should be structured, AI can write working code effectively. The capability you should delegate most aggressively (the widget: « AI strong », « delegate freely here »); delegating implementation to AI is usually safe, delegating [judgment](#judgment-jugement) is usually not. If you've entered this stage without clearly defined tests and success checkpoints ([acceptance tests](#acceptance-test-test-dacceptation)), you've probably skipped a step. The faster AI makes implementation, the more your value shifts to everything around it.
+
+→ [schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)
+
+### Judgment *(Jugement)*
+
+The fifth capability of the [builder's toolkit](#builders-toolkit-boîte-à-outils-du-builder): deciding what's right, good enough, and worth shipping. Does it actually work? Is it actually good? Would you put your name on it? AI will tell you the code runs, but it won't tell you if the experience feels right, whether the edge cases matter, or whether you've solved a real problem at hand; AI can list options, it can't own the call. Judgment requires your expertise, standards, and perspective. Delegating judgment, the call about whether something is actually good and ready, is usually not advised: good [Delegation](#delegation-délégation) keeps judgment calls in your own hands. At the edges of the toolkit, where AI is the weakest (the widget: « AI weak »).
+
+→ [schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)
+
+### Shipping *(Livraison)*
+
+The last capability of the [builder's toolkit](#builders-toolkit-boîte-à-outils-du-builder): getting it to real users and learning from what happens, getting it in front of users and iterating. This means communication, measurement, iteration. AI can draft release notes and automate steps, but it can't read the room when your user hesitates before clicking: responsibility is yours. Shipping is a skill with its own technical realities that AI rarely surfaces proactively (migrations, rate limiting, monitoring: [Diligence](#diligence-diligence)). The video puts it at the edges of the toolkit, where AI is the weakest; the course's widget rates it « AI moderate ».
+
+→ [schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)
+
+### Acceptance test *(Test d'acceptation)*
+
+A test written before code, that defines done before a single line of code exists: acceptance tests give you and AI a shared definition of done. If you've entered [implementation](#implementation-implémentation) without clearly defined tests and success checkpoints, you've probably skipped a step. Part of good [Delegation](#delegation-délégation): spending real time at the beginning of a project getting clear on who you're building for, and defining what success means.
+
+→ [schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)

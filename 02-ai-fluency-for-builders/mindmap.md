@@ -11,6 +11,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 
 1. [Schéma des 4D du builder](#schéma-des-4d-du-builder)
 2. [Schéma des trois piliers de l'IA générative](#schéma-des-trois-piliers-de-lia-générative)
+3. [Schéma de la boîte à outils du builder](#schéma-de-la-boîte-à-outils-du-builder)
 
 ## Schéma des 4D du builder
 
@@ -23,3 +24,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma des trois piliers de l'IA générative](mindmap/three-pillars.png)
 
 *Les algorithmes, les données et la puissance de calcul, réunis, ont mené à la découverte des lois d'échelle ; à mesure que les modèles grandissaient, des capacités que personne n'avait programmées sont apparues.* Source : [three-pillars.puml](mindmap/three-pillars.puml)
+
+## Schéma de la boîte à outils du builder
+
+![Schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)
+
+*Les six capacités du builder, dans l'ordre d'un projet : l'IA est la plus forte au milieu, pour l'implémentation, et la plus faible aux extrémités, là où se trouvent le travail humain et la valeur ; les tests d'acceptation définissent « terminé » avant le code.* Source : [builders-toolkit.puml](mindmap/builders-toolkit.puml)
