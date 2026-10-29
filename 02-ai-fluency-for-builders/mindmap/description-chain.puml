@@ -1,0 +1,47 @@
+@startuml description-chain
+' Render: java -jar plantuml.jar -tsvg description-chain.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 190
+}
+</style>
+
+title The Description Chain\n<size:12><color:#777>La chaîne de Description</color></size>
+
+rectangle "From a messy human need to a precise instruction AI can act on: the builder, the translator at every step\n<size:11><color:#777>D'un besoin humain flou à une instruction précise que l'IA peut suivre : le builder, traducteur à chaque étape</color></size>" as CHAIN #FFFFFF {
+  ' Smetana lays the steps out in reverse order of declaration.
+  rectangle "**4. AI instruction**\n<size:11><color:#777>Instruction pour l'IA</color></size>\n\nspecific, with constraints\n<size:11><color:#777>précise, avec des contraintes</color></size>\nedge cases, the stack,\n<size:11><color:#777>cas limites, stack,</color></size>\nthe shape of the data\n<size:11><color:#777>forme des données</color></size>\nthe test it has to pass\n<size:11><color:#777>le test à passer</color></size>" as INSTR #E3CFC2
+
+  rectangle "**3. Technical spec**\n<size:11><color:#777>Spécification technique</color></size>\n\nimplementable:\n<size:11><color:#777>implémentable :</color></size>\nan engineer, or an AI,\n<size:11><color:#777>un ingénieur, ou une IA,</color></size>\ncould start building\n<size:11><color:#777>pourrait commencer à construire</color></size>\nstill leaves room\n<size:11><color:#777>laisse encore de la marge</color></size>" as SPEC #E3CFC2
+
+  rectangle "**2. Product requirement**\n<size:11><color:#777>Exigence produit</color></size>\n\nthe need, scoped\n<size:11><color:#777>le besoin, délimité,</color></size>\ninto something measurable\n<size:11><color:#777>rendu mesurable</color></size>\njudgment calls\n<size:11><color:#777>des choix qui relèvent du jugement</color></size>" as REQ #E3CFC2
+
+  rectangle "**1. User voice**\n<size:11><color:#777>Voix de l'utilisateur</color></size>\n\nwhat a real person says\n<size:11><color:#777>ce que dit une vraie personne</color></size>\nraw material,\n<size:11><color:#777>une matière première,</color></size>\nnot yet buildable\n<size:11><color:#777>pas encore de quoi construire</color></size>" as VOICE #E3CFC2
+}
+
+rectangle "**Description failure**\n<size:11><color:#777>Erreur de Description</color></size>\n\ncode that works, a product that doesn't\n<size:11><color:#777>le code fonctionne, pas le produit</color></size>\nnot a bug: usually upstream of the prompt\n<size:11><color:#777>pas un bug : en général en amont du prompt</color></size>\ntrace it back to the link that broke\n<size:11><color:#777>remonter jusqu'au maillon qui a cédé</color></size>" as FAIL #F2E4DC
+
+rectangle "**Tests, the most precise form of description**\n<size:11><color:#777>Les tests, la forme de description la plus précise</color></size>\n\na passing test, an unhappy user:\n<size:11><color:#777>un test qui passe, un utilisateur mécontent :</color></size>\nyou described the wrong intent\n<size:11><color:#777>vous avez décrit une intention qui n'était pas la bonne</color></size>" as TESTS #F9F8F4
+
+VOICE -right-> REQ
+REQ -right-> SPEC
+SPEC -right-> INSTR
+
+FAIL -up-> VOICE : <size:11>user understanding failure</size>\n<size:11><color:#777>erreur de compréhension du besoin</color></size>
+FAIL -up-> REQ : <size:11>requirement failure</size>\n<size:11><color:#777>erreur d'exigence</color></size>
+FAIL -up-> SPEC : <size:11>spec failure</size>\n<size:11><color:#777>erreur de spécification</color></size>
+FAIL -up-> INSTR : <size:11>prompt failure</size>\n<size:11><color:#777>erreur de prompt</color></size>
+FAIL -[hidden]right- TESTS
+TESTS -up-> INSTR : <size:11>handed with the prompt</size>\n<size:11><color:#777>donnés avec le prompt</color></size>
+
+@enduml
