@@ -1,0 +1,45 @@
+@startuml builder-4ds
+' Render: java -jar plantuml.jar -tsvg builder-4ds.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+left to right direction
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title AI Fluency for builders: the 4D Framework\n<size:12><color:#777>AI Fluency pour les builders : le cadre 4D</color></size>
+
+rectangle "**Builder**\n<size:11><color:#777>Builder</color></size>\n\nowns the full arc\n<size:11><color:#777>assume tout le parcours</color></size>" as BUILDER #F9F8F4 {
+  rectangle "Customer problem\n<size:11><color:#777>Problème client</color></size>" as PROBLEM #EEEEEE
+  rectangle "Shipped solution\n<size:11><color:#777>Solution livrée</color></size>" as SHIPPED #EEEEEE
+}
+
+rectangle "**4D Framework**\n<size:11><color:#777>Cadre 4D</color></size>" as FRAMEWORK #F9F8F4 {
+  rectangle "**Delegation**\n<size:11><color:#777>Délégation</color></size>\n\ndecompose the problem\n<size:11><color:#777>décomposer le problème</color></size>\nimplementation: usually safe\n<size:11><color:#777>l'implémentation : en général sans risque</color></size>\njudgment: usually not\n<size:11><color:#777>le jugement : en général non</color></size>" as DEL #BCD3CB
+  rectangle "**Description**\n<size:11><color:#777>Description</color></size>\n\nevery input into the implementation\n<size:11><color:#777>chaque information jusque dans l'implémentation</color></size>\na missing one cascades downstream\n<size:11><color:#777>un manque se répercute en cascade</color></size>" as DES #BCD3CB
+  rectangle "**Discernment**\n<size:11><color:#777>Discernement</color></size>\n\ndoes it run well? the right problem?\n<size:11><color:#777>ça fonctionne bien ? le bon problème ?</color></size>\ngood to use? responsible?\n<size:11><color:#777>agréable à utiliser ? responsable ?</color></size>" as DIS #BCD3CB
+  rectangle "**Diligence**\n<size:11><color:#777>Diligence</color></size>\n\nownership of the outcome, not just the output\n<size:11><color:#777>la responsabilité du résultat, pas seulement de la sortie</color></size>\nprototype freely, ship selectively\n<size:11><color:#777>prototyper librement, livrer sélectivement</color></size>" as DIL #BCD3CB
+}
+
+rectangle "**AI: a capable but very literal collaborator**\n<size:11><color:#777>L'IA : un collaborateur compétent mais très littéral</color></size>\n\nclear tasks · real context · specific feedback\n<size:11><color:#777>des tâches claires · un vrai contexte · des retours précis</color></size>" as AI #CFCBDD
+
+' Left to right: "left" stacks downward, "down" places side by side.
+PROBLEM -left-> SHIPPED
+DEL -[hidden]left- DES
+DES -[hidden]left- DIS
+DIS -[hidden]left- DIL
+
+BUILDER --> FRAMEWORK : <size:11>AI collaboration skills</size>\n<size:11><color:#777>compétences de collaboration avec l'IA</color></size>
+FRAMEWORK --> AI : <size:11>managing that collaborator</size>\n<size:11><color:#777>bien gérer ce collaborateur</color></size>
+
+@enduml

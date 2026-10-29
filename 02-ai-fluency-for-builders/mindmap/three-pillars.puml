@@ -1,0 +1,50 @@
+@startuml three-pillars
+' Render: java -jar plantuml.jar -tsvg three-pillars.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Generative AI: three pillars that made it possible\n<size:12><color:#777>L'IA générative : trois piliers qui l'ont rendue possible</color></size>
+
+rectangle " " as PILLARS #FFFFFF {
+  ' Smetana lays the pillars out in reverse order of declaration.
+  rectangle "**Computation**\n<size:11><color:#777>Puissance de calcul</color></size>\n\nprocessing impossible a few years earlier\n<size:11><color:#777>des calculs impossibles quelques années plus tôt</color></size>" as COMP #F9F8F4 {
+    rectangle "GPUs, TPUs, etc.\n<size:11><color:#777>GPU, TPU, etc.</color></size>" as CHIPS #BCD3CB
+    rectangle "Computing clusters\n<size:11><color:#777>Clusters de calcul</color></size>" as CLUSTERS #BCD3CB
+  }
+
+  rectangle "**Data**\n<size:11><color:#777>Données</color></size>\n\nthe essential raw material for training\n<size:11><color:#777>la matière première de l'entraînement</color></size>" as DATA #F9F8F4 {
+    rectangle "Articles and websites\n<size:11><color:#777>Articles et sites web</color></size>" as WEB #BCD3CB
+    rectangle "Code and multimodal content\n<size:11><color:#777>Code et contenus multimodaux</color></size>" as CODE #BCD3CB
+  }
+
+  rectangle "**Algorithms**\n<size:11><color:#777>Algorithmes</color></size>\n\nbreakthroughs in how AI systems learn\n<size:11><color:#777>des avancées qui ont changé la façon dont l'IA apprend</color></size>" as ALGO #F9F8F4 {
+    rectangle "Neural networks\n<size:11><color:#777>Réseaux de neurones</color></size>\n\naround for decades\n<size:11><color:#777>connus depuis des décennies</color></size>" as NN #BCD3CB
+    rectangle "Transformers\n<size:11><color:#777>Transformeurs</color></size>\n\n2017: relationships between words\n<size:11><color:#777>2017 : les liens entre les mots</color></size>\nacross long passages\n<size:11><color:#777>sur de longs passages</color></size>" as TRANS #BCD3CB
+  }
+}
+
+rectangle "**Scaling laws**\n<size:11><color:#777>Lois d'échelle</color></size>\n\nlarger models, more data, more computing power:\n<size:11><color:#777>des modèles plus grands, plus de données, plus de calcul :</color></size>\nperformance improves in predictable ways\n<size:11><color:#777>des performances qui progressent de façon prévisible</color></size>" as SCALING #CFCBDD
+
+rectangle "**Emergent capabilities**\n<size:11><color:#777>Capacités émergentes</color></size>\n\nno one explicitly programmed them:\n<size:11><color:#777>personne ne les a programmées explicitement :</color></size>\nreasoning step by step, adapting to new tasks\n<size:11><color:#777>raisonner étape par étape, s'adapter à de nouvelles tâches</color></size>" as EMERGENT #CFCBDD
+
+NN -[hidden]down- TRANS
+WEB -[hidden]down- CODE
+CHIPS -[hidden]down- CLUSTERS
+
+PILLARS -down-> SCALING : <size:11>the three combined</size>\n<size:11><color:#777>les trois réunis</color></size>
+SCALING -right-> EMERGENT : <size:11>as models grew larger</size>\n<size:11><color:#777>à mesure que les modèles grandissaient</color></size>
+
+@enduml

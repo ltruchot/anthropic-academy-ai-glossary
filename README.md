@@ -10,11 +10,14 @@ glossary and one set of mind maps per course. Not affiliated with or endorsed by
 
 ## Courses
 
-| Course                                                     | Glossary                                            | Mind maps                                                |
-| ---------------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------- |
-| AI Capabilities and Limitations (and its PDF annex)        | [index.md](ai-capabilities-and-limitations/index.md) | [mindmap.md](ai-capabilities-and-limitations/mindmap.md) |
+| Course                                                  | Glossary                                                | Mind maps                                                    |
+| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
+| 01 — AI Capabilities and Limitations (and its PDF annex) | [index.md](01-ai-capabilities-and-limitations/index.md) | [mindmap.md](01-ai-capabilities-and-limitations/mindmap.md) |
+| 02 — AI Fluency for Builders                             | [index.md](02-ai-fluency-for-builders/index.md)         | [mindmap.md](02-ai-fluency-for-builders/mindmap.md)         |
 
-The next course, AI Fluency for Builders, will get its folder `ai-fluency-for-builders/` once it is written.
+Each course folder stands alone, so that one course can be revised without the others: a term two
+courses define has an entry in each (the same text, or this course's own definition), and a mind map
+is copied rather than linked.
 
 ## Layout of a course folder
 
