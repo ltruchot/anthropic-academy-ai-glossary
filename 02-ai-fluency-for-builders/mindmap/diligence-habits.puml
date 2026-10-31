@@ -1,0 +1,40 @@
+@startuml diligence-habits
+' Render: java -jar plantuml.jar -tsvg diligence-habits.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 200
+}
+</style>
+
+title The habits of Diligence\n<size:12><color:#777>Les habitudes de la Diligence</color></size>
+
+rectangle "**Diligence: catch up to your own code**\n<size:11><color:#777>Diligence : rattraper votre retard sur votre propre code</color></size>\n\nyou own the outcome, not the output\n<size:11><color:#777>vous assumez le résultat, pas la sortie</color></size>\n“AI wrote it” explains nothing and excuses nothing\n<size:11><color:#777>« c'est l'IA qui l'a écrit » n'explique rien et n'excuse rien</color></size>" as DILIGENCE #F9F8F4
+
+rectangle "Three habits\n<size:11><color:#777>Trois habitudes</color></size>" as HABITS #FFFFFF {
+  ' Smetana lays the habits out in reverse order of declaration.
+  rectangle "**Understanding**\n<size:11><color:#777>Compréhension</color></size>\n\nconsciously understand\n<size:11><color:#777>s'attacher à comprendre</color></size>\nhow the code works\n<size:11><color:#777>comment le code fonctionne</color></size>\n\na separate step now:\n<size:11><color:#777>une étape à part désormais :</color></size>\nAI can help with it\n<size:11><color:#777>l'IA peut vous y aider</color></size>" as H3 #CFCBE0
+
+  rectangle "**Transparency**\n<size:11><color:#777>Transparence</color></size>\n\ntell people AI wrote it\n<size:11><color:#777>dire aux gens que l'IA l'a écrit</color></size>\n\nas information, not a disclaimer\n<size:11><color:#777>pour informer, pas pour se dédouaner</color></size>\nAI makes a different shape of mistake\n<size:11><color:#777>l'IA ne fait pas le même type d'erreurs</color></size>" as H2 #E6DFD2
+
+  rectangle "**Verification**\n<size:11><color:#777>Vérification</color></size>\n\nseek out edge cases\n<size:11><color:#777>rechercher les cas limites</color></size>\n& assumptions\n<size:11><color:#777>et les hypothèses</color></size>\n\n“What assumptions and trade-offs\n<size:11><color:#777>« Quelles hypothèses as-tu faites,</color></size>\ndid you make?”\n<size:11><color:#777>et quels compromis ? »</color></size>" as H1 #8FAED6
+}
+
+rectangle "**Safety nets: move fast safely**\n<size:11><color:#777>Filets de sécurité : aller vite en toute sécurité</color></size>\n\ntests on one end: iterate without fear\n<size:11><color:#777>les tests d'un côté : itérer sans crainte</color></size>\nobservability on the other: logs, error tracking, dashboards\n<size:11><color:#777>l'observabilité de l'autre : journaux, suivi des erreurs, tableaux de bord</color></size>\nfeature flags, for when something slips through\n<size:11><color:#777>les indicateurs de fonctionnalité, pour ce qui passe entre les mailles du filet</color></size>" as NETS #F2E4DC
+
+H1 -[hidden]right- H2
+H2 -[hidden]right- H3
+
+DILIGENCE -down-> HABITS
+HABITS -[hidden]down- NETS
+
+@enduml

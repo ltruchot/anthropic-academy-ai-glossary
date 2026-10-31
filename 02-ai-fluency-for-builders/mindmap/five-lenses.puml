@@ -1,0 +1,47 @@
+@startuml five-lenses
+' Render: java -jar plantuml.jar -tsvg five-lenses.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 170
+}
+</style>
+
+title The Five Lenses of Discernment\n<size:12><color:#777>Les cinq angles du Discernement</color></size>
+
+rectangle "Five questions to ask of anything that AI builds\n<size:11><color:#777>Cinq questions à poser à tout ce que l'IA construit</color></size>" as LENSES #FFFFFF {
+  ' Smetana lays the lenses out in reverse order of declaration.
+  rectangle "**5. Responsible impact**\n<size:11><color:#777>Impact responsable</color></size>\n\nIs it responsible?\n<size:11><color:#777>Est-ce responsable ?</color></size>\n\n✓ transparent about AI's role\n<size:11><color:#777>transparent sur le rôle de l'IA</color></size>\n✗ generated content\n<size:11><color:#777>un contenu généré</color></size>\npresented as authoritative\n<size:11><color:#777>présenté comme faisant autorité</color></size>" as L5 #CFCBE0
+
+  rectangle "**4. Experience quality**\n<size:11><color:#777>Qualité de l'expérience</color></size>\n\nIs it good?\n<size:11><color:#777>Est-ce bon ?</color></size>\n\n✓ the core task,\n<size:11><color:#777>la tâche principale,</color></size>\nwithout help\n<size:11><color:#777>sans aide</color></size>\n✗ generic UI patterns\n<size:11><color:#777>des solutions d'interface génériques</color></size>" as L4 #E6DFD2
+
+  rectangle "**3. Problem fit**\n<size:11><color:#777>Adéquation au besoin</color></size>\n\nIs it the right thing?\n<size:11><color:#777>Est-ce la bonne chose ?</color></size>\n\n✓ the user's actual need\n<size:11><color:#777>le vrai besoin de l'utilisateur</color></size>\n✗ addresses the prompt,\n<size:11><color:#777>répond au prompt,</color></size>\nmisses the need\n<size:11><color:#777>passe à côté du besoin</color></size>" as L3 #E8E8E2
+
+  rectangle "**2. Production readiness**\n<size:11><color:#777>Préparation à la production</color></size>\n\nDoes it work well?\n<size:11><color:#777>Est-ce que ça fonctionne bien ?</color></size>\n\n✓ concurrent users,\n<size:11><color:#777>des utilisateurs simultanés,</color></size>\nno race conditions\n<size:11><color:#777>sans conditions de concurrence</color></size>\n✗ smooth in dev,\n<size:11><color:#777>fluide en développement,</color></size>\nbroken under load\n<size:11><color:#777>cassé sous la charge</color></size>" as L2 #C9D9D3
+
+  rectangle "**1. Functional integrity**\n<size:11><color:#777>Intégrité fonctionnelle</color></size>\n\nDoes it work?\n<size:11><color:#777>Est-ce que ça fonctionne ?</color></size>\n\n✓ real inputs,\n<size:11><color:#777>des entrées réelles,</color></size>\nnot just test data\n<size:11><color:#777>pas seulement des données de test</color></size>\n✗ passes unit tests,\n<size:11><color:#777>passe les tests unitaires,</color></size>\nbreaks on real data\n<size:11><color:#777>casse sur des données réelles</color></size>" as L1 #8FAED6
+}
+
+rectangle "**Lens 1 is easy to test: run it and see**\n<size:11><color:#777>L'angle 1 est facile à tester : exécutez, et voyez</color></size>\n\nwhere most code review stops\n<size:11><color:#777>là où s'arrêtent la plupart des revues de code</color></size>\nthe biggest problems are almost never here\n<size:11><color:#777>les plus gros problèmes ne sont presque jamais là</color></size>" as EASY #F9F8F4
+
+rectangle "**By lens 5, judgment calls AI can't make for you**\n<size:11><color:#777>À l'angle 5, des choix qui relèvent du jugement</color></size>\n<size:11><color:#777>et que l'IA ne peut pas faire à votre place</color></size>\n\nbuilders need all five\n<size:11><color:#777>les builders ont besoin des cinq</color></size>\ntaste: a builder skill\n<size:11><color:#777>le goût : une compétence de builder</color></size>" as HARD #F2E4DC
+
+L1 -right-> L2
+L2 -right-> L3
+L3 -right-> L4
+L4 -right-> L5
+
+EASY -up-> L1
+HARD -up-> L5
+HARD -[hidden]left- EASY
+
+@enduml

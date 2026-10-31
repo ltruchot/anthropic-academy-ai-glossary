@@ -1,0 +1,43 @@
+@startuml ux-principles
+' Render: java -jar plantuml.jar -tsvg ux-principles.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 170
+}
+</style>
+
+title The four UX principles\n<size:12><color:#777>Les quatre principes d'UX</color></size>
+
+rectangle "When implementation is fast, experience is the differentiator\n<size:11><color:#777>Quand l'implémentation est rapide, c'est l'expérience qui fait la différence</color></size>" as PRINCIPLES #FFFFFF {
+  ' Smetana lays the principles out in reverse order of declaration.
+  rectangle "**4. Feedback**\n<size:11><color:#777>Feedback</color></size>\n\nthe interface acknowledges\n<size:11><color:#777>l'interface montre qu'elle a pris en compte</color></size>\nwhat the user does\n<size:11><color:#777>ce que fait l'utilisateur</color></size>\n\n✓ what happened, what to do next,\n<size:11><color:#777>ce qui s'est passé, quoi faire ensuite,</color></size>\nhow to get help\n<size:11><color:#777>comment obtenir de l'aide</color></size>\n✗ a raw error code\n<size:11><color:#777>un code d'erreur brut</color></size>" as P4 #CFCBE0
+
+  rectangle "**3. Accessibility**\n<size:11><color:#777>Accessibilité</color></size>\n\na baseline, not a nice to have\n<size:11><color:#777>un prérequis, pas une option</color></size>\n\n✓ screen reader, color contrast,\n<size:11><color:#777>lecteur d'écran, contraste des couleurs,</color></size>\nkeyboard navigation\n<size:11><color:#777>navigation au clavier</color></size>\n✗ generated for the median user\n<size:11><color:#777>généré pour l'utilisateur moyen</color></size>" as P3 #E6DFD2
+
+  rectangle "**2. Hierarchy**\n<size:11><color:#777>Hiérarchie</color></size>\n\nvisual weight matches\n<size:11><color:#777>le poids visuel correspond</color></size>\ninformation priority\n<size:11><color:#777>à la priorité de l'information</color></size>\n\n✓ progressive disclosure\n<size:11><color:#777>divulgation progressive</color></size>\n✗ everything crammed\n<size:11><color:#777>tout entassé</color></size>\ninto one space\n<size:11><color:#777>au même endroit</color></size>" as P2 #E8E8E2
+
+  rectangle "**1. Clarity**\n<size:11><color:#777>Clarté</color></size>\n\nevery element communicates\n<size:11><color:#777>chaque élément communique</color></size>\nits purpose\n<size:11><color:#777>son rôle</color></size>\n\n✓ people's mental models\n<size:11><color:#777>les modèles mentaux des gens</color></size>\n✗ users guess what\n<size:11><color:#777>les utilisateurs devinent</color></size>\na button does\n<size:11><color:#777>ce que fait un bouton</color></size>" as P1 #8FAED6
+}
+
+rectangle "**“Make it look good” is a wish, not a spec**\n<size:11><color:#777>« Rends ça beau » est un souhait, pas une spécification</color></size>\n\ndescribe experience with the same precision as a function\n<size:11><color:#777>décrivez l'expérience avec la même précision qu'une fonction</color></size>\na critique for a colleague ≠ a description AI can execute\n<size:11><color:#777>une critique pour un collègue ≠ une description que l'IA peut exécuter</color></size>" as WISH #F9F8F4
+
+rectangle "**Description and Discernment working together**\n<size:11><color:#777>La Description et le Discernement travaillent ensemble</color></size>\n\nyou describe, AI builds\n<size:11><color:#777>vous décrivez, l'IA construit</color></size>\nyou evaluate against what you intended\n<size:11><color:#777>vous évaluez au regard de ce que vous vouliez</color></size>\nyou describe the gap, repeat\n<size:11><color:#777>vous décrivez l'écart, et vous recommencez</color></size>" as LOOP #F2E4DC
+
+P1 -[hidden]right- P2
+P2 -[hidden]right- P3
+P3 -[hidden]right- P4
+
+PRINCIPLES -[hidden]down- WISH
+WISH -right-> LOOP
+
+@enduml

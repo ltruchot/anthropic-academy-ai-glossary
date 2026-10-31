@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, ai-fluency, glossaire]
 created: 2026-10-28
-updated: 2026-10-29
+updated: 2026-10-31
 ---
 # Glossaire et mindmap Anthropic
 
@@ -45,15 +45,15 @@ A builder's ability to ensure that every input, from user voice to product requi
 
 ### Discernment *(Discernement)*
 
-How you evaluate what AI gives you: not just does it run, but does it run well? Does it solve the right problem? Is it actually good to use, and is it responsible? You evaluate AI output against what actually matters: correctness, quality, fit, experience, and responsibility. AI has real blind spots: it can produce code that's locally correct, but breaks under load, or generate UX that's functional, but confusing. Discernment is the skill of catching those gaps before your users do. Discernment means evaluating what AI gives back before acting on it, thoughtfully and critically: start with the output itself, then look at how AI got there. It doesn't just mean accepting or rejecting AI outputs: it involves iteration to get where you want to go. While most people describe what they want fairly naturally, Discernment is much rarer: questioning AI's reasoning, checking facts, and identifying missing context were among the least common behaviors observed. With Description, it forms the [inner loop](#inner-loop-boucle-interne). One of the competencies of the [4D Framework](#4d-framework-cadre-4d).
+How you evaluate what AI gives you: not just does it run, but does it run well? Does it solve the right problem? Is it actually good to use, and is it responsible? You evaluate AI output against what actually matters: correctness, quality, fit, experience, and responsibility. AI has real blind spots: it can produce code that's locally correct, but breaks under load, or generate UX that's functional, but confusing. Discernment is the skill of catching those gaps before your users do. Discernment means evaluating what AI gives back before acting on it, thoughtfully and critically: start with the output itself, then look at how AI got there. It doesn't just mean accepting or rejecting AI outputs: it involves iteration to get where you want to go. While most people describe what they want fairly naturally, Discernment is much rarer: questioning AI's reasoning, checking facts, and identifying missing context were among the least common behaviors observed. Its structure: the [Five Lenses of Discernment](#five-lenses-of-discernment-cinq-angles-du-discernement), five questions to ask of anything that AI builds. With Description, it forms the [inner loop](#inner-loop-boucle-interne). One of the competencies of the [4D Framework](#4d-framework-cadre-4d).
 
-→ [schéma des 4D du builder](mindmap/builder-4ds.png)
+→ [schéma des 4D du builder](mindmap/builder-4ds.png) · [schéma des cinq angles du Discernement](mindmap/five-lenses.png)
 
 ### Diligence *(Diligence)*
 
-Full ownership of the outcome, not just the output: taking full ownership of what you build with AI. [Shipping](#shipping-livraison) is a skill with its own technical realities that AI rarely surfaces proactively: migrations, rate limiting, monitoring. What happens when something breaks at 2 a.m. and you're the one who built it? Prototype freely, ship selectively, and be willing to veto something you built when the evidence says it isn't right. Diligence means owning the final result fully, regardless of AI's role: taking responsibility for how you use AI, being thoughtful about which AI systems you use and how you interact with them, being honest about AI's role in your work with the people who need to know, and verifying and vouching for the outputs you use or share. You're always accountable for the final result. With Delegation, it forms the [outer loop](#outer-loop-boucle-externe). One of the competencies of the [4D Framework](#4d-framework-cadre-4d).
+Full ownership of the outcome, not just the output: taking full ownership of what you build with AI. [Shipping](#shipping-livraison) is a skill with its own technical realities that AI rarely surfaces proactively: migrations, rate limiting, monitoring. What happens when something breaks at 2 a.m. and you're the one who built it? Prototype freely, ship selectively, and be willing to veto something you built when the evidence says it isn't right. Diligence means owning the final result fully, regardless of AI's role: taking responsibility for how you use AI, being thoughtful about which AI systems you use and how you interact with them, being honest about AI's role in your work with the people who need to know, and verifying and vouching for the outputs you use or share. You're always accountable for the final result. In the builder model, Diligence is full ownership: you're responsible for the product from whether it should exist to whether it's serving users after launch. You own the outcome, not the output: « AI wrote it » explains nothing and excuses nothing. In the 4D Framework, it means taking responsibility for what you build with AI, making sure your use of AI is transparent, ethical, and accountable: being transparent about your AI use and disclosing it, taking ownership of the outputs that AI creates, verifying work before you ship, considering the impact of what you built on others, and honoring policies, privacy, and professional standards that govern AI use in your organization or industry. With AI, you can end up being the owner of code you didn't write: Diligence is how you catch up to your own code, through three [habits](#habits-of-diligence-habitudes-de-la-diligence). Cheap code creates value only when paired with honest evaluation, and deprecating your own work is an underrated skill. Access is a design decision: check who your assumptions exclude before you call something shipped. With Delegation, it forms the [outer loop](#outer-loop-boucle-externe). One of the competencies of the [4D Framework](#4d-framework-cadre-4d).
 
-→ [schéma des 4D du builder](mindmap/builder-4ds.png)
+→ [schéma des 4D du builder](mindmap/builder-4ds.png) · [schéma des habitudes de la Diligence](mindmap/diligence-habits.png)
 
 ### Inner loop *(Boucle interne)*
 
@@ -195,7 +195,7 @@ The fifth capability of the [builder's toolkit](#builders-toolkit-boîte-à-outi
 
 ### Shipping *(Livraison)*
 
-The last capability of the [builder's toolkit](#builders-toolkit-boîte-à-outils-du-builder): getting it to real users and learning from what happens, getting it in front of users and iterating. This means communication, measurement, iteration. AI can draft release notes and automate steps, but it can't read the room when your user hesitates before clicking: responsibility is yours. Shipping is a skill with its own technical realities that AI rarely surfaces proactively (migrations, rate limiting, monitoring: [Diligence](#diligence-diligence)). The video puts it at the edges of the toolkit, where AI is the weakest; the course's widget rates it « AI moderate ».
+The last capability of the [builder's toolkit](#builders-toolkit-boîte-à-outils-du-builder): getting it to real users and learning from what happens, getting it in front of users and iterating. This means communication, measurement, iteration. AI can draft release notes and automate steps, but it can't read the room when your user hesitates before clicking: responsibility is yours. Shipping is a skill with its own technical realities that AI rarely surfaces proactively (migrations, rate limiting, monitoring: [Diligence](#diligence-diligence)). It has its own technical vocabulary (migrations, versioning, rate limits, feature flags) that AI will not surface unless you ask. The video puts it at the edges of the toolkit, where AI is the weakest; the course's widget rates it « AI moderate ».
 
 → [schéma de la boîte à outils du builder](mindmap/builders-toolkit.png)
 
@@ -240,3 +240,123 @@ The fourth step of the [Description Chain](#description-chain-chaîne-de-descrip
 Code that works, but a product that doesn't: the test might pass, but the user is still frustrated. That's not a bug: the translation along the [Description Chain](#description-chain-chaîne-de-description) broke, and the failure usually lives upstream of the prompt; it cascades. So a big part of a [builder](#builder-builder)'s job is forensic: when what you built misses the mark, trace it back to the link that broke. A user understanding failure ([user voice](#user-voice-voix-de-lutilisateur): you never really heard what they needed in the first place), a requirement failure ([product requirement](#product-requirement-exigence-produit): you heard them, but scoped it wrong), a spec failure ([technical spec](#technical-spec-spécification-technique): the requirement was right, but the technical translation lost something), or a prompt failure ([AI instruction](#ai-instruction-instruction-pour-lia): everything upstream was solid, and you instructed the AI poorly). A passing test with an unhappy user means you described the wrong intent: your test described the wrong thing, and now you know exactly where in the chain to look. Most AI failures trace back to Description, Discernment, or Diligence failures made earlier ([4D Framework](#4d-framework-cadre-4d)).
 
 → [schéma de la chaîne de Description](mindmap/description-chain.png)
+
+### Five Lenses of Discernment *(Cinq angles du Discernement)*
+
+A structure for the judgment of [Discernment](#discernment-discernement): five lenses and five questions to ask of anything that AI builds, to evaluate AI-generated work across correctness, quality, fit, experience, and responsibility. A working product and a good product are not always the same thing: when AI can spin up a working product in minutes, "working" stops being the bar, and your ability to tell the difference becomes the most valuable skill in the room. In order: [functional integrity](#functional-integrity-intégrité-fonctionnelle) (Does it work?), [production readiness](#production-readiness-préparation-à-la-production) (Does it work well?), [problem fit](#problem-fit-adéquation-au-besoin) (Is it the right thing?), [experience quality](#experience-quality-qualité-de-lexpérience) (Is it good?) and [responsible impact](#responsible-impact-impact-responsable) (Is it responsible?). Lens 1 is easy to test: run it and see; by lens 5, you're making judgment calls AI can't make for you. Most engineering education stops at the first two lenses, but [builders](#builder-builder) need all five: the biggest problems are almost never at lens 1. AI is good at producing code that runs; it needs your oversight to produce a product that matters. Code that runs can still fail: the default AI output is technically complete but often misses the point.
+
+→ [schéma des cinq angles du Discernement](mindmap/five-lenses.png)
+
+### Functional integrity *(Intégrité fonctionnelle)*
+
+Lens 1 of the [Five Lenses of Discernment](#five-lenses-of-discernment-cinq-angles-du-discernement): does it actually work? Bugs, errors, security holes. It checks that the code produces correct output for real inputs, not just test data; its common AI failure: code that passes unit tests but breaks on real data the prompt never covered. This is where most code review stops: it's necessary, but it's not close to sufficient. Consider the full gamut of functional tests: unit tests, integration tests, regression tests, edge cases, end-to-end. AI should be building tests alongside the code, not after it: when you prompt, ask it to write test cases in the very same pass, then build in regular checkpoints. A test suite that hasn't been run is not a safety net: it's just a false sense of security.
+
+→ [schéma des cinq angles du Discernement](mindmap/five-lenses.png)
+
+### Production readiness *(Préparation à la production)*
+
+Lens 2 of the [Five Lenses of Discernment](#five-lenses-of-discernment-cinq-angles-du-discernement): does it actually work well? Performance, scalability, reliability: what happens under load, when hundreds of people try to refresh at the same time? It checks that the code handles concurrent users without race conditions; its common AI failure: smooth in dev, broken under load or behind a real infrastructure stack. AI has specific blind spots here: predictable ones in concurrency, security, and anything that only breaks at scale, technical blind spots that surface in production but not in development. A few concrete moves: ask AI to stress test its own output, have it generate production scenarios, and check how the code handles them; ask it explicitly, "What production assumptions does this code make?", to surface things that were missed in the first pass. When an API call takes five seconds too long, does the display freeze, show stale data, or fail gracefully? AI doesn't think about that: that's with you.
+
+→ [schéma des cinq angles du Discernement](mindmap/five-lenses.png)
+
+### Problem fit *(Adéquation au besoin)*
+
+Lens 3 of the [Five Lenses of Discernment](#five-lenses-of-discernment-cinq-angles-du-discernement): is it the right thing? Does it solve the user's actual problem, or the problem the user thinks they have? Those can diverge. It checks that it solves the user's actual need, not just the literal spec you wrote; its common AI failure: a technically complete feature that addresses the prompt but misses the underlying need. For example, a patient asked about wait times, and AI can build an estimated wait time display, but what the patient really needed to know was if there was a pediatrician available in the next 20 minutes, to assess if their child's fever is critical or not. AI solved the stated problem: you need to check whether that's the real problem (what goes unsaid in [user voice](#user-voice-voix-de-lutilisateur)).
+
+→ [schéma des cinq angles du Discernement](mindmap/five-lenses.png)
+
+### Experience quality *(Qualité de l'expérience)*
+
+Lens 4 of the [Five Lenses of Discernment](#five-lenses-of-discernment-cinq-angles-du-discernement): is it actually good? Is the experience clear, intuitive, [accessible](#accessibility-accessibilité)? It checks that users can complete the core task without help or instruction; its common AI failure: generic UI patterns that technically work but feel uninvested, and confused or frustrated users. AI doesn't have [taste](#taste-goût), it has patterns: it will give you a competent interface that no one enjoys using. For a clinical wait time tool, that's not just an aesthetic problem, it's a patient safety issue. It's your job as the builder to notice this, and translate it into something concrete and fixable.
+
+→ [schéma des cinq angles du Discernement](mindmap/five-lenses.png)
+
+### Responsible impact *(Impact responsable)*
+
+Lens 5 of the [Five Lenses of Discernment](#five-lenses-of-discernment-cinq-angles-du-discernement): is it responsible? Bias? Privacy? Unintended consequences? Who could this harm? What does it assume about the user that might not be true? It checks that the product is transparent about AI's role, and doesn't present generated content as verified fact; its common AI failure: AI-generated content presented as authoritative, or a demographic left out by default. If the historical data a model is trained on reflects existing bias (systemic inequities contributing to longer wait times for certain demographics, for example), the model may reproduce that same pattern: it won't flag it, it will just display a number. Build guardrails, ask AI to name its bias as it builds, and, most importantly, question all assumptions.
+
+→ [schéma des cinq angles du Discernement](mindmap/five-lenses.png)
+
+### Taste *(Goût)*
+
+What AI doesn't have: it has patterns, and will give you a competent interface that no one enjoys using. Taste is a [builder](#builder-builder) skill: AI delivers functional; making it worth using is on you. When AI can spin up a working product in minutes, "working" stops being the bar: you build the taste that AI doesn't have ([experience quality](#experience-quality-qualité-de-lexpérience)).
+
+→ [schéma des cinq angles du Discernement](mindmap/five-lenses.png)
+
+### UX principles *(Principes d'UX)*
+
+The principles that matter most when working with AI: as AI speeds up implementation, design becomes the differentiator. You don't need to become a designer, but you do need to recognize good experience, spec for it, and iterate towards it. Four, in order: [clarity](#clarity-clarté), [hierarchy](#hierarchy-hiérarchie) (with [progressive disclosure](#progressive-disclosure-divulgation-progressive)), [accessibility](#accessibility-accessibilité) and [feedback](#feedback-feedback) (with responsiveness). The course shows each one on a screen with common UX problems AI generates by default. Applying them is part of [design literacy](#design-literacy-culture-du-design).
+
+→ [schéma des principes d'UX](mindmap/ux-principles.png)
+
+### Clarity *(Clarté)*
+
+Every element should instantly communicate its purpose: users shouldn't have to guess what a button does or what a field means. If users can't tell what your product does, or how to get started, they're gone. Clarity means unifying form and function while respecting people's mental models: users arrive with expectations, shaped by other software and by the world. Keep it simple and map your interface to concepts they recognize: a patient checking wait times expects it to work like every other status checker. One of the [UX principles](#ux-principles-principes-dux).
+
+→ [schéma des principes d'UX](mindmap/ux-principles.png)
+
+### Hierarchy *(Hiérarchie)*
+
+Visual weight should match information priority: the most important thing should look the most important. Make it easy for people to scan and find the information that is needed; don't overwhelm them. Use text size and weight to create good headers. It goes with [progressive disclosure](#progressive-disclosure-divulgation-progressive). One of the [UX principles](#ux-principles-principes-dux).
+
+→ [schéma des principes d'UX](mindmap/ux-principles.png)
+
+### Progressive disclosure *(Divulgation progressive)*
+
+Paired with [hierarchy](#hierarchy-hiérarchie): cut the amount of unneeded elements (the video says « Minify » [sic]), and allow people to find the information they need as they need it instead of cramming it all into one space.
+
+→ [schéma des principes d'UX](mindmap/ux-principles.png)
+
+### Accessibility *(Accessibilité)*
+
+A baseline, not a nice to have. Screen reader compatibility, color contrast, keyboard navigation: ask the AI for these explicitly every single time, and build test cases to validate. About 1 in 5 people has a disability (visual, cognitive, or neurological); AI generates for the median user, and small text, color-only signals, and jargon quietly exclude everyone else. AI does not get accessibility right by default: specify it, then audit what you get back. One of the [UX principles](#ux-principles-principes-dux).
+
+→ [schéma des principes d'UX](mindmap/ux-principles.png)
+
+### Feedback *(Feedback)*
+
+With responsiveness: when the user does something, the interface should acknowledge it, not lead the user to question if something might be broken. Loading states, confirmations, and error messages that explain what to do next, all in simple human language, help build trust. When something breaks, users need to know what happened, what to do next, and how to get help: a raw error code answers none of those questions. One of the [UX principles](#ux-principles-principes-dux).
+
+→ [schéma des principes d'UX](mindmap/ux-principles.png)
+
+### Design literacy *(Culture du design)*
+
+A core [builder](#builder-builder) skill: when implementation is fast, experience is the differentiator. « Make it look good » is a wish, not a spec: describe experience with the same precision as a function (« Put the wait time in the largest text on the page, use a single color to indicate status, and make the refresh time visible so the patient knows how stale the number is » is an actionable, strong [Description](#description-description)). A good critique and an actionable AI description are different artifacts: « This feels cluttered » is a fair critique, but useless instruction for AI. Part of design literacy is learning how to translate your own [taste](#taste-goût) into something that is executable. This is Description and [Discernment](#discernment-discernement) working together: you describe the experience precisely, AI builds it; you evaluate what comes back against what you intended; you describe the gap, repeat.
+
+→ [schéma des principes d'UX](mindmap/ux-principles.png)
+
+### Habits of Diligence *(Habitudes de la Diligence)*
+
+With AI, you can end up being the owner of code you didn't write: [Diligence](#diligence-diligence) is how you catch up to your own code. Understand it, stress it, test it, and put the systems in place that catch what you miss. Three habits, from an engineer's day-to-day: [verification](#verification-vérification) (seek out edge cases & assumptions), [transparency](#transparency-transparence) (tell people AI wrote it) and [understanding](#understanding-compréhension) (consciously understand how the code works). With them, [safety nets](#safety-nets-filets-de-sécurité): tests on one end, [observability](#observability-observabilité) on the other. None of this is new to engineering: AI is just a new tool under your belt to get there.
+
+→ [schéma des habitudes de la Diligence](mindmap/diligence-habits.png)
+
+### Verification *(Vérification)*
+
+Seek out edge cases & assumptions. When you write code yourself, it becomes apparent as you go that there are things you hadn't thought of: some edge case, some decision you hadn't realized needed to be made. With AI, those sometimes end up getting decided without ever being surfaced to you: recreate that step on purpose, and get those questions out in the open where you can weigh in. When an edge case pops into your head, say it to the model (« Can you double check that users can't view other users' files? »); after Claude builds something substantial, ask directly: « What assumptions and trade-offs did you make? » What security risks should I be aware of? That ensures you're looped in on the important decisions. One of the [habits of Diligence](#habits-of-diligence-habitudes-de-la-diligence).
+
+→ [schéma des habitudes de la Diligence](mindmap/diligence-habits.png)
+
+### Transparency *(Transparence)*
+
+Tell people AI wrote it: being transparent about your AI use and disclosing it. When Claude writes most of a pull request, say so in the Description, not as a disclaimer, as information: AI makes a different shape of mistake than humans do (deprecated APIs used confidently, code that's locally clean but inconsistent with the codebase, invented behavior for cases you never specified), and a reviewer who knows that can better tailor their review. One of the [habits of Diligence](#habits-of-diligence-habitudes-de-la-diligence).
+
+→ [schéma des habitudes de la Diligence](mindmap/diligence-habits.png)
+
+### Understanding *(Compréhension)*
+
+Consciously understand how the code works. It's easy to feel out of your depth when AI does the building: you can end up with working code you don't understand, which wasn't really possible before. It's not that you can't understand it: it's just a separate step now, and AI can help with that too. Claude is more than happy to sit with you and patiently explain; it takes a bit of time, but that's what puts you back in the loop. One of the [habits of Diligence](#habits-of-diligence-habitudes-de-la-diligence).
+
+→ [schéma des habitudes de la Diligence](mindmap/diligence-habits.png)
+
+### Safety nets *(Filets de sécurité)*
+
+What lets you move fast safely. The engineering best practices that existed before AI still apply after, maybe even more so: now you're shipping faster, and you understand a smaller fraction of what you shipped. Tests on one end: still the easiest way to make sure you don't break something while moving this fast; a solid test suite pins down the behavior you care about, so you can keep iterating without fear. Tests become your safety net the moment something is live: they make post-launch iteration safe, and the test-first habit is why you can keep changing things confidently (see [acceptance tests](#acceptance-test-test-dacceptation)). [Observability](#observability-observabilité) on the other end. With the [habits of Diligence](#habits-of-diligence-habitudes-de-la-diligence).
+
+→ [schéma des habitudes de la Diligence](mindmap/diligence-habits.png)
+
+### Observability *(Observabilité)*
+
+Some things only show up when real users have it: so you want logs, error tracking, dashboards. You find out from your own data, not from a user email. And feature flags remain useful for when something does slip through. With tests, one of the [safety nets](#safety-nets-filets-de-sécurité).
+
+→ [schéma des habitudes de la Diligence](mindmap/diligence-habits.png)
