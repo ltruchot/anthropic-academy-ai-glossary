@@ -15,7 +15,7 @@ Schémas, avec un sommaire et une légende pour chacun : [mindmap.md](mindmap.md
 
 ### Behavioral properties *(Propriétés comportementales)*
 
-Five properties that apply to Claude regardless of which feature you use: [responses vary](#responses-vary-les-réponses-varient), [confident tone is not a signal of accuracy](#confident-tone-is-not-a-signal-of-accuracy-un-ton-assuré-nest-pas-un-signe-dexactitude), [context is a budget](#context-is-a-budget-le-contexte-est-un-budget), [knowledge has a training boundary](#knowledge-has-a-training-boundary-les-connaissances-ont-une-date-limite), [configured procedures still produce varied outputs](#configured-procedures-still-produce-varied-outputs-les-procédures-configurées-produisent-quand-même-des-réponses-variées). Understand them before selecting [entry points](#entry-points-points-dentrée) and models, and before building workflows with Claude: it prevents the most common sources of frustration and misaligned expectations.
+Five properties that apply to Claude regardless of which feature you use: [responses vary](#responses-vary-les-réponses-varient), [confident tone is not a signal of accuracy](#confident-tone-is-not-a-signal-of-accuracy-un-ton-assuré-nest-pas-un-signe-dexactitude), [context is a budget](#context-is-a-budget-le-contexte-est-un-budget), [knowledge has a training boundary](#knowledge-has-a-training-boundary-les-connaissances-ont-une-date-limite), [configured procedures still produce varied outputs](#configured-procedures-still-produce-varied-outputs-les-procédures-configurées-produisent-quand-même-des-réponses-variées). Understand them before selecting [entry points](#entry-points-points-dentrée) and [models](#model-tiers-gammes-de-modèles), and before building workflows with Claude: it prevents the most common sources of frustration and misaligned expectations.
 
 → [schéma des propriétés comportementales](mindmap/behavioral-properties.png)
 
@@ -126,3 +126,27 @@ Retains work-relevant facts across sessions, removing the need to re-enter the s
 Keeps a session out of [Memory](#memory-mémoire) and chat history; it applies to standalone chats, outside [Projects](#projects-projets). Use it for sensitive conversations or exploratory work with confidential inputs that shouldn't surface in history or Memory. It does not override your organization's underlying data retention.
 
 → [schéma de la couche de fonctionnalités](mindmap/capability-layer.png)
+
+### Model tiers *(Gammes de modèles)*
+
+The [capability layer](#capability-layer-couche-de-fonctionnalités) determines what Claude does; the model determines how well Claude does it, and at what cost in speed. Which model to select is the third of the four decisions at the front of every Claude interaction. Different model tiers in the Claude family span a range from efficient-and-fast to thorough-and-capable: [Haiku](#haiku-haiku), [Sonnet](#sonnet-sonnet) and [Opus](#opus-opus). Matching the tier to the task avoids both over-engineering routine work and under-resourcing high-stakes analysis. The decision logic: routine, structured extraction or classification at volume → Haiku; most professional drafting, synthesis, and analysis → Sonnet; complex judgment, high-stakes output, ambiguous or multi-layered inputs → Opus. On metered or usage-budgeted plans (including API access), the speed-versus-capability trade-off also becomes a per-call cost trade-off: "efficiency" means cost as well as speed. On the standard claude.ai subscription surface, treat efficiency (speed and usage headroom) as the practical proxy for cost. The decision logic applies regardless of which tiers are available to you.
+
+→ [schéma des gammes de modèles](mindmap/model-tiers.png)
+
+### Haiku *(Haiku)*
+
+The fastest and most efficient model in the Claude family. It handles structured tasks well: classification, extraction, formatting, straightforward summarization, and high-volume routine work where speed matters and the cost of an imperfect output is low. When a task runs at volume across hundreds of items in sequence, its speed advantage compounds. Use it where volume and speed are the primary requirements and the task has clear structure. One of the [model tiers](#model-tiers-gammes-de-modèles).
+
+→ [schéma des gammes de modèles](mindmap/model-tiers.png)
+
+### Sonnet *(Sonnet)*
+
+The balanced tier. It handles the full range of professional tasks with strong quality across task types: drafting, synthesis, analysis, research assistance, and document review. For most knowledge-worker work, Sonnet is the right starting point: if quality is falling short for a complex task, upgrade to [Opus](#opus-opus); if speed and volume are the primary requirements and the task is structured, consider [Haiku](#haiku-haiku). One of the [model tiers](#model-tiers-gammes-de-modèles).
+
+→ [schéma des gammes de modèles](mindmap/model-tiers.png)
+
+### Opus *(Opus)*
+
+A higher-capability tier, offering more advanced performance than [Sonnet](#sonnet-sonnet) and [Haiku](#haiku-haiku). Use it for tasks that require nuanced judgment, complex multi-step reasoning, ambiguous inputs that require interpretation, or any work where quality outranks speed (client-facing deliverables, complex document analysis, strategic planning, high-stakes synthesis across multiple sources). It produces better output on complex tasks, with the tradeoff of running slower, and consumes more usage per call than Haiku or Sonnet. Reserve it for work where the quality ceiling genuinely matters. One of the [model tiers](#model-tiers-gammes-de-modèles).
+
+→ [schéma des gammes de modèles](mindmap/model-tiers.png)

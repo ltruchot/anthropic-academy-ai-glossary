@@ -12,6 +12,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 1. [Schéma des propriétés comportementales](#schéma-des-propriétés-comportementales)
 2. [Schéma des points d'entrée](#schéma-des-points-dentrée)
 3. [Schéma de la couche de fonctionnalités](#schéma-de-la-couche-de-fonctionnalités)
+4. [Schéma des gammes de modèles](#schéma-des-gammes-de-modèles)
 
 ## Schéma des propriétés comportementales
 
@@ -30,3 +31,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma de la couche de fonctionnalités](mindmap/capability-layer.png)
 
 *Ce que Claude peut faire au sein d'un point d'entrée : le modèle à quatre couches (les projets, les Skills, l'exécution de code, la mémoire), indépendantes ; puis ce qui distingue chaque fonctionnalité (Skills intégrés ou personnalisés et leur évaluation de confiance, l'exécution de code isolée et ses usages, la mémoire entretenue, propre à chaque projet, et le mode incognito).* Source : [capability-layer.puml](mindmap/capability-layer.puml)
+
+## Schéma des gammes de modèles
+
+![Schéma des gammes de modèles](mindmap/model-tiers.png)
+
+*Choisir un modèle : adapter la gamme à la tâche, des modèles rapides et économiques aux modèles minutieux et performants (Haiku, Sonnet, Opus) et la tâche de chacun ; sur les forfaits à l'usage et l'API, le coût par appel ; sur l'abonnement claude.ai, la vitesse et la marge d'utilisation.* Source : [model-tiers.puml](mindmap/model-tiers.puml)

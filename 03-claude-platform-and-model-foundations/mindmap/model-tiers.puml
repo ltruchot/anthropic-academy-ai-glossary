@@ -1,0 +1,38 @@
+@startuml model-tiers
+' Render: java -jar plantuml.jar -tsvg model-tiers.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Choosing Models\n<size:12><color:#777>Choisir un modèle</color></size>
+
+rectangle "**Model tiers**\n<size:11><color:#777>Gammes de modèles</color></size>\nHow well Claude does it, at what cost in speed\n<size:11><color:#777>Avec quelle qualité Claude le fait, à quel coût en vitesse</color></size>\nMatch the tier to the task\n<size:11><color:#777>Adapter la gamme à la tâche</color></size>" as MT #BCD3CB
+
+rectangle "**From efficient-and-fast to thorough-and-capable**\n<size:11><color:#777>Des modèles rapides et économiques aux modèles minutieux et performants</color></size>" as RANGE #F9F8F4 {
+  rectangle "Haiku\n<size:11><color:#777>Haiku</color></size>\nFastest, most efficient\n<size:11><color:#777>Le plus rapide, le plus économique</color></size>\nRoutine, structured work at volume\n<size:11><color:#777>Travail routinier et structuré, en volume</color></size>" as HA #CFCBDD
+  rectangle "Sonnet\n<size:11><color:#777>Sonnet</color></size>\nThe balanced tier\n<size:11><color:#777>La gamme équilibrée</color></size>\nMost drafting, synthesis, analysis:\nthe right starting point\n<size:11><color:#777>La plupart des rédactions, synthèses, analyses :</color></size>\n<size:11><color:#777>le bon point de départ</color></size>" as SO #CFCBDD
+  rectangle "Opus\n<size:11><color:#777>Opus</color></size>\nHigher capability, slower\n<size:11><color:#777>Plus performant, plus lent</color></size>\nComplex judgment, high stakes,\nambiguous inputs\n<size:11><color:#777>Jugement complexe, fort enjeu,</color></size>\n<size:11><color:#777>données d'entrée ambiguës</color></size>" as OP #CFCBDD
+}
+
+rectangle "**On usage and cost**\n<size:11><color:#777>Utilisation et coût</color></size>\nMetered plans and the API: cost per call\n<size:11><color:#777>Forfaits à l'usage et API : coût par appel</color></size>\nclaude.ai subscription: speed and usage headroom\n<size:11><color:#777>Abonnement claude.ai : vitesse et marge d'utilisation</color></size>\nSame decision logic, whatever tiers you have\n<size:11><color:#777>Même logique de décision, quelles que soient vos gammes</color></size>" as UC #E8E2D0
+
+' The course's order, top to bottom.
+HA -[hidden]down- SO
+SO -[hidden]down- OP
+
+MT --> RANGE
+OP --> UC
+
+@enduml
