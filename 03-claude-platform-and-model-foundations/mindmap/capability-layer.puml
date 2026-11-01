@@ -1,0 +1,46 @@
+@startuml capability-layer
+' Render: java -jar plantuml.jar -tsvg capability-layer.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Capability Layer\n<size:12><color:#777>La couche de fonctionnalités</color></size>
+
+rectangle "**Capability layer**\n<size:11><color:#777>Couche de fonctionnalités</color></size>\nWhat Claude can do within an entry point\n<size:11><color:#777>Ce que Claude peut faire au sein d'un point d'entrée</color></size>" as CL #BCD3CB
+
+rectangle "**Four-layer model**\n<size:11><color:#777>Modèle à quatre couches</color></size>\nIndependent: any combination\n<size:11><color:#777>Indépendantes : toute combinaison</color></size>\nA one-off question needs none\n<size:11><color:#777>Une question ponctuelle n'en demande aucune</color></size>" as FL #F9F8F4 {
+  rectangle "Projects carry context\n<size:11><color:#777>Les projets portent le contexte</color></size>" as PR #E8E2D0
+  rectangle "Skills define procedures\n<size:11><color:#777>Les Skills définissent les procédures</color></size>\nConsistently, every time\n<size:11><color:#777>De façon constante, à chaque fois</color></size>" as SK #CFCBDD
+  rectangle "Code Execution verifies computations\n<size:11><color:#777>L'exécution de code vérifie les calculs</color></size>\nCorrect, not merely plausible\n<size:11><color:#777>Juste, et pas seulement plausible</color></size>" as CE #CFCBDD
+  rectangle "Memory persists continuity\n<size:11><color:#777>La mémoire assure la continuité</color></size>\nAcross sessions, without re-entry\n<size:11><color:#777>D'une session à l'autre, sans ressaisie</color></size>" as ME #CFCBDD
+}
+
+rectangle "**Skills**\n<size:11><color:#777>Skills</color></size>\nBuilt-in or custom, at the account level\n<size:11><color:#777>Intégrés ou personnalisés, au niveau du compte</color></size>\nInvoked automatically when relevant\n<size:11><color:#777>Invoqués automatiquement quand ils sont pertinents</color></size>\nTrust evaluation: source, permissions\n<size:11><color:#777>Évaluer la confiance : source, permissions</color></size>" as SKD #E8E2D0
+
+rectangle "**Code Execution**\n<size:11><color:#777>Exécution de code</color></size>\nSandboxed: Claude writes and runs the code\n<size:11><color:#777>Isolée : Claude écrit et exécute le code</color></size>\nNumbers used or reported, data to clean,\na chart, a downloadable file\n<size:11><color:#777>Chiffres utilisés ou communiqués, données à nettoyer,</color></size>\n<size:11><color:#777>un graphique, un fichier téléchargeable</color></size>" as CED #E8E2D0
+
+rectangle "**Memory**\n<size:11><color:#777>Mémoire</color></size>\nCurated: reviewed at least monthly\n<size:11><color:#777>Entretenue : revue au moins une fois par mois</color></size>\nProject-scoped: separate per Project\n<size:11><color:#777>Propre à chaque projet</color></size>\nIncognito mode keeps a session out\n<size:11><color:#777>Le mode incognito en tient une session à l'écart</color></size>" as MED #E8E2D0
+
+' The course's order, top to bottom.
+PR -[hidden]down- SK
+SK -[hidden]down- CE
+CE -[hidden]down- ME
+
+CL --> FL
+SK --> SKD
+CE --> CED
+ME --> MED
+
+@enduml

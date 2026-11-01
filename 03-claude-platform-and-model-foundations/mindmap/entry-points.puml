@@ -1,0 +1,49 @@
+@startuml entry-points
+' Render: java -jar plantuml.jar -tsvg entry-points.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Core Entry Points\n<size:12><color:#777>Les points d'entrée</color></size>
+
+rectangle "**Entry points**\n<size:11><color:#777>Points d'entrée</color></size>\nChoose before starting work\n<size:11><color:#777>Choisir avant de commencer</color></size>" as EP #BCD3CB
+
+rectangle "**Four entry points**\n<size:11><color:#777>Quatre points d'entrée</color></size>" as FOUR #F9F8F4 {
+  rectangle "Chat\n<size:11><color:#777>Chat</color></size>\nOne-off question or quick task\n<size:11><color:#777>Question ponctuelle ou tâche rapide</color></size>\nWeb search: a per-chat toggle\n<size:11><color:#777>Recherche web : à activer chat par chat</color></size>" as CH #CFCBDD
+  rectangle "Projects\n<size:11><color:#777>Projets</color></size>\nRecurring work, stable context\n<size:11><color:#777>Tâches récurrentes, contexte stable</color></size>" as PR #CFCBDD
+  rectangle "Artifacts\n<size:11><color:#777>Artefacts</color></size>\nA deliverable, in a separate editable block\n<size:11><color:#777>Un livrable, dans un bloc distinct et modifiable</color></size>" as AR #CFCBDD
+  rectangle "Research\n<size:11><color:#777>Research</color></size>\nDeep multi-source investigation or synthesis\n<size:11><color:#777>Investigation ou synthèse approfondie</color></size>\n<size:11><color:#777>à partir de multiples sources</color></size>" as RE #CFCBDD
+}
+
+rectangle "**A Project holds**\n<size:11><color:#777>Un projet contient</color></size>" as HOLDS #F9F8F4 {
+  rectangle "Standing instructions\n<size:11><color:#777>Instructions de projet</color></size>" as SI #E8E2D0
+  rectangle "Knowledge base\n<size:11><color:#777>Base de connaissances</color></size>\nUploaded once\n<size:11><color:#777>Importée une seule fois</color></size>" as KB #E8E2D0
+  rectangle "Conversation history\n<size:11><color:#777>Historique des conversations</color></size>\nNo context shared between them\n<size:11><color:#777>Aucun contexte partagé entre elles</color></size>" as CV #E8E2D0
+}
+
+rectangle "**Worth building?**\n<size:11><color:#777>Le projet vaut-il la peine ?</color></size>\nTwo of three: task recurs, stable context,\nconsistent format\n<size:11><color:#777>Deux sur trois : tâche récurrente,</color></size>\n<size:11><color:#777>contexte stable, format constant</color></size>\nSetup recovered in 2 or 3 sessions\n<size:11><color:#777>Mise en place amortie en 2 ou 3 sessions</color></size>" as WB #E8E2D0
+
+' The course's order, top to bottom.
+CH -[hidden]down- PR
+PR -[hidden]down- AR
+AR -[hidden]down- RE
+SI -[hidden]down- KB
+KB -[hidden]down- CV
+
+EP --> FOUR
+PR --> HOLDS
+HOLDS --> WB
+
+@enduml
