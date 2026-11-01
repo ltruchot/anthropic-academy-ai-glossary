@@ -1,0 +1,40 @@
+@startuml behavioral-properties
+' Render: java -jar plantuml.jar -tsvg behavioral-properties.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title How Claude Behaves\n<size:12><color:#777>Le comportement de Claude</color></size>
+
+rectangle "**Behavioral properties**\n<size:11><color:#777>Propriétés comportementales</color></size>\nWhatever the feature\n<size:11><color:#777>Quelle que soit la fonctionnalité</color></size>" as BP #BCD3CB
+
+rectangle "**Five properties**\n<size:11><color:#777>Cinq propriétés</color></size>" as FIVE #F9F8F4 {
+  rectangle "Responses vary\n<size:11><color:#777>Les réponses varient</color></size>\nProbability, not a fixed database\n<size:11><color:#777>Des probabilités, pas une base de données figée</color></size>" as RV #CFCBDD
+  rectangle "Confident tone is not\na signal of accuracy\n<size:11><color:#777>Un ton assuré n'est pas</color></size>\n<size:11><color:#777>un signe d'exactitude</color></size>\nFluency signals nothing about accuracy\n<size:11><color:#777>La fluidité ne dit rien de l'exactitude</color></size>" as CT #CFCBDD
+  rectangle "Context is a budget\n<size:11><color:#777>Le contexte est un budget</color></size>\nA working-memory limit\n<size:11><color:#777>Une limite de mémoire de travail</color></size>" as CB #CFCBDD
+  rectangle "Knowledge has\na training boundary\n<size:11><color:#777>Les connaissances ont une date limite</color></size>\nA cutoff date: connect a source\n<size:11><color:#777>Une date limite : connecter une source</color></size>" as KB #CFCBDD
+  rectangle "Configured procedures still\nproduce varied outputs\n<size:11><color:#777>Les procédures configurées produisent</color></size>\n<size:11><color:#777>quand même des réponses variées</color></size>\nA Skill reduces variance, not to zero\n<size:11><color:#777>Un Skill réduit la variabilité sans la supprimer</color></size>" as CP #CFCBDD
+}
+
+
+' The course's order, top to bottom.
+RV -[hidden]down- CT
+CT -[hidden]down- CB
+CB -[hidden]down- KB
+KB -[hidden]down- CP
+
+BP --> FIVE
+
+@enduml
