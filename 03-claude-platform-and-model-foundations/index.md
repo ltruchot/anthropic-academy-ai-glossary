@@ -33,7 +33,7 @@ Claude writes with consistent fluency regardless of whether the answer is actual
 
 ### Context is a budget *(Le contexte est un budget)*
 
-Every Claude conversation holds a working-memory limit. As a conversation approaches its limit, claude.ai automatically summarizes earlier messages so the session can continue (on paid plans with [Code Execution](#code-execution-exécution-de-code) enabled). Summaries compress detail, which is why instructions followed at the start of a two-hour session can lose force by the end. The strategies for managing it: when to restart, when to summarize, when to persist. One of the [behavioral properties](#behavioral-properties-propriétés-comportementales).
+Every Claude conversation holds a working-memory limit. As a conversation approaches its limit, claude.ai automatically summarizes earlier messages so the session can continue (on paid plans with [Code Execution](#code-execution-exécution-de-code) enabled). Summaries compress detail, which is why instructions followed at the start of a two-hour session can lose force by the end. The strategies for managing it ([context management](#context-management-gestion-du-contexte)): when to [restart](#restart-repartir-à-neuf), when to [summarize](#summarize-résumer), when to [persist](#persist-pérenniser). One of the [behavioral properties](#behavioral-properties-propriétés-comportementales).
 
 → [schéma des propriétés comportementales](mindmap/behavioral-properties.png)
 
@@ -117,7 +117,7 @@ Claude's sandboxed computation environment: Claude writes and runs code internal
 
 ### Memory *(Mémoire)*
 
-Retains work-relevant facts across sessions, removing the need to re-enter the same context each time (for example: recurring role context, preferences for output format, names of frequent collaborators, standing constraints that apply across projects). Memory is most useful when actively curated: a memory that was accurate last quarter and has not been reviewed since can be actively misleading. Review stored memories periodically (at least once per month for active users), delete or update entries that no longer hold, and keep the stored set focused on information that genuinely recurs across sessions. Project-scoped Memory keeps Memory contexts separate for each [Project](#projects-projets): set up separate Projects for separate workstreams, and Memory follows the same boundaries. [Incognito mode](#incognito-mode-mode-incognito) keeps a session out of it. In [Chat](#chat-chat), Memory plus past-chat search can carry key context into new sessions. One of the three features of the [capability layer](#capability-layer-couche-de-fonctionnalités).
+Retains work-relevant facts across sessions, removing the need to re-enter the same context each time (for example: recurring role context, preferences for output format, names of frequent collaborators, standing constraints that apply across projects). Memory is most useful when [actively curated](#memory-curation-entretien-de-la-mémoire): a memory that was accurate last quarter and has not been reviewed since can be actively misleading. Review stored memories periodically (at least once per month for active users), delete or update entries that no longer hold, and keep the stored set focused on information that genuinely recurs across sessions. Project-scoped Memory keeps Memory contexts separate for each [Project](#projects-projets): set up separate Projects for separate workstreams, and Memory follows the same boundaries. [Incognito mode](#incognito-mode-mode-incognito) keeps a session out of it. In [Chat](#chat-chat), Memory plus past-chat search can carry key context into new sessions. One of the three features of the [capability layer](#capability-layer-couche-de-fonctionnalités).
 
 → [schéma de la couche de fonctionnalités](mindmap/capability-layer.png)
 
@@ -150,3 +150,45 @@ The balanced tier. It handles the full range of professional tasks with strong q
 A higher-capability tier, offering more advanced performance than [Sonnet](#sonnet-sonnet) and [Haiku](#haiku-haiku). Use it for tasks that require nuanced judgment, complex multi-step reasoning, ambiguous inputs that require interpretation, or any work where quality outranks speed (client-facing deliverables, complex document analysis, strategic planning, high-stakes synthesis across multiple sources). It produces better output on complex tasks, with the tradeoff of running slower, and consumes more usage per call than Haiku or Sonnet. Reserve it for work where the quality ceiling genuinely matters. One of the [model tiers](#model-tiers-gammes-de-modèles).
 
 → [schéma des gammes de modèles](mindmap/model-tiers.png)
+
+### Context management *(Gestion du contexte)*
+
+[Model selection](#model-tiers-gammes-de-modèles) and capability configuration (the [capability layer](#capability-layer-couche-de-fonctionnalités)) determine what Claude can do in a session; context management determines how long it can do it well. How to manage context across a session is the fourth of the four decisions at the front of every Claude interaction. Every Claude conversation has a finite working-memory budget ([context is a budget](#context-is-a-budget-le-contexte-est-un-budget)), and that budget runs down as the conversation grows (its [context window](#context-window-fenêtre-de-contexte) fills); deliberate context management keeps sessions coherent through long or complex work. Signs a conversation needs intervention: Claude stops following instructions it followed correctly earlier in the same session; responses address only the most recent exchange without reference to earlier decisions or context; accuracy drops in ways that are consistent with missing early-session context. Three responses when context degrades: [restart](#restart-repartir-à-neuf), [summarize](#summarize-résumer), [persist](#persist-pérenniser). For intensive tasks, plan ahead around the [usage limits](#usage-limits-limites-dutilisation).
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Context window *(Fenêtre de contexte)*
+
+The working-memory limit of a Claude conversation. As messages and uploaded documents accumulate, it fills; as it fills toward the limit, claude.ai automatically summarizes earlier messages to make room (on paid plans with [Code Execution](#code-execution-exécution-de-code) enabled), and the full history remains available for reference. Detail can compress when earlier context is summarized: detailed instructions given at the start of a long session may produce responses later that don't follow them, not because Claude is ignoring them. What to do about it: [context management](#context-management-gestion-du-contexte).
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Restart *(Repartir à neuf)*
+
+Start a new conversation. The [Project](#projects-projets)'s [standing instructions](#standing-instructions-instructions-de-projet) and [knowledge base](#knowledge-base-base-de-connaissances) carry forward automatically; the conversation thread does not. Restarting is the right call when the current session has drifted beyond recovery, or when you are beginning a genuinely new task within the same workstream. One of the three responses when context degrades ([context management](#context-management-gestion-du-contexte)); [summarize](#summarize-résumer) before it to keep the thread.
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Summarize *(Résumer)*
+
+Before starting a new conversation ([restart](#restart-repartir-à-neuf)), ask Claude to produce a summary of the current state: decisions made, work in progress, and open questions; paste that summary at the start of the new conversation as context. This preserves thread continuity without carrying a degraded [context window](#context-window-fenêtre-de-contexte) into the next session. For intensive tasks, restart from a summary rather than extending a single session indefinitely ([usage limits](#usage-limits-limites-dutilisation)). One of the three responses when context degrades ([context management](#context-management-gestion-du-contexte)).
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Persist *(Pérenniser)*
+
+For information that should be available across all future sessions: save it to [Memory](#memory-mémoire) or update the [Project](#projects-projets) [knowledge base](#knowledge-base-base-de-connaissances). Saving the right information at the right moment is more efficient than re-entering it repeatedly; a well-maintained Project with current knowledge base entries reduces the impact of individual session context limits. One of the three responses when context degrades ([context management](#context-management-gestion-du-contexte)).
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Memory curation *(Entretien de la mémoire)*
+
+[Memory](#memory-mémoire) is most useful when actively curated, and serves best when it stays current: a memory entry that was accurate three months ago and has not been reviewed since can be actively misleading. Treat Memory like a working file: review it on a regular cadence (at least once per month for active users), delete entries that have expired, and update facts that have changed; keep the stored set focused on information that genuinely recurs across sessions. The accuracy of stored memories matters more than the volume.
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png) · [schéma de la couche de fonctionnalités](mindmap/capability-layer.png)
+
+### Usage limits *(Limites d'utilisation)*
+
+Claude's usage limits operate on more than one time window: a short rolling session window, plus weekly limits on paid plans that apply across models (with a separate weekly pool for the highest [model tier](#model-tiers-gammes-de-modèles)); the specific windows and allowances vary by plan and change over time. Extended sessions on higher-tier models may reach a limit before the work is complete. For intensive tasks, planning ahead is more efficient than working around an interrupted session: break large tasks into segments, save interim progress to the [knowledge base](#knowledge-base-base-de-connaissances), and [restart](#restart-repartir-à-neuf) from a [summary](#summarize-résumer) rather than extending a single session indefinitely.
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)

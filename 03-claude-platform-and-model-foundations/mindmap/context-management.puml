@@ -1,0 +1,47 @@
+@startuml context-management
+' Render: java -jar plantuml.jar -tsvg context-management.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Context Management\n<size:12><color:#777>Gestion du contexte</color></size>
+
+rectangle "**Context management**\n<size:11><color:#777>Gestion du contexte</color></size>\nHow long Claude can do it well\n<size:11><color:#777>Pendant combien de temps Claude peut continuer à bien le faire</color></size>" as CM #BCD3CB
+
+rectangle "**Context window**\n<size:11><color:#777>Fenêtre de contexte</color></size>\nFills with messages and uploaded documents\n<size:11><color:#777>Se remplit de messages et de documents importés</color></size>\nNear the limit: earlier messages summarized\n<size:11><color:#777>Près de la limite : messages précédents résumés</color></size>" as CW #E8E2D0
+
+rectangle "**Signs a conversation needs intervention**\n<size:11><color:#777>Signes qu'il faut intervenir</color></size>\nEarlier instructions no longer followed\n<size:11><color:#777>Des instructions suivies plus tôt ne le sont plus</color></size>\nOnly the most recent exchange addressed\n<size:11><color:#777>Seul le dernier échange est pris en compte</color></size>\nAccuracy drops\n<size:11><color:#777>L'exactitude baisse</color></size>" as SI #E8E2D0
+
+rectangle "**Three responses when context degrades**\n<size:11><color:#777>Trois réponses quand le contexte se dégrade</color></size>" as TR #F9F8F4 {
+  rectangle "Restart\n<size:11><color:#777>Repartir à neuf</color></size>\nA new conversation:\nthe Project carries forward, not the thread\n<size:11><color:#777>Une nouvelle conversation :</color></size>\n<size:11><color:#777>le projet est repris, pas le fil</color></size>" as RS #CFCBDD
+  rectangle "Summarize\n<size:11><color:#777>Résumer</color></size>\nDecisions, work in progress, open questions,\npasted into the new conversation\n<size:11><color:#777>Décisions, travail en cours, questions en suspens,</color></size>\n<size:11><color:#777>collés dans la nouvelle conversation</color></size>" as SU #CFCBDD
+  rectangle "Persist\n<size:11><color:#777>Pérenniser</color></size>\nMemory or the Project knowledge base\n<size:11><color:#777>La mémoire ou la base de connaissances du projet</color></size>" as PE #CFCBDD
+}
+
+rectangle "**Memory curation**\n<size:11><color:#777>Entretien de la mémoire</color></size>\nA working file: review, delete, update\n<size:11><color:#777>Un document de travail : revoir, supprimer, mettre à jour</color></size>\nAccuracy over volume\n<size:11><color:#777>L'exactitude avant le volume</color></size>" as MC #E8E2D0
+
+rectangle "**Usage limits**\n<size:11><color:#777>Limites d'utilisation</color></size>\nSession and weekly windows\n<size:11><color:#777>Fenêtres de session et hebdomadaires</color></size>\nSegments, interim progress, restart from a summary\n<size:11><color:#777>Étapes, résultats intermédiaires, repartir d'un résumé</color></size>" as UL #E8E2D0
+
+' The course's order, top to bottom.
+RS -[hidden]down- SU
+SU -[hidden]down- PE
+
+CM --> CW
+CW --> SI
+SI --> TR
+PE --> MC
+TR --> UL
+
+@enduml

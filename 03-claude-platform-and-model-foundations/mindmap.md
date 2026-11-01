@@ -13,6 +13,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 2. [Schéma des points d'entrée](#schéma-des-points-dentrée)
 3. [Schéma de la couche de fonctionnalités](#schéma-de-la-couche-de-fonctionnalités)
 4. [Schéma des gammes de modèles](#schéma-des-gammes-de-modèles)
+5. [Schéma de la gestion du contexte](#schéma-de-la-gestion-du-contexte)
 
 ## Schéma des propriétés comportementales
 
@@ -37,3 +38,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma des gammes de modèles](mindmap/model-tiers.png)
 
 *Choisir un modèle : adapter la gamme à la tâche, des modèles rapides et économiques aux modèles minutieux et performants (Haiku, Sonnet, Opus) et la tâche de chacun ; sur les forfaits à l'usage et l'API, le coût par appel ; sur l'abonnement claude.ai, la vitesse et la marge d'utilisation.* Source : [model-tiers.puml](mindmap/model-tiers.puml)
+
+## Schéma de la gestion du contexte
+
+![Schéma de la gestion du contexte](mindmap/context-management.png)
+
+*Gérer le contexte : pendant combien de temps Claude peut continuer à bien travailler ; la fenêtre de contexte qui se remplit, les signes qu'il faut intervenir, les trois réponses quand le contexte se dégrade (repartir à neuf, résumer, pérenniser) ; l'entretien de la mémoire et les limites d'utilisation.* Source : [context-management.puml](mindmap/context-management.puml)
