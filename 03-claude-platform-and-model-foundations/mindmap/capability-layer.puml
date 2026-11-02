@@ -31,7 +31,7 @@ rectangle "**Skills**\n<size:11><color:#777>Skills</color></size>\nBuilt-in or c
 
 rectangle "**Code Execution**\n<size:11><color:#777>Exécution de code</color></size>\nSandboxed: Claude writes and runs the code\n<size:11><color:#777>Isolée : Claude écrit et exécute le code</color></size>\nNumbers used or reported, data to clean,\na chart, a downloadable file\n<size:11><color:#777>Chiffres utilisés ou communiqués, données à nettoyer,</color></size>\n<size:11><color:#777>un graphique, un fichier téléchargeable</color></size>" as CED #E8E2D0
 
-rectangle "**Memory**\n<size:11><color:#777>Mémoire</color></size>\nCurated: reviewed at least monthly\n<size:11><color:#777>Entretenue : revue au moins une fois par mois</color></size>\nProject-scoped: separate per Project\n<size:11><color:#777>Propre à chaque projet</color></size>\nIncognito mode keeps a session out\n<size:11><color:#777>Le mode incognito en tient une session à l'écart</color></size>" as MED #E8E2D0
+rectangle "**Memory**\n<size:11><color:#777>Mémoire</color></size>\nCurated: at least monthly for active users\n<size:11><color:#777>Entretenue : au moins une fois par mois</color></size>\n<size:11><color:#777>pour un usage actif</color></size>\nProject-scoped: separate per Project\n<size:11><color:#777>Propre à chaque projet</color></size>\nIncognito mode keeps a session out\n<size:11><color:#777>Le mode incognito en tient une session à l'écart</color></size>" as MED #E8E2D0
 
 ' The course's order, top to bottom.
 PR -[hidden]down- SK

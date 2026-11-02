@@ -42,6 +42,6 @@ CM --> CW
 CW --> SI
 SI --> TR
 PE --> MC
-TR --> UL
+CM --> UL
 
 @enduml

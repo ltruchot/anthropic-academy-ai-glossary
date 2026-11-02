@@ -25,7 +25,7 @@ rectangle "**Five properties**\n<size:11><color:#777>Cinq propriétés</color></
   rectangle "Confident tone is not\na signal of accuracy\n<size:11><color:#777>Un ton assuré n'est pas</color></size>\n<size:11><color:#777>un signe d'exactitude</color></size>\nFluency signals nothing about accuracy\n<size:11><color:#777>La fluidité ne dit rien de l'exactitude</color></size>" as CT #CFCBDD
   rectangle "Context is a budget\n<size:11><color:#777>Le contexte est un budget</color></size>\nA working-memory limit\n<size:11><color:#777>Une limite de mémoire de travail</color></size>" as CB #CFCBDD
   rectangle "Knowledge has\na training boundary\n<size:11><color:#777>Les connaissances ont une date limite</color></size>\nA cutoff date: connect a source\n<size:11><color:#777>Une date limite : connecter une source</color></size>" as KB #CFCBDD
-  rectangle "Configured procedures still\nproduce varied outputs\n<size:11><color:#777>Les procédures configurées produisent</color></size>\n<size:11><color:#777>quand même des réponses variées</color></size>\nA Skill reduces variance, not to zero\n<size:11><color:#777>Un Skill réduit la variabilité sans la supprimer</color></size>" as CP #CFCBDD
+  rectangle "Configured procedures still\nproduce varied outputs\n<size:11><color:#777>Les procédures configurées produisent</color></size>\n<size:11><color:#777>quand même des réponses variées</color></size>\nA Skill reduces variance, not to zero\n<size:11><color:#777>Un Skill réduit la variabilité sans la supprimer</color></size>\nReview stays in your workflow\n<size:11><color:#777>La vérification reste une étape de votre flux de travail</color></size>" as CP #CFCBDD
 }
 
 

@@ -33,6 +33,6 @@ HA -[hidden]down- SO
 SO -[hidden]down- OP
 
 MT --> RANGE
-OP --> UC
+RANGE --> UC
 
 @enduml

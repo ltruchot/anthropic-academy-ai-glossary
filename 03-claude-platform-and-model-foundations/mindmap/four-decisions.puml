@@ -1,0 +1,40 @@
+@startuml four-decisions
+' Render: java -jar plantuml.jar -tsvg four-decisions.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title The Four Decisions\n<size:12><color:#777>Les quatre décisions</color></size>
+
+rectangle "**Four decisions**\n<size:11><color:#777>Quatre décisions</color></size>\nAt the front of every Claude interaction\n<size:11><color:#777>En amont de chaque interaction avec Claude</color></size>\nBefore writing a single prompt\n<size:11><color:#777>Avant même d'écrire un prompt</color></size>" as FD #BCD3CB
+
+rectangle "**In order**\n<size:11><color:#777>Dans l'ordre</color></size>" as ORDER #F9F8F4 {
+  rectangle "1. Entry point\n<size:11><color:#777>1. Point d'entrée</color></size>\nEntry points determine where you work\n<size:11><color:#777>Les points d'entrée déterminent où vous travaillez</color></size>\n<i>Map: Core Entry Points</i>\n<size:11><color:#777><i>Schéma des points d'entrée</i></color></size>" as EP #CFCBDD
+  rectangle "2. Capability layer\n<size:11><color:#777>2. Couche de fonctionnalités</color></size>\nThe capability layer determines what Claude\ncan do within that entry point\n<size:11><color:#777>La couche de fonctionnalités détermine ce que Claude</color></size>\n<size:11><color:#777>peut faire au sein de ce point d'entrée</color></size>\n<i>Map: Capability Layer</i>\n<size:11><color:#777><i>Schéma de la couche de fonctionnalités</i></color></size>" as CL #CFCBDD
+  rectangle "3. Model\n<size:11><color:#777>3. Modèle</color></size>\nThe model determines how well Claude does it,\nand at what cost in speed\n<size:11><color:#777>Le modèle détermine avec quelle qualité Claude le fait,</color></size>\n<size:11><color:#777>et à quel coût en vitesse</color></size>\n<i>Map: Choosing Models</i>\n<size:11><color:#777><i>Schéma des gammes de modèles</i></color></size>" as MO #CFCBDD
+  rectangle "4. Context management\n<size:11><color:#777>4. Gestion du contexte</color></size>\nContext management determines\nhow long it can do it well\n<size:11><color:#777>La gestion du contexte détermine pendant combien de temps</color></size>\n<size:11><color:#777>il peut continuer à bien le faire</color></size>\n<i>Map: Context Management</i>\n<size:11><color:#777><i>Schéma de la gestion du contexte</i></color></size>" as CM #CFCBDD
+}
+
+rectangle "**Together, they determine**\n<size:11><color:#777>Ensemble, elles déterminent</color></size>\nThe quality ceiling for session outputs\n<size:11><color:#777>Le plafond de qualité des réponses d'une session</color></size>\nWhether sessions build on prior work\nor require constant re-setup\n<size:11><color:#777>Si les sessions s'appuient sur le travail précédent</color></size>\n<size:11><color:#777>ou obligent à tout remettre en place à chaque fois</color></size>" as TD #E8E2D0
+
+' The course's order, top to bottom.
+EP -[hidden]down- CL
+CL -[hidden]down- MO
+MO -[hidden]down- CM
+
+FD --> ORDER
+ORDER --> TD
+
+@enduml

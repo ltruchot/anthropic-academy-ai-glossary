@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, mindmap]
 created: 2026-11-01
-updated: 2026-11-01
+updated: 2026-11-02
 ---
 # Schémas du cours « Claude Platform and Model Foundations »
 
@@ -9,11 +9,18 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 
 ## Sommaire
 
-1. [Schéma des propriétés comportementales](#schéma-des-propriétés-comportementales)
-2. [Schéma des points d'entrée](#schéma-des-points-dentrée)
-3. [Schéma de la couche de fonctionnalités](#schéma-de-la-couche-de-fonctionnalités)
-4. [Schéma des gammes de modèles](#schéma-des-gammes-de-modèles)
-5. [Schéma de la gestion du contexte](#schéma-de-la-gestion-du-contexte)
+1. [Schéma des quatre décisions](#schéma-des-quatre-décisions)
+2. [Schéma des propriétés comportementales](#schéma-des-propriétés-comportementales)
+3. [Schéma des points d'entrée](#schéma-des-points-dentrée)
+4. [Schéma de la couche de fonctionnalités](#schéma-de-la-couche-de-fonctionnalités)
+5. [Schéma des gammes de modèles](#schéma-des-gammes-de-modèles)
+6. [Schéma de la gestion du contexte](#schéma-de-la-gestion-du-contexte)
+
+## Schéma des quatre décisions
+
+![Schéma des quatre décisions](mindmap/four-decisions.png)
+
+*Les quatre décisions qui interviennent en amont de chaque interaction avec Claude, dans l'ordre (le point d'entrée, la couche de fonctionnalités, le modèle, la gestion du contexte), ce que chacune détermine et le schéma qui la détaille ; ensemble, elles déterminent le plafond de qualité des réponses d'une session, et si les sessions s'appuient sur le travail précédent ou obligent à tout remettre en place à chaque fois.* Source : [four-decisions.puml](mindmap/four-decisions.puml)
 
 ## Schéma des propriétés comportementales
 

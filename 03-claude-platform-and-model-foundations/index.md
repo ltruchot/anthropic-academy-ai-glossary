@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, glossaire]
 created: 2026-11-01
-updated: 2026-11-01
+updated: 2026-11-02
 ---
 # Glossaire et mindmap Anthropic
 
@@ -12,6 +12,12 @@ Schémas, avec un sommaire et une légende pour chacun : [mindmap.md](mindmap.md
 ---
 
 ## Glossaire
+
+### Four decisions *(Quatre décisions)*
+
+The four decisions that sit at the front of every Claude interaction, made within Claude before writing a single prompt: which entry point to use ([entry points](#entry-points-points-dentrée)), which capability features to activate ([capability layer](#capability-layer-couche-de-fonctionnalités)), which model to select ([model tiers](#model-tiers-gammes-de-modèles)), and how to manage context across a session ([context management](#context-management-gestion-du-contexte)). For recurring work, team projects, and deliverables that need to hold up under review, these feature decisions determine the quality ceiling for session outputs, and whether sessions build on prior work or require constant re-setup. In order: entry points determine where you work; the capability layer determines what Claude can do within that entry point; the model determines how well Claude does it, and at what cost in speed; context management determines how long it can do it well.
+
+→ [schéma des quatre décisions](mindmap/four-decisions.png)
 
 ### Behavioral properties *(Propriétés comportementales)*
 
@@ -51,7 +57,7 @@ A [Skill](#skills-skills) set up to run the same procedure every time reduces ou
 
 ### Entry points *(Points d'entrée)*
 
-The four distinct working entry points that Claude's one interface offers: [Chat](#chat-chat), [Projects](#projects-projets), [Artifacts](#artifacts-artefacts), and [Research](#research-research) Mode. Which entry point to use is the first of the four decisions (the second: the [capability layer](#capability-layer-couche-de-fonctionnalités)) at the front of every Claude interaction: choosing the right one before starting work determines how efficiently the session runs and whether the context you build today carries forward to tomorrow. Select the entry point before writing the prompt: the entry-point decision shapes every subsequent choice in the session. Selection logic: a one-off question or quick task, no plan to reuse → Chat; recurring work with stable context requirements → Project; output is a deliverable the recipient will open and read → Artifact; deep multi-source investigation or synthesis → Research (quick current-information lookups: web search in Chat).
+The four distinct working entry points that Claude's one interface offers: [Chat](#chat-chat), [Projects](#projects-projets), [Artifacts](#artifacts-artefacts), and [Research](#research-research) Mode. Which entry point to use is the first of the [four decisions](#four-decisions-quatre-décisions) (the second: the [capability layer](#capability-layer-couche-de-fonctionnalités)) at the front of every Claude interaction: choosing the right one before starting work determines how efficiently the session runs and whether the context you build today carries forward to tomorrow. Select the entry point before writing the prompt: the entry-point decision shapes every subsequent choice in the session. Selection logic: a one-off question or quick task, no plan to reuse → Chat; recurring work with stable context requirements → Project; output is a deliverable the recipient will open and read → Artifact; deep multi-source investigation or synthesis → Research (quick current-information lookups: web search in Chat).
 
 → [schéma des points d'entrée](mindmap/entry-points.png)
 
@@ -63,7 +69,7 @@ The default entry point, an unstructured conversation. A Chat is saved to your h
 
 ### Projects *(Projets)*
 
-Persistent workspaces. A Project holds three things: [standing instructions](#standing-instructions-instructions-de-projet), a [knowledge base](#knowledge-base-base-de-connaissances), and a conversation history, its own conversation list, separate from your global conversation history. Conversations within a Project share the Project's instructions and knowledge base, but they do not share context with each other. Projects solve the most common productivity drain in AI-assisted professional work, re-explaining the same background every session: set the context once, and every conversation that follows starts with that context already in place. Worth building when any two of three conditions hold: the task recurs, the background context is stable (the same across sessions), the output format is consistent; the setup time is then recovered within two or three sessions. One of the [entry points](#entry-points-points-dentrée).
+Persistent workspaces. A Project holds three things: [standing instructions](#standing-instructions-instructions-de-projet), a [knowledge base](#knowledge-base-base-de-connaissances), and a [conversation history](#conversation-history-historique-des-conversations), its own conversation list, separate from your global conversation history. Conversations within a Project share the Project's instructions and knowledge base, but they do not share context with each other. Projects solve the most common productivity drain in AI-assisted professional work, re-explaining the same background every session: set the context once, and every conversation that follows starts with that context already in place. Worth building when any two of three conditions hold: the task recurs, the background context is stable (the same across sessions), the output format is consistent; the setup time is then recovered within two or three sessions. One of the [entry points](#entry-points-points-dentrée).
 
 → [schéma des points d'entrée](mindmap/entry-points.png)
 
@@ -76,6 +82,12 @@ What Claude should know and do consistently across every conversation in a [Proj
 ### Knowledge base *(Base de connaissances)*
 
 Documents, policies, and reference files uploaded once into a [Project](#projects-projets), so Claude can draw on them without re-uploading each session (in the course's example, the project background, the team structure, and the stakeholder list). Every conversation in the Project shares it. One of the three things a Project holds; a curated one is what [Chat](#chat-chat) does not give you.
+
+→ [schéma des points d'entrée](mindmap/entry-points.png)
+
+### Conversation history *(Historique des conversations)*
+
+Each [Project](#projects-projets) maintains its own conversation list, separate from your global conversation history. Conversations within a Project share the Project's [standing instructions](#standing-instructions-instructions-de-projet) and [knowledge base](#knowledge-base-base-de-connaissances), but they do not share context with each other. One of the three things a Project holds.
 
 → [schéma des points d'entrée](mindmap/entry-points.png)
 
@@ -93,7 +105,7 @@ Deep multi-source synthesis (available on paid plans). Research goes further tha
 
 ### Capability layer *(Couche de fonctionnalités)*
 
-[Entry points](#entry-points-points-dentrée) determine where you work; the capability layer determines what Claude can do within that entry point. Which capability features to activate is the second of the four decisions at the front of every Claude interaction. Three features extend Claude's default text-generation behavior in ways that matter for professional work: [Skills](#skills-skills) for consistent procedures, [Code Execution](#code-execution-exécution-de-code) for verified computation, and [Memory](#memory-mémoire) for continuity across sessions. With [Projects](#projects-projets), they make the [four-layer model](#four-layer-model-modèle-à-quatre-couches).
+[Entry points](#entry-points-points-dentrée) determine where you work; the capability layer determines what Claude can do within that entry point. Which capability features to activate is the second of the [four decisions](#four-decisions-quatre-décisions) at the front of every Claude interaction. Three features extend Claude's default text-generation behavior in ways that matter for professional work: [Skills](#skills-skills) for consistent procedures, [Code Execution](#code-execution-exécution-de-code) for verified computation, and [Memory](#memory-mémoire) for continuity across sessions. With [Projects](#projects-projets), they make the [four-layer model](#four-layer-model-modèle-à-quatre-couches).
 
 → [schéma de la couche de fonctionnalités](mindmap/capability-layer.png)
 
@@ -129,7 +141,7 @@ Keeps a session out of [Memory](#memory-mémoire) and chat history; it applies t
 
 ### Model tiers *(Gammes de modèles)*
 
-The [capability layer](#capability-layer-couche-de-fonctionnalités) determines what Claude does; the model determines how well Claude does it, and at what cost in speed. Which model to select is the third of the four decisions at the front of every Claude interaction. Different model tiers in the Claude family span a range from efficient-and-fast to thorough-and-capable: [Haiku](#haiku-haiku), [Sonnet](#sonnet-sonnet) and [Opus](#opus-opus). Model tiers reflect a speed-capability trade-off. Matching the tier to the task avoids both over-engineering routine work and under-resourcing high-stakes analysis. The decision logic: routine, structured extraction or classification at volume → Haiku; most professional drafting, synthesis, and analysis → Sonnet; complex judgment, high-stakes output, ambiguous or multi-layered inputs → Opus. On metered or usage-budgeted plans (including API access), the speed-versus-capability trade-off also becomes a per-call cost trade-off: "efficiency" means cost as well as speed. On the standard claude.ai subscription surface, treat efficiency (speed and usage headroom) as the practical proxy for cost. The decision logic applies regardless of which tiers are available to you.
+The [capability layer](#capability-layer-couche-de-fonctionnalités) determines what Claude does; the model determines how well Claude does it, and at what cost in speed. Which model to select is the third of the [four decisions](#four-decisions-quatre-décisions) at the front of every Claude interaction. Different model tiers in the Claude family span a range from efficient-and-fast to thorough-and-capable: [Haiku](#haiku-haiku), [Sonnet](#sonnet-sonnet) and [Opus](#opus-opus). Model tiers reflect a speed-capability trade-off. Matching the tier to the task avoids both over-engineering routine work and under-resourcing high-stakes analysis. The decision logic: routine, structured extraction or classification at volume → Haiku; most professional drafting, synthesis, and analysis → Sonnet; complex judgment, high-stakes output, ambiguous or multi-layered inputs → Opus. On metered or usage-budgeted plans (including API access), the speed-versus-capability trade-off also becomes a per-call cost trade-off: "efficiency" means cost as well as speed. On the standard claude.ai subscription surface, treat efficiency (speed and usage headroom) as the practical proxy for cost. The decision logic applies regardless of which tiers are available to you.
 
 → [schéma des gammes de modèles](mindmap/model-tiers.png)
 
@@ -153,7 +165,7 @@ A higher-capability tier, offering more advanced performance than [Sonnet](#sonn
 
 ### Context management *(Gestion du contexte)*
 
-[Model selection](#model-tiers-gammes-de-modèles) and capability configuration (the [capability layer](#capability-layer-couche-de-fonctionnalités)) determine what Claude can do in a session; context management determines how long it can do it well. How to manage context across a session is the fourth of the four decisions at the front of every Claude interaction. Every Claude conversation has a finite working-memory budget ([context is a budget](#context-is-a-budget-le-contexte-est-un-budget)), and that budget runs down as the conversation grows (its [context window](#context-window-fenêtre-de-contexte) fills); deliberate context management keeps sessions coherent through long or complex work. Signs a conversation needs intervention: Claude stops following instructions it followed correctly earlier in the same session; responses address only the most recent exchange without reference to earlier decisions or context; accuracy drops in ways that are consistent with missing early-session context. Three responses when context degrades: [restart](#restart-repartir-à-neuf), [summarize](#summarize-résumer), [persist](#persist-pérenniser). For intensive tasks, plan ahead around the [usage limits](#usage-limits-limites-dutilisation).
+[Model selection](#model-tiers-gammes-de-modèles) and capability configuration (the [capability layer](#capability-layer-couche-de-fonctionnalités)) determine what Claude can do in a session; context management determines how long it can do it well. How to manage context across a session is the fourth of the [four decisions](#four-decisions-quatre-décisions) at the front of every Claude interaction. Every Claude conversation has a finite working-memory budget ([context is a budget](#context-is-a-budget-le-contexte-est-un-budget)), and that budget runs down as the conversation grows (its [context window](#context-window-fenêtre-de-contexte) fills); deliberate context management keeps sessions coherent through long or complex work. Signs a conversation needs intervention: Claude stops following instructions it followed correctly earlier in the same session; responses address only the most recent exchange without reference to earlier decisions or context; accuracy drops in ways that are consistent with missing early-session context. Three responses when context degrades: [restart](#restart-repartir-à-neuf), [summarize](#summarize-résumer), [persist](#persist-pérenniser). For intensive tasks, plan ahead around the [usage limits](#usage-limits-limites-dutilisation).
 
 → [schéma de la gestion du contexte](mindmap/context-management.png)
 

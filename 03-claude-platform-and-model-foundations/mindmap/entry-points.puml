@@ -30,7 +30,7 @@ rectangle "**Four entry points**\n<size:11><color:#777>Quatre points d'entrée</
 rectangle "**A Project holds**\n<size:11><color:#777>Un projet contient</color></size>" as HOLDS #F9F8F4 {
   rectangle "Standing instructions\n<size:11><color:#777>Instructions de projet</color></size>" as SI #E8E2D0
   rectangle "Knowledge base\n<size:11><color:#777>Base de connaissances</color></size>\nUploaded once\n<size:11><color:#777>Importée une seule fois</color></size>" as KB #E8E2D0
-  rectangle "Conversation history\n<size:11><color:#777>Historique des conversations</color></size>\nNo context shared between them\n<size:11><color:#777>Aucun contexte partagé entre elles</color></size>" as CV #E8E2D0
+  rectangle "Conversation history\n<size:11><color:#777>Historique des conversations</color></size>\nConversations share no context\nwith each other\n<size:11><color:#777>Les conversations ne partagent</color></size>\n<size:11><color:#777>aucun contexte entre elles</color></size>" as CV #E8E2D0
 }
 
 rectangle "**Worth building?**\n<size:11><color:#777>Le projet vaut-il la peine ?</color></size>\nTwo of three: task recurs, stable context,\nconsistent format\n<size:11><color:#777>Deux sur trois : tâche récurrente,</color></size>\n<size:11><color:#777>contexte stable, format constant</color></size>\nSetup recovered in 2 or 3 sessions\n<size:11><color:#777>Mise en place amortie en 2 ou 3 sessions</color></size>" as WB #E8E2D0
@@ -44,6 +44,6 @@ KB -[hidden]down- CV
 
 EP --> FOUR
 PR --> HOLDS
-HOLDS --> WB
+PR --> WB
 
 @enduml
