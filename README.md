@@ -16,6 +16,7 @@ glossary and one set of mind maps per course. Not affiliated with or endorsed by
 | 02 — AI Fluency for Builders                             | [index.md](02-ai-fluency-for-builders/index.md)               | [mindmap.md](02-ai-fluency-for-builders/mindmap.md)               |
 | 03 — Claude Platform and Model Foundations               | [index.md](03-claude-platform-and-model-foundations/index.md) | [mindmap.md](03-claude-platform-and-model-foundations/mindmap.md) |
 | 04 — Choosing the right Claude model                     | [index.md](04-choosing-the-right-claude-model/index.md)       | [mindmap.md](04-choosing-the-right-claude-model/mindmap.md)       |
+| 05 — Claude Platform 101                                 | [index.md](05-claude-platform-101/index.md)                   | [mindmap.md](05-claude-platform-101/mindmap.md)                   |
 
 Each course folder stands alone, so that one course can be revised without the others: a term two
 courses define has an entry in each (the same text, or this course's own definition), and a mind map
