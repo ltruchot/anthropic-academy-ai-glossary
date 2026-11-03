@@ -18,7 +18,7 @@ rectangle {
 
 title The Claude Platform's three layers\n<size:12><color:#777>Les trois couches de la Claude Platform</color></size>
 
-rectangle "**Claude Platform**\n<size:11><color:#777>Claude Platform</color></size>\nAnthropic's infrastructure for building with Claude programmatically\n<size:11><color:#777>L'infrastructure d'Anthropic pour développer avec Claude par programmation</color></size>\nREST API, SDKs, CLIs, a console\n<size:11><color:#777>API REST, SDK, CLI, une console</color></size>\nFrom asking Claude questions to making it part of your product\n<size:11><color:#777>Des questions posées à Claude à un Claude qui fait partie de votre produit</color></size>" as CP #BCD3CB
+rectangle "**Claude Platform**\n<size:11><color:#777>Claude Platform</color></size>\nAnthropic's infrastructure for building with Claude programmatically\n<size:11><color:#777>L'infrastructure d'Anthropic pour développer avec Claude par programmation</color></size>\nREST API, SDKs, CLIs, a console\n<size:11><color:#777>API REST, SDK, CLI, une console</color></size>\nFrom asking Claude questions to making it part of your product\n<size:11><color:#777>Des questions posées à Claude à l'intégration de Claude dans votre produit</color></size>" as CP #BCD3CB
 
 rectangle "**Three layers**\n<size:11><color:#777>Trois couches</color></size>" as THREE #F9F8F4 {
   rectangle "**Primitives**\n<size:11><color:#777>Primitives</color></size>\nBuild with: the API building blocks you call\n<size:11><color:#777>On construit avec : les briques de base de l'API</color></size>\nMessages API, tool use, files, web search,\ncode execution, MCP servers, skills\n<size:11><color:#777>API Messages, utilisation d'outils, fichiers, recherche web,</color></size>\n<size:11><color:#777>exécution de code, serveurs MCP, Skills</color></size>" as PR #CFCBDD
@@ -28,7 +28,7 @@ rectangle "**Three layers**\n<size:11><color:#777>Trois couches</color></size>" 
 
 rectangle "**Messages API**\n<size:11><color:#777>API Messages</color></size>\nmessages.create: model, max_tokens,\nsystem (the system prompt), messages\n<size:11><color:#777>messages.create : model, max_tokens,</color></size>\n<size:11><color:#777>system (le prompt système), messages</color></size>" as MA #E8E2D0
 
-rectangle "**Claude Console**\n<size:11><color:#777>Claude Console</color></size>\nKeys, usage, managed agents, prompt testing\n<size:11><color:#777>Clés, utilisation, agents gérés, test de prompts</color></size>\nWhere infrastructure and controls live\n<size:11><color:#777>Là où se trouvent l'infrastructure et le pilotage</color></size>" as CON #E8E2D0
+rectangle "**Claude Console**\n<size:11><color:#777>Claude Console</color></size>\nKeys, usage, managed agents, prompt testing\n<size:11><color:#777>Clés, consommation, agents gérés, test de prompts</color></size>\nWhere infrastructure and controls live\n<size:11><color:#777>Là où se trouvent l'infrastructure et le pilotage</color></size>" as CON #E8E2D0
 
 ' The course's order, top to bottom.
 PR -[hidden]down- IN
