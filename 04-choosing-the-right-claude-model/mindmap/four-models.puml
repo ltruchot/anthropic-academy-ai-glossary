@@ -29,7 +29,9 @@ rectangle "**Rate limit**: from the lightest to the most\n<size:11><color:#777>L
 
 rectangle "**Effort setting**\n<size:11><color:#777>Niveau d'effort</color></size>\nThe depth of reasoning\n<size:11><color:#777>La profondeur du raisonnement</color></size>\nDefault: the right balance for most work\n<size:11><color:#777>Par défaut : le bon équilibre pour la plupart des tâches</color></size>\nLower: quicker, less of your limit\n<size:11><color:#777>Plus bas : plus rapide, entame moins votre limite</color></size>\nHighest: your hardest problems\n<size:11><color:#777>Le plus élevé : vos problèmes les plus difficiles</color></size>" as EF #E8E2D0
 
-rectangle "**Testing models**\n<size:11><color:#777>Tester les modèles</color></size>\nThe same task on two models:\nwhere the answers differ, not their length\n<size:11><color:#777>La même tâche sur deux modèles :</color></size>\n<size:11><color:#777>là où les réponses diffèrent, pas leur longueur</color></size>\nA new model: more ambitious tasks\n<size:11><color:#777>Un nouveau modèle : des tâches plus ambitieuses</color></size>" as TE #E8E2D0
+rectangle "**Try the same task on two models**\n<size:11><color:#777>Essayer la même tâche sur deux modèles</color></size>\nCompare where the answers differ, not their length\n<size:11><color:#777>Comparer les points où les réponses diffèrent, pas leur longueur</color></size>\nHaiku's answer covers all you'd have flagged:\nthe task is Haiku-shaped\n<size:11><color:#777>La réponse de Haiku couvre tout ce que vous auriez relevé :</color></size>\n<size:11><color:#777>la tâche est taillée pour Haiku</color></size>" as TE #E8E2D0
+
+rectangle "**Choosing models over time**\n<size:11><color:#777>Choisir ses modèles au fil du temps</color></size>\nEach new model: more ambitious tasks\n<size:11><color:#777>À chaque nouveau modèle : des tâches plus ambitieuses</color></size>" as TI #E8E2D0
 
 ' The course's order, top to bottom.
 HA -[hidden]down- SO
@@ -39,5 +41,6 @@ OP -[hidden]down- FA
 CM --> RANGE
 RANGE --> EF
 EF -[hidden]down- TE
+TE -[hidden]down- TI
 
 @enduml
