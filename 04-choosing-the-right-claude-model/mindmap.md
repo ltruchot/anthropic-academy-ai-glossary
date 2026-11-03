@@ -9,4 +9,10 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 
 ## Sommaire
 
-Pas encore de schéma.
+1. [Schéma des quatre modèles](#schéma-des-quatre-modèles)
+
+## Schéma des quatre modèles
+
+![Schéma des quatre modèles](mindmap/four-models.png)
+
+*Les quatre modèles de Claude, du plus sobre au plus gourmand sur la limite d'utilisation (Haiku, Sonnet, Opus, Fable), ce que chacun est et quand le choisir ; le niveau d'effort, qui règle la profondeur du raisonnement ; tester les modèles (la même tâche sur deux modèles, des tâches plus ambitieuses à chaque nouveau modèle).* Source : [four-models.puml](mindmap/four-models.puml)

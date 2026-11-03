@@ -1,0 +1,43 @@
+@startuml four-models
+' Render: plantuml -tpng four-models.puml, then -tsvg (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Choosing the right Claude model\n<size:12><color:#777>Choisir le bon modèle Claude</color></size>
+
+rectangle "**Claude models**\n<size:11><color:#777>Modèles de Claude</color></size>\nDifferent tools for different jobs\n<size:11><color:#777>Des outils différents pour des tâches différentes</color></size>\nEach uses your rate limit differently\n<size:11><color:#777>Chacun pèse différemment sur votre limite d'utilisation</color></size>" as CM #BCD3CB
+
+rectangle "**Rate limit**: from the lightest to the most\n<size:11><color:#777>Limite d'utilisation : du plus sobre au plus gourmand</color></size>" as RANGE #F9F8F4 {
+  rectangle "Haiku\n<size:11><color:#777>Haiku</color></size>\nFastest, for everyday requests\n<size:11><color:#777>Le plus rapide, pour les demandes du quotidien</color></size>\nQuick lookups, simple summaries\n<size:11><color:#777>Recherches rapides, résumés simples</color></size>" as HA #CFCBDD
+  rectangle "Sonnet\n<size:11><color:#777>Sonnet</color></size>\nThe daily driver, a versatile default\n<size:11><color:#777>Le modèle du quotidien, un choix par défaut polyvalent</color></size>\nCoding, writing, multi-step workflows;\nnot sure? Start here\n<size:11><color:#777>Code, rédaction, flux de travail en plusieurs étapes ;</color></size>\n<size:11><color:#777>en cas de doute, commencez par lui</color></size>" as SO #CFCBDD
+  rectangle "Opus\n<size:11><color:#777>Opus</color></size>\nA large reasoning specialist\n<size:11><color:#777>Un grand modèle spécialiste du raisonnement</color></size>\nDeep research; when Sonnet struggled\n<size:11><color:#777>Recherche approfondie ; quand Sonnet a peiné</color></size>" as OP #CFCBDD
+  rectangle "Fable\n<size:11><color:#777>Fable</color></size>\nThe most capable: long, complex tasks\n<size:11><color:#777>Le plus performant : tâches longues et complexes</color></size>\nPlans the steps, checks its own work;\nwhen Opus struggled\n<size:11><color:#777>Planifie les étapes, vérifie son propre travail ;</color></size>\n<size:11><color:#777>quand Opus a peiné</color></size>" as FA #CFCBDD
+}
+
+rectangle "**Effort setting**\n<size:11><color:#777>Niveau d'effort</color></size>\nThe depth of reasoning\n<size:11><color:#777>La profondeur du raisonnement</color></size>\nDefault: the right balance for most work\n<size:11><color:#777>Par défaut : le bon équilibre pour la plupart des tâches</color></size>\nLower: quicker, less of your limit\n<size:11><color:#777>Plus bas : plus rapide, entame moins votre limite</color></size>\nHighest: your hardest problems\n<size:11><color:#777>Le plus élevé : vos problèmes les plus difficiles</color></size>" as EF #E8E2D0
+
+rectangle "**Testing models**\n<size:11><color:#777>Tester les modèles</color></size>\nThe same task on two models:\nwhere the answers differ, not their length\n<size:11><color:#777>La même tâche sur deux modèles :</color></size>\n<size:11><color:#777>là où les réponses diffèrent, pas leur longueur</color></size>\nA new model: more ambitious tasks\n<size:11><color:#777>Un nouveau modèle : des tâches plus ambitieuses</color></size>" as TE #E8E2D0
+
+' The course's order, top to bottom.
+HA -[hidden]down- SO
+SO -[hidden]down- OP
+OP -[hidden]down- FA
+
+CM --> RANGE
+RANGE --> EF
+EF -[hidden]down- TE
+
+@enduml
