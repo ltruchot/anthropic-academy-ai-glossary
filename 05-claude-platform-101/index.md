@@ -15,7 +15,7 @@ Schémas, avec un sommaire et une légende pour chacun : [mindmap.md](mindmap.md
 
 ### Claude Platform *(Claude Platform)*
 
-Anthropic's infrastructure for building with Claude programmatically: a REST API, SDKs for different programming languages, CLIs (command line interfaces), and a console where you manage keys, monitor usage, deploy managed agents, and test prompts (the [Claude Console](#claude-console-claude-console)). It's where developers send structured requests, get structured responses, and control every detail: which model, how many tokens, what tools Claude can use, and what system instructions it follows. Your API-level access to Claude's models, tools, and infrastructure: it takes you from asking Claude questions to making Claude part of your product, and with [managed agents](#managed-agents-agents-gérés) it can run your agents for you. It exists to close the gap between chatting with Claude in a browser tab and building Claude into something you ship: a chat answers a question and the thread ends there, while an application sends Claude structured requests, hands it tools, lets it act on real systems, and runs that loop for one user or a million. A different skill from prompting. Think of it as three layers, [primitives](#primitives-primitives), [infrastructure](#infrastructure-infrastructure) and [controls](#controls-pilotage); the shorthand: build with primitives, scale on infrastructure, run with control.
+Anthropic's infrastructure for building with Claude programmatically. Instead of chatting with Claude in a browser, you send structured requests from your code and get structured responses back, with control over every detail: which model to use, how many tokens to spend, what tools Claude can use, and what system instructions it follows. It is made up of a few pieces: a REST API you can call from any language, SDKs for different programming languages, command line interfaces (CLIs), and a console where you manage API keys, monitor usage, deploy managed agents, and test prompts (the [Claude Console](#claude-console-claude-console)). Your API-level access to Claude's models, tools, and infrastructure: it takes you from asking Claude questions to making Claude part of your product, and with [managed agents](#managed-agents-agents-gérés) it can run your agents for you. It exists to close the gap between chatting with Claude in a browser tab and building Claude into something you ship: a chat answers a question and the thread ends there, while an application sends Claude structured requests, hands it tools, lets it act on real systems, and runs that loop for one user or a million. A different skill from prompting. Picture it as three layers stacked on top of each other, [primitives](#primitives-primitives), [infrastructure](#infrastructure-infrastructure) and [controls](#controls-pilotage); the shorthand: build with primitives, scale on infrastructure, run with control.
 
 → [schéma des trois couches](mindmap/three-layers.png)
 
@@ -27,19 +27,19 @@ The console of the [Claude Platform](#claude-platform-claude-platform), where yo
 
 ### Primitives *(Primitives)*
 
-The API building blocks tuned to Claude, the pieces you actually call: the [Messages API](#messages-api-api-messages), tool use, files, web search, code execution, MCP servers, skills. What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
+The API building blocks tuned to Claude, the pieces you actually call from your code: the [Messages API](#messages-api-api-messages), tool use, files, web search, code execution, MCP servers, skills. What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
 
 → [schéma des trois couches](mindmap/three-layers.png)
 
 ### Infrastructure *(Infrastructure)*
 
-What you need to build and scale agentic systems past just a prototype: [managed agents](#managed-agents-agents-gérés), retries, queues, observability (the slide adds prompt caching and memory), the plumbing that keeps things running when one Claude call becomes a thousand. What you scale on. It lives, with [controls](#controls-pilotage), in the [Claude Console](#claude-console-claude-console). One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
+What you need to build and scale agentic systems past a prototype: [managed agents](#managed-agents-agents-gérés), retries, queues, observability (the diagram adds prompt caching and memory), the plumbing that keeps things running when one Claude call becomes a thousand. What you scale on. It lives, with [controls](#controls-pilotage), in the [Claude Console](#claude-console-claude-console). One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
 
 → [schéma des trois couches](mindmap/three-layers.png)
 
 ### Controls *(Pilotage)*
 
-For running agentic systems in production: dashboards, evals (the slide also lists workspaces, usage and spend limits, request logs), the dials your team uses once it's live. What you run with. It lives, with [infrastructure](#infrastructure-infrastructure), in the [Claude Console](#claude-console-claude-console). One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
+The tools for running agentic systems in production, like dashboards and evals (the diagram also lists workspaces, usage and spend limits, request logs), the dials your team uses once it's live. What you run with. It lives, with [infrastructure](#infrastructure-infrastructure), in the [Claude Console](#claude-console-claude-console). One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
 
 → [schéma des trois couches](mindmap/three-layers.png)
 
