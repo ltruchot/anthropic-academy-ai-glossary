@@ -1,0 +1,43 @@
+@startuml agent-loop
+' Render: java -jar plantuml.jar -tsvg agent-loop.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title The agent loop explained\n<size:12><color:#777>La boucle d'agent expliquée</color></size>
+
+rectangle "**Agent**\n<size:11><color:#777>Agent</color></size>\nAn autonomous version of Claude, no human in the middle\n<size:11><color:#777>Une version autonome de Claude, sans humain entre les deux</color></size>\nClaude in a loop: observe, decide, act, repeat\n<size:11><color:#777>Claude dans une boucle : observer, décider, agir, recommencer</color></size>\nAgentic workflows: act, look at the result, decide what's next, keep going\n<size:11><color:#777>Flux de travail agentiques : agir, examiner le résultat, décider de la suite, continuer</color></size>" as AGENT #CFCBDD
+
+rectangle "**Agent loop**\n<size:11><color:#777>Boucle d'agent</color></size>" as LOOP #F9F8F4 {
+  rectangle "**1. Send a message to Claude with tools available**\n<size:11><color:#777>Envoyer un message à Claude, avec des outils à sa disposition</color></size>\nTools array: a name, a description, a JSON schema for the inputs\n<size:11><color:#777>Tableau tools : un nom, une description, un schéma JSON pour les entrées</color></size>" as SEND #BCD3CB
+  rectangle "**2. Claude responds**\n<size:11><color:#777>Claude répond</color></size>\nA final answer, or a request to use a tool you defined\n<size:11><color:#777>Une réponse finale, ou une demande d'utiliser un outil que vous avez défini</color></size>" as RESPOND #BCD3CB
+  rectangle "**3. Your code executes that tool**\n<size:11><color:#777>Votre code exécute cet outil</color></size>\n**4. You send the result back to Claude**\n<size:11><color:#777>Vous renvoyez le résultat à Claude</color></size>" as RUN #BCD3CB
+  rectangle "**Stop reason**\n<size:11><color:#777>Raison d'arrêt</color></size>\ntool_use: run each tool, push the response and tool results into messages\n<size:11><color:#777>tool_use : exécuter chaque outil, ajouter à messages la réponse et les résultats d'outils</color></size>\nend_turn: Claude is done, print the final text and break\n<size:11><color:#777>end_turn : Claude a terminé, afficher le texte final et sortir de la boucle</color></size>" as STOP #E8E2D0
+}
+
+rectangle "**Who owns what**\n<size:11><color:#777>À qui revient quoi</color></size>\nYou own the loop and the tools; Claude owns the reasoning\n<size:11><color:#777>La boucle et les outils vous reviennent ; le raisonnement revient à Claude</color></size>\nManaged agents run this exact loop for you, on Anthropic's infrastructure\n<size:11><color:#777>Les agents gérés font tourner cette même boucle pour vous, sur l'infrastructure d'Anthropic</color></size>" as OWN #E8E2D0
+
+rectangle "**In production**\n<size:11><color:#777>En production</color></size>\nThe same loop shape, from a mock weather demo to a compliance agent\n<size:11><color:#777>La même forme de boucle, d'une démo à la météo simulée à un agent de conformité</color></size>\nOnly the tools and plumbing change\n<size:11><color:#777>Seuls les outils et la plomberie changent</color></size>" as PROD #E8E2D0
+
+' The loop's steps in the course's order; the stop reason decides whether it goes round again.
+AGENT --> LOOP
+SEND --> RESPOND
+RESPOND --> STOP
+STOP --> RUN : tool_use
+RUN --> SEND : 5. repeat until end_turn\n<size:11><color:#777>recommencer jusqu'à end_turn</color></size>
+LOOP --> OWN
+LOOP --> PROD
+
+@enduml

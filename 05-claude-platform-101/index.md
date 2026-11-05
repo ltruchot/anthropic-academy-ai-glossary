@@ -57,9 +57,9 @@ The `system` parameter of a `messages.create` call ([Messages API](#messages-api
 
 ### Managed agents *(Agents gérés)*
 
-When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream.
+When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream. When you don't want to own the [agent loop](#agent-loop-boucle-dagent), managed agents run this exact loop for you on Anthropic's infrastructure.
 
-→ [schéma des trois couches](mindmap/three-layers.png)
+→ [schéma des trois couches](mindmap/three-layers.png) · [schéma de la boucle d'agent](mindmap/agent-loop.png)
 
 ### API key *(Clé API)*
 
@@ -114,3 +114,33 @@ A simple evaluation, set up before you write production code: a set of example i
 What `response.usage` gives you straight back from the API, after a `messages.create` call ([Messages API](#messages-api-api-messages)): the input and output tokens, which is what your bill is calculated on. With the latency, they are how you compare the [model tiers](#model-tiers-gammes-de-modèles) on the same prompt ([evaluation](#evaluation-évaluation)).
 
 → [schéma du choix du modèle](mindmap/choosing-a-model.png)
+
+### Agentic workflows *(Flux de travail agentiques)*
+
+A single API call ([Messages API](#messages-api-api-messages)) only returns one response. If you want to automate a workflow, Claude needs to act, look at the result, decide what's next, and keep going: that pattern is what people mean when they talk about agentic workflows. An [agent](#agent-agent) runs it, in the [agent loop](#agent-loop-boucle-dagent).
+
+→ [schéma de la boucle d'agent](mindmap/agent-loop.png)
+
+### Agent *(Agent)*
+
+An autonomous version of Claude, running both sides of the messaging loop without a human in the middle. An agent receives a task, picks a tool, and executes code in a loop until Claude decides the task is done (the video: "until Claude deems the task done"). Claude in a loop: observe, decide, act, repeat. You own the [loop](#agent-loop-boucle-dagent) and the tools; Claude owns the reasoning. When you don't want to own the loop, [managed agents](#managed-agents-agents-gérés) run this exact loop for you on Anthropic's infrastructure.
+
+→ [schéma de la boucle d'agent](mindmap/agent-loop.png)
+
+### Agent loop *(Boucle d'agent)*
+
+The loop an [agent](#agent-agent) runs. The easiest way to implement it: send a message to Claude with tools available (the [tools array](#tools-array-tableau-tools)); Claude responds with either a final answer or a request to use a tool you defined; your code executes that tool; you send the result back to Claude; repeat until the [stop reason](#stop-reason-raison-darrêt) is `end_turn`. Think of it as a conversation where the turns alternate: the user kicks things off, the agent calls a tool, the tool returns a result, and the agent keeps going until it has an answer. Each iteration sends the messages to Claude ([Messages API](#messages-api-api-messages)) and switches on the response's stop reason. On `end_turn`, Claude is done: print the final text and break. On `tool_use`, find the tool use blocks in the [response content](#response-content-contenu-de-la-réponse), run each one, push the assistant's response and your tool results back into messages, and loop again so Claude can answer. In the course's demo (a fake `get_weather` tool, and "What should I wear in Austin today?": Claude has no way to know the weather on its own), two turns: two API calls, one tool execution, one final answer. That's the entire loop: everything you build with the Claude API is going to be similar to this. The same loop shape scales from a mock weather demo to a production compliance agent (an auto-review endpoint that reads a structural report, looks up the relevant building codes via a tool, and writes risk findings back to the database one by one as it works): only the tools and plumbing change (real tools instead of a mock weather lookup, results streamed back to the UI as server-sent events, findings persisted to a risk-finding table). You own the loop and the tools, Claude owns the reasoning; when you don't want to own the loop, [managed agents](#managed-agents-agents-gérés) run this exact loop for you on Anthropic's infrastructure.
+
+→ [schéma de la boucle d'agent](mindmap/agent-loop.png)
+
+### Stop reason *(Raison d'arrêt)*
+
+The response's stop reason, on which each iteration of the [agent loop](#agent-loop-boucle-dagent) switches. `tool_use`: Claude requests a tool you defined; find the tool use blocks, run each one, push the assistant's response and your tool results back into messages, and loop again. `end_turn`: Claude is done; print the final text and break. The loop repeats until the stop reason is `end_turn`.
+
+→ [schéma de la boucle d'agent](mindmap/agent-loop.png)
+
+### Tools array *(Tableau tools)*
+
+Tells Claude what's available: for each tool, a name, a description, and a JSON schema for the inputs. Sent with the messages on each call of the [agent loop](#agent-loop-boucle-dagent). Claude only requests a tool: your code executes it (in the course's demo, `run_tool` is just a hardcoded lookup; in a real app, this would hit your database, an API, whatever).
+
+→ [schéma de la boucle d'agent](mindmap/agent-loop.png)

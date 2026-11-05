@@ -12,6 +12,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 1. [Schéma des trois couches](#schéma-des-trois-couches)
 2. [Schéma du premier appel API](#schéma-du-premier-appel-api)
 3. [Schéma du choix du modèle](#schéma-du-choix-du-modèle)
+4. [Schéma de la boucle d'agent](#schéma-de-la-boucle-dagent)
 
 ## Schéma des trois couches
 
@@ -30,3 +31,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma du choix du modèle](mindmap/choosing-a-model.png)
 
 *Choisir le bon modèle : les gammes de modèles, choisies avec le paramètre model de l'appel API, et le bon modèle, le moins cher dont vous livreriez la réponse ; les quatre gammes (Fable au-dessus d'Opus ; Opus pour les problèmes difficiles ; Sonnet, le juste milieu, pour le travail quotidien ; Haiku pour le volume) ; l'évaluation, de Haiku vers le haut, et les tokens d'entrée et de sortie sur lesquels la facture est calculée ; dans une vraie application, chaque type de tâche routé vers un modèle, au sein d'un même point de terminaison.* Source : [choosing-a-model.puml](mindmap/choosing-a-model.puml)
+
+## Schéma de la boucle d'agent
+
+![Schéma de la boucle d'agent](mindmap/agent-loop.png)
+
+*La boucle d'agent : l'agent, une version autonome de Claude, sans humain entre les deux (Claude dans une boucle : observer, décider, agir, recommencer ; les flux de travail agentiques) ; les étapes de la boucle (envoyer un message avec des outils à disposition, le tableau tools et ses trois parties ; la réponse de Claude ; votre code exécute l'outil et renvoie le résultat), selon la raison d'arrêt (tool_use : on recommence ; end_turn : Claude a terminé) ; à qui revient quoi (la boucle et les outils à vous, le raisonnement à Claude, ou les agents gérés qui font tourner cette même boucle pour vous) ; la même forme de boucle en production, où seuls les outils et la plomberie changent.* Source : [agent-loop.puml](mindmap/agent-loop.puml)
