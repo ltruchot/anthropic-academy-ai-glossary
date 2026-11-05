@@ -13,6 +13,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 2. [Schéma du premier appel API](#schéma-du-premier-appel-api)
 3. [Schéma du choix du modèle](#schéma-du-choix-du-modèle)
 4. [Schéma de la boucle d'agent](#schéma-de-la-boucle-dagent)
+5. [Schéma de l'utilisation d'outils](#schéma-de-lutilisation-doutils)
 
 ## Schéma des trois couches
 
@@ -37,3 +38,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma de la boucle d'agent](mindmap/agent-loop.png)
 
 *La boucle d'agent : l'agent, une version autonome de Claude, sans humain entre les deux (Claude dans une boucle : observer, décider, agir, recommencer ; les flux de travail agentiques) ; les étapes de la boucle (envoyer un message avec des outils à disposition, le tableau tools et ses trois parties ; la réponse de Claude ; votre code exécute l'outil et renvoie le résultat), selon la raison d'arrêt (tool_use : on recommence ; end_turn : Claude a terminé) ; à qui revient quoi (la boucle et les outils à vous, le raisonnement à Claude, ou les agents gérés qui font tourner cette même boucle pour vous) ; la même forme de boucle en production, où seuls les outils et la plomberie changent.* Source : [agent-loop.puml](mindmap/agent-loop.puml)
+
+## Schéma de l'utilisation d'outils
+
+![Schéma de l'utilisation d'outils](mindmap/tool-use.png)
+
+*L'utilisation d'outils : l'outil, une fonction que vous définissez et mettez à la disposition de Claude, qui lui donne accès à des données et à des actions externes (en pratique, une fine couche autour d'une fonction que vous avez déjà) ; le tableau tools (un nom, une description, un schéma des entrées par outil) et la description d'un outil, que Claude lit pour décider de l'appeler ; les trois temps (Claude demande un appel d'outil, votre code exécute la fonction, le résultat d'outil est renvoyé à Claude, qui continue) ; soit vous exécutez vous-même, soit vous déléguez la boucle : votre propre boucle, le tool runner du SDK, ou les agents gérés, qui délèguent tout l'agent à Anthropic.* Source : [tool-use.puml](mindmap/tool-use.puml)

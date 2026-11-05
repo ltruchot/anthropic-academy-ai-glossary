@@ -1,0 +1,41 @@
+@startuml tool-use
+' Render: java -jar plantuml.jar -tsvg tool-use.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title What is tool use?\n<size:12><color:#777>Qu'est-ce que l'utilisation d'outils ?</color></size>
+
+rectangle "**Tool**\n<size:11><color:#777>Outil</color></size>\nA function you define and expose to Claude\n<size:11><color:#777>Une fonction que vous définissez et mettez à la disposition de Claude</color></size>\nGives Claude access to external data and actions\n<size:11><color:#777>Donne à Claude accès à des données et à des actions externes</color></size>\nIn real life: a thin wrapper around a function you already have\n<size:11><color:#777>En pratique : une fine couche autour d'une fonction que vous avez déjà</color></size>" as TOOL #CFCBDD
+
+rectangle "**Tools array**\n<size:11><color:#777>Tableau tools</color></size>\nEach tool: a name, a description, an input schema\n<size:11><color:#777>Chaque outil : un nom, une description, un schéma des entrées</color></size>\n**Tool description**\n<size:11><color:#777>Description d'un outil</color></size>\nWhat Claude reads to decide whether to call the tool\n<size:11><color:#777>Ce que Claude lit pour décider d'appeler ou non l'outil</color></size>\nVague: the number one reason agents misfire. Be specific\n<size:11><color:#777>Vague : la première cause de ratés des agents. Soyez précis</color></size>" as DEF #E8E2D0
+
+rectangle "**Tool use**\n<size:11><color:#777>Utilisation d'outils</color></size>" as FLOW #F9F8F4 {
+  rectangle "**1. Claude requests a tool call**\n<size:11><color:#777>Claude demande un appel d'outil</color></size>\nstop_reason: tool_use, your signal\n<size:11><color:#777>stop_reason : tool_use, votre signal</color></size>" as REQUEST #BCD3CB
+  rectangle "**2. Your code executes the function**\n<size:11><color:#777>Votre code exécute la fonction</color></size>\nSeveral tools: dispatch on the tool name\n<size:11><color:#777>Plusieurs outils : répartir les appels selon le nom de l'outil</color></size>" as EXECUTE #BCD3CB
+  rectangle "**3. The result goes back to Claude**\n<size:11><color:#777>Le résultat est renvoyé à Claude</color></size>\nA tool result: a user message, a tool_result block tied to the call's id\n<size:11><color:#777>Un résultat d'outil : un message user, un bloc tool_result lié à l'id de l'appel</color></size>" as RESULT #BCD3CB
+}
+
+rectangle "**You execute, or you delegate the loop**\n<size:11><color:#777>Soit vous exécutez vous-même, soit vous déléguez la boucle</color></size>\nYour own loop: while, stop reason switch, tool results pushed by hand\n<size:11><color:#777>Votre propre boucle : while, switch sur la raison d'arrêt, résultats d'outils ajoutés à la main</color></size>\nTool runner (Claude SDK): schemas built from your functions, the loop handled\n<size:11><color:#777>Tool runner (SDK Claude) : schémas tirés de vos fonctions, boucle prise en charge</color></size>\nManaged agents: the whole agent delegated to Anthropic\n<size:11><color:#777>Agents gérés : tout l'agent délégué à Anthropic</color></size>" as SPECTRUM #E8E2D0
+
+' The flow in the course's order; Claude keeps going until it has what it needs.
+TOOL --> DEF
+DEF --> FLOW
+REQUEST --> EXECUTE
+EXECUTE --> RESULT
+RESULT --> REQUEST : Claude keeps going\n<size:11><color:#777>Claude continue</color></size>
+FLOW --> SPECTRUM
+
+@enduml

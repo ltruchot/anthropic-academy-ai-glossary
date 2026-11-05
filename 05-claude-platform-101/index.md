@@ -27,7 +27,7 @@ The console of the [Claude Platform](#claude-platform-claude-platform), where yo
 
 ### Primitives *(Primitives)*
 
-The API building blocks tuned to Claude, the pieces you actually call from your code: the [Messages API](#messages-api-api-messages), tool use, files, web search, code execution, MCP servers, skills. What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
+The API building blocks tuned to Claude, the pieces you actually call from your code: the [Messages API](#messages-api-api-messages), [tool use](#tool-use-utilisation-doutils), files, web search, code execution, MCP servers, skills. What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
 
 → [schéma des trois couches](mindmap/three-layers.png)
 
@@ -57,9 +57,9 @@ The `system` parameter of a `messages.create` call ([Messages API](#messages-api
 
 ### Managed agents *(Agents gérés)*
 
-When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream. When you don't want to own the [agent loop](#agent-loop-boucle-dagent), managed agents run this exact loop for you on Anthropic's infrastructure.
+When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream. When you don't want to own the [agent loop](#agent-loop-boucle-dagent), managed agents run this exact loop for you on Anthropic's infrastructure. In [tool use](#tool-use-utilisation-doutils), you execute, or you delegate the loop (the [tool runner](#tool-runner-tool-runner)): at the far end of that spectrum, managed agents delegate the whole agent to Anthropic.
 
-→ [schéma des trois couches](mindmap/three-layers.png) · [schéma de la boucle d'agent](mindmap/agent-loop.png)
+→ [schéma des trois couches](mindmap/three-layers.png) · [schéma de la boucle d'agent](mindmap/agent-loop.png) · [schéma de l'utilisation d'outils](mindmap/tool-use.png)
 
 ### API key *(Clé API)*
 
@@ -135,12 +135,42 @@ The loop an [agent](#agent-agent) runs. The easiest way to implement it: send a 
 
 ### Stop reason *(Raison d'arrêt)*
 
-The response's stop reason, on which each iteration of the [agent loop](#agent-loop-boucle-dagent) switches. `tool_use`: Claude requests a tool you defined; find the tool use blocks, run each one, push the assistant's response and your tool results back into messages, and loop again. `end_turn`: Claude is done; print the final text and break. The loop repeats until the stop reason is `end_turn`.
+The response's stop reason, on which each iteration of the [agent loop](#agent-loop-boucle-dagent) switches. `tool_use`: Claude requests a tool you defined; find the tool use blocks, run each one, push the assistant's response and your [tool results](#tool-result-résultat-doutil) back into messages, and loop again (`tool_use` is your signal to run the tool and feed the result back as a tool result). `end_turn`: Claude is done; print the final text and break. The loop repeats until the stop reason is `end_turn`.
 
 → [schéma de la boucle d'agent](mindmap/agent-loop.png)
 
 ### Tools array *(Tableau tools)*
 
-Tells Claude what's available: for each tool, a name, a description, and a JSON schema for the inputs. Sent with the messages on each call of the [agent loop](#agent-loop-boucle-dagent). Claude only requests a tool: your code executes it (in the course's demo, `run_tool` is just a hardcoded lookup; in a real app, this would hit your database, an API, whatever).
+Tells Claude what's available: for each tool, a name, a description, and a JSON schema for the inputs. Sent with the messages on each call of the [agent loop](#agent-loop-boucle-dagent). Claude only requests a tool: your code executes it (in the course's demo, `run_tool` is just a hardcoded lookup; in a real app, this would hit your database, an API, whatever). Each [tool](#tool-outil) in it is a JSON schema with three parts: a name, a [description](#tool-description-description-dun-outil), and an input schema; you pass them to Claude in the request body as a tools array. For multiple tools, dispatch on the tool name (a `runTool` function with a switch statement: this block of code is just where your code actually runs); adding a tool means adding it to the array and adding a case to the switch. Claude picks which one to use, in what order (in the course's two-tool weather demo, `get_weather` and `get_forecast`: sometimes in the same turn, sometimes one after the other). The [tool runner](#tool-runner-tool-runner) builds these schemas from your actual functions, so you don't write things twice.
 
-→ [schéma de la boucle d'agent](mindmap/agent-loop.png)
+→ [schéma de la boucle d'agent](mindmap/agent-loop.png) · [schéma de l'utilisation d'outils](mindmap/tool-use.png)
+
+### Tool use *(Utilisation d'outils)*
+
+Your existing workflows rely on a lot of different technologies: project management software, databases, files. Claude can't just check these things itself. Instead, it relies on [tools](#tool-outil), which give Claude access to external data and actions (to your systems). Claude doesn't execute the tool, your code does: Claude requests a tool call, your code executes the function, the result goes back to Claude (a [tool result](#tool-result-résultat-doutil)), and it keeps going. The response's [stop reason](#stop-reason-raison-darrêt) `tool_use` is your signal to run the tool and feed the result back. Tool use is one of the [primitives](#primitives-primitives). You execute (your own [agent loop](#agent-loop-boucle-dagent)), or you delegate the loop (the [tool runner](#tool-runner-tool-runner)); at the far end of that spectrum, [managed agents](#managed-agents-agents-gérés) delegate the whole agent to Anthropic.
+
+→ [schéma de l'utilisation d'outils](mindmap/tool-use.png)
+
+### Tool *(Outil)*
+
+A function you define and expose to Claude. You describe what it does and what inputs it takes, and Claude decides when to call it; Claude doesn't execute the tool, your code does. Tools are JSON schemas with three parts: a name, a [description](#tool-description-description-dun-outil), and an input schema, passed to Claude in the request body as a [tools array](#tools-array-tableau-tools) (the course's example: `lookup_building_code`, "Look up a specific building code section by its identifier", with a `section` input). In real life, your tools wouldn't be hardcoded weather data: they'd wrap actual functions you already have in your application. In the course's compliance review agent, the tools are thin wrappers around `lookup_building_code` and `search_building_code` functions that already exist in the codebase; with the [tool runner](#tool-runner-tool-runner), you pass those functions in directly, and the agent cites specific code sections in every finding it writes.
+
+→ [schéma de l'utilisation d'outils](mindmap/tool-use.png)
+
+### Tool description *(Description d'un outil)*
+
+The part of a [tool](#tool-outil)'s definition that Claude reads to decide whether to call the tool. If you write a vague description, you get bad [tool use](#tool-use-utilisation-doutils): this is the number one reason agents misfire or don't grab the tools that are available to them. Be specific. With multiple tools (the course's demo: "today's weather and the forecast for the next few days" for a three-day trip to Denver), Claude read the descriptions, mapped your prompt to "today's weather" and "the next few days," and picked the right tool for each: that's why your tool descriptions really matter.
+
+→ [schéma de l'utilisation d'outils](mindmap/tool-use.png)
+
+### Tool result *(Résultat d'outil)*
+
+What your code feeds back to Claude after it runs a [tool](#tool-outil) Claude requested (the response's [stop reason](#stop-reason-raison-darrêt) is `tool_use`): a user message containing a `tool_result` block tied to the tool call's id (its `tool_use_id`). And Claude keeps going: you can keep calling tools and returning results to Claude until it has what it needs. In the [agent loop](#agent-loop-boucle-dagent), you push the assistant's response and your tool results back into messages. The [tool runner](#tool-runner-tool-runner) does that push for you.
+
+→ [schéma de l'utilisation d'outils](mindmap/tool-use.png)
+
+### Tool runner *(Tool runner)*
+
+Ships in the Claude SDK for TypeScript, Python, and Ruby. The runner takes your actual functions, reads the types and docs to build the schema for you, and handles the entire tool use / [tool result](#tool-result-résultat-doutil) loop internally: your code shrinks down to describe the tool, send the prompt, wait for the result. No while loop, no stop reason switch, no manually pushing tool results back into messages; no JSON schemas, so you don't write things twice (handwriting a JSON schema for every function is like writing your code twice). `runner.untilDone()` returns the final assistant message once everything has settled (after all the tool ping-pong). Or you can run the [loop](#agent-loop-boucle-dagent) yourself: you execute, or you delegate the loop; at the far end of that spectrum, [managed agents](#managed-agents-agents-gérés) delegate the whole agent to Anthropic.
+
+→ [schéma de l'utilisation d'outils](mindmap/tool-use.png)
