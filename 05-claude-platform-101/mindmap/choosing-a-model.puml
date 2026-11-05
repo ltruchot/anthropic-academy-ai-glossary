@@ -1,0 +1,43 @@
+@startuml choosing-a-model
+' Render: java -jar plantuml.jar -tsvg choosing-a-model.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Choosing the right model\n<size:12><color:#777>Choisir le bon modèle</color></size>
+
+rectangle "**Model tiers**\n<size:11><color:#777>Gammes de modèles</color></size>\nChosen with the model parameter in your API call\n<size:11><color:#777>Choisies avec le paramètre model de votre appel API</color></size>\nThe right model: the cheapest one whose output you'd ship\n<size:11><color:#777>Le bon modèle : le moins cher dont vous livreriez la réponse</color></size>" as MT #BCD3CB
+
+rectangle "**Four tiers**\n<size:11><color:#777>Quatre gammes</color></size>" as TIERS #F9F8F4 {
+  rectangle "Fable\n<size:11><color:#777>Fable</color></size>\nAbove Opus, significantly higher cost\n<size:11><color:#777>Au-dessus d'Opus, d'un coût nettement plus élevé</color></size>\nYour toughest challenges\n<size:11><color:#777>Vos défis les plus ardus</color></size>" as FA #CFCBDD
+  rectangle "Opus\n<size:11><color:#777>Opus</color></size>\nSlowest, highest cost of the three\n<size:11><color:#777>Le plus lent et le plus coûteux des trois</color></size>\nHard problems: deep reasoning, nuanced writing\n<size:11><color:#777>Problèmes difficiles : raisonnement approfondi, rédaction nuancée</color></size>" as OP #CFCBDD
+  rectangle "Sonnet\n<size:11><color:#777>Sonnet</color></size>\nThe sweet spot: intelligence, speed, cost\n<size:11><color:#777>Le juste milieu : intelligence, vitesse, coût</color></size>\nDaily work: most production work\n<size:11><color:#777>Travail quotidien : la plupart des usages en production</color></size>" as SO #CFCBDD
+  rectangle "Haiku\n<size:11><color:#777>Haiku</color></size>\nFastest, lowest cost\n<size:11><color:#777>Le plus rapide, le moins coûteux</color></size>\nVolume: classification, extraction, routing\n<size:11><color:#777>Volume : classification, extraction, routage</color></size>" as HA #CFCBDD
+}
+
+rectangle "**Evaluation**\n<size:11><color:#777>Évaluation</color></size>\nBefore production code: 20 or 30 representative examples\n<size:11><color:#777>Avant le code de production : 20 ou 30 exemples représentatifs</color></size>\nHaiku first, then Sonnet, Opus only when needed\n<size:11><color:#777>Haiku d'abord, puis Sonnet, Opus seulement si nécessaire</color></size>\nInput and output tokens (response.usage): your bill\n<size:11><color:#777>Tokens d'entrée et de sortie (response.usage) : votre facture</color></size>" as EV #E8E2D0
+
+rectangle "**In a real app**\n<size:11><color:#777>Dans une vraie application</color></size>\nDifferent kinds of work to different models, in the same endpoint\n<size:11><color:#777>Différents types de tâches vers différents modèles, au sein d'un même point de terminaison</color></size>\nOne queue, three models, picked per task\n<size:11><color:#777>Une file d'attente, trois modèles, choisis selon la tâche</color></size>" as APP #E8E2D0
+
+' From the most capable to the fastest, top to bottom.
+FA -[hidden]down- OP
+OP -[hidden]down- SO
+SO -[hidden]down- HA
+
+MT --> TIERS
+TIERS --> EV
+TIERS --> APP
+
+@enduml

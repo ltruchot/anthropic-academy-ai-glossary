@@ -11,6 +11,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 
 1. [Schéma des trois couches](#schéma-des-trois-couches)
 2. [Schéma du premier appel API](#schéma-du-premier-appel-api)
+3. [Schéma du choix du modèle](#schéma-du-choix-du-modèle)
 
 ## Schéma des trois couches
 
@@ -23,3 +24,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma du premier appel API](mindmap/first-api-call.png)
 
 *Votre premier appel API : la mise en place (la clé API, obtenue sur platform.claude.com et rangée dans un fichier .env.local, hors du contrôle de version ; le SDK), l'appel à messages.create et ce que vous y indiquez (model, max_tokens, messages aux rôles user ou assistant, system pour le prompt système), le contenu de la réponse (un tableau de blocs : texte, appels d'outils, réflexion), puis le même appel dans un gestionnaire de route, au cœur d'un produit.* Source : [first-api-call.puml](mindmap/first-api-call.puml)
+
+## Schéma du choix du modèle
+
+![Schéma du choix du modèle](mindmap/choosing-a-model.png)
+
+*Choisir le bon modèle : les gammes de modèles, choisies avec le paramètre model de l'appel API, et le bon modèle, le moins cher dont vous livreriez la réponse ; les quatre gammes (Fable au-dessus d'Opus ; Opus pour les problèmes difficiles ; Sonnet, le juste milieu, pour le travail quotidien ; Haiku pour le volume) ; l'évaluation, de Haiku vers le haut, et les tokens d'entrée et de sortie sur lesquels la facture est calculée ; dans une vraie application, chaque type de tâche routé vers un modèle, au sein d'un même point de terminaison.* Source : [choosing-a-model.puml](mindmap/choosing-a-model.puml)
