@@ -1,0 +1,39 @@
+@startuml first-api-call
+' Render: java -jar plantuml.jar -tsvg first-api-call.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Your first API call\n<size:12><color:#777>Votre premier appel API</color></size>
+
+rectangle "**Get set up**\n<size:11><color:#777>Mise en place</color></size>" as SETUP #F9F8F4 {
+  rectangle "**API key**\n<size:11><color:#777>Clé API</color></size>\nFrom platform.claude.com (credits purchased beforehand)\n<size:11><color:#777>Obtenue sur platform.claude.com (crédits achetés au préalable)</color></size>\nIn a .env.local file, out of version control\n<size:11><color:#777>Dans un fichier .env.local, hors du contrôle de version</color></size>\nHardcoded in source files, keys end up leaked on GitHub\n<size:11><color:#777>Codées en dur dans les fichiers source, les clés se retrouvent divulguées sur GitHub</color></size>" as KEY #CFCBDD
+  rectangle "**SDK**\n<size:11><color:#777>SDK</color></size>\nnpm install @anthropic-ai/sdk" as SDK #CFCBDD
+}
+
+rectangle "**messages.create**\n<size:11><color:#777>messages.create</color></size>\nEvery API call goes through it\n<size:11><color:#777>Tout appel API passe par cette fonction</color></size>\nmodel: which Claude model handles the request\n<size:11><color:#777>model : le modèle Claude qui traite la requête</color></size>\nmax_tokens: a cap on how long the response can be\n<size:11><color:#777>max_tokens : la longueur maximale de la réponse</color></size>\nmessages: user or assistant roles, like a conversation\n<size:11><color:#777>messages : des rôles user ou assistant, comme une conversation</color></size>\nsystem: the system prompt, shapes Claude's behavior\n<size:11><color:#777>system : le prompt système, qui façonne le comportement de Claude</color></size>" as CALL #BCD3CB
+
+rectangle "**Response content**\n<size:11><color:#777>Contenu de la réponse</color></size>\nAn array of blocks, not a string\n<size:11><color:#777>Un tableau de blocs, pas une chaîne de caractères</color></size>\nText, tool calls, thinking\n<size:11><color:#777>Texte, appels d'outils, réflexion</color></size>\nLoop and check each block's type\n<size:11><color:#777>Parcourir les blocs en vérifiant le type de chacun</color></size>" as RESP #E8E2D0
+
+rectangle "**From script to product**\n<size:11><color:#777>Du script au produit</color></size>\nThe same call, wrapped in a route handler\n<size:11><color:#777>Le même appel, encapsulé dans un gestionnaire de route</color></size>\nA summarize endpoint\n<size:11><color:#777>Un point de terminaison de résumé</color></size>" as PROD #E8E2D0
+
+' Get set up, in the course's order: the key, then the SDK.
+KEY -[hidden]right- SDK
+
+SETUP --> CALL
+CALL --> RESP
+CALL --> PROD
+
+@enduml
