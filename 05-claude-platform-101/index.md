@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, glossaire]
 created: 2026-11-03
-updated: 2026-11-05
+updated: 2026-11-06
 ---
 # Glossaire et mindmap Anthropic
 
@@ -69,7 +69,7 @@ What you grab first, from platform.claude.com, before your first `messages.creat
 
 ### Response content *(Contenu de la réponse)*
 
-What a `messages.create` call ([Messages API](#messages-api-api-messages)) returns in its `content`: an array of blocks, not a string. For a basic text reply there's usually just one block of type `text`, but Claude can return multiple blocks (text, tool calls, thinking), so you always loop and check each block's type.
+What a `messages.create` call ([Messages API](#messages-api-api-messages)) returns in its `content`: an array of blocks, not a string. For a basic text reply there's usually just one block of type `text`, but Claude can return multiple blocks (text, tool calls, [thinking](#extended-thinking-réflexion-étendue)), so you always loop and check each block's type.
 
 → [schéma du premier appel API](mindmap/first-api-call.png)
 
@@ -174,3 +174,21 @@ What your code feeds back to Claude after it runs a [tool](#tool-outil) Claude r
 Ships in the Claude SDK for TypeScript, Python, and Ruby. The runner takes your actual functions, reads the types and docs to build the schema for you, and handles the entire tool use / [tool result](#tool-result-résultat-doutil) loop internally: your code shrinks down to describe the tool, send the prompt, wait for the result. No while loop, no stop reason switch, no manually pushing tool results back into messages; no JSON schemas, so you don't write things twice (handwriting a JSON schema for every function is like writing your code twice). `runner.untilDone()` returns the final assistant message once everything has settled (after all the tool ping-pong). Or you can run the [loop](#agent-loop-boucle-dagent) yourself: you execute, or you delegate the loop; at the far end of that spectrum, [managed agents](#managed-agents-agents-gérés) delegate the whole agent to Anthropic.
 
 → [schéma de l'utilisation d'outils](mindmap/tool-use.png)
+
+### Extended thinking *(Réflexion étendue)*
+
+A feature for tasks that need more than a quick answer: Claude can work through a problem before responding. The failure mode it avoids: ask a model a multi-step question and have it answer immediately, and it can confidently get it wrong. Extended thinking lets Claude reason step by step before producing a final response: when it's enabled, Claude generates internal reasoning tokens, often called a chain of thought, and then delivers the answer. The reasoning isn't hidden: you can see it in the response alongside the final text (the course's demo, an [agent loop](#agent-loop-boucle-dagent) with one weather [tool](#tool-outil) planning a road trip out of San Francisco: thinking blocks where Claude works through the trade-offs, followed by tool calls to check each city, and finally a text block with the actual recommendation). With Opus 4.7, thinking is [adaptive](#adaptive-thinking-réflexion-adaptative), its depth dialed with the [effort parameter](#effort-parameter-paramètre-effort). It helps with math, multi-step logic, code debugging, regulatory analysis, and anything that involves trade-offs or comparing options (the slide: complex comparisons). Skip it for simple classification, extraction, or boilerplate: for those tasks it just adds latency and cost without actually improving the results. In a production app, this is the difference between an agent that finds problems one at a time and an agent that connects them: in the course's compliance review app, toggling adaptive thinking on the auto-review call lets the agent reason across report sections, catching a wind load spec in section three that conflicts with the material spec elsewhere in the document.
+
+→ [schéma de la réflexion](mindmap/thinking.png)
+
+### Adaptive thinking *(Réflexion adaptative)*
+
+How [extended thinking](#extended-thinking-réflexion-étendue) works with Opus 4.7: you don't pick a token budget. You just turn it on, with `thinking: {"type": "adaptive"}`, and Claude decides dynamically when to think and how much. To control how much Claude thinks, use the [effort parameter](#effort-parameter-paramètre-effort).
+
+→ [schéma de la réflexion](mindmap/thinking.png)
+
+### Effort parameter *(Paramètre effort)*
+
+What you use to control how much Claude thinks with [adaptive thinking](#adaptive-thinking-réflexion-adaptative): dial the depth with it. One gotcha: it goes inside `output_config`, not next to the `thinking` block (`output_config={"effort": "high"}`). The levels are `low`, `medium`, `high` (the default), `xhigh` (extra high), and `max`.
+
+→ [schéma de la réflexion](mindmap/thinking.png)

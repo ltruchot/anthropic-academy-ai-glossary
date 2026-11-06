@@ -1,0 +1,38 @@
+@startuml thinking
+' Render: java -jar plantuml.jar -tsvg thinking.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title What is thinking?\n<size:12><color:#777>Qu'est-ce que la réflexion ?</color></size>
+
+rectangle "**Extended thinking**\n<size:11><color:#777>Réflexion étendue</color></size>\nClaude reasons step by step before its final response\n<size:11><color:#777>Claude raisonne étape par étape avant sa réponse finale</color></size>\nInternal reasoning tokens: a chain of thought\n<size:11><color:#777>Des tokens de raisonnement internes : une chaîne de pensée</color></size>\nThe reasoning is visible, alongside the final text\n<size:11><color:#777>Le raisonnement est visible, avec le texte final</color></size>" as EXT #CFCBDD
+
+rectangle "**With Opus 4.7**\n<size:11><color:#777>Avec Opus 4.7</color></size>" as OPUS #F9F8F4 {
+  rectangle "**Adaptive thinking**\n<size:11><color:#777>Réflexion adaptative</color></size>\nthinking: {<U+0022>type<U+0022>: <U+0022>adaptive<U+0022>}\nNo token budget: Claude decides when and how much\n<size:11><color:#777>Pas de budget de tokens : Claude décide quand, et dans quelle mesure</color></size>" as ADAPT #BCD3CB
+  rectangle "**Effort parameter**\n<size:11><color:#777>Paramètre effort</color></size>\nInside output_config, not next to the thinking block\n<size:11><color:#777>Dans output_config, et non à côté du bloc thinking</color></size>\nlow, medium, high (default), xhigh, max" as EFFORT #BCD3CB
+}
+
+rectangle "**Use it**\n<size:11><color:#777>L'utiliser</color></size>\nMath, multi-step logic, code debugging, regulatory analysis\n<size:11><color:#777>Mathématiques, logique en plusieurs étapes, débogage de code, analyse réglementaire</color></size>\nTrade-offs or comparing options\n<size:11><color:#777>Des compromis ou une comparaison d'options</color></size>\nIn production: an agent that connects problems\n<size:11><color:#777>En production : un agent qui relie les problèmes entre eux</color></size>" as USE #E8E2D0
+
+rectangle "**Skip it**\n<size:11><color:#777>La laisser de côté</color></size>\nSimple classification, extraction, boilerplate\n<size:11><color:#777>Classification simple, extraction, code répétitif</color></size>\nIt just adds latency and cost\n<size:11><color:#777>Elle ne fait qu'ajouter de la latence et du coût</color></size>" as SKIP #E8E2D0
+
+' Extended thinking, then how Opus 4.7 runs it, then when it helps and when to skip it.
+EXT --> OPUS
+ADAPT --> EFFORT : dial the depth\n<size:11><color:#777>régler la profondeur</color></size>
+EXT --> USE
+EXT --> SKIP
+
+@enduml

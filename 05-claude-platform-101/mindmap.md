@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, mindmap]
 created: 2026-11-03
-updated: 2026-11-05
+updated: 2026-11-06
 ---
 # Schémas du cours « Claude Platform 101 »
 
@@ -14,6 +14,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 3. [Schéma du choix du modèle](#schéma-du-choix-du-modèle)
 4. [Schéma de la boucle d'agent](#schéma-de-la-boucle-dagent)
 5. [Schéma de l'utilisation d'outils](#schéma-de-lutilisation-doutils)
+6. [Schéma de la réflexion](#schéma-de-la-réflexion)
 
 ## Schéma des trois couches
 
@@ -44,3 +45,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma de l'utilisation d'outils](mindmap/tool-use.png)
 
 *L'utilisation d'outils : l'outil, une fonction que vous définissez et mettez à la disposition de Claude, qui lui donne accès à des données et à des actions externes (en pratique, une fine couche autour d'une fonction que vous avez déjà) ; le tableau tools (un nom, une description, un schéma des entrées par outil) et la description d'un outil, que Claude lit pour décider de l'appeler ; les trois temps (Claude demande un appel d'outil, votre code exécute la fonction, le résultat d'outil est renvoyé à Claude, qui continue) ; soit vous exécutez vous-même, soit vous déléguez la boucle : votre propre boucle, le tool runner du SDK, ou les agents gérés, qui délèguent tout l'agent à Anthropic.* Source : [tool-use.puml](mindmap/tool-use.puml)
+
+## Schéma de la réflexion
+
+![Schéma de la réflexion](mindmap/thinking.png)
+
+*La réflexion étendue : Claude raisonne étape par étape avant sa réponse finale, avec des tokens de raisonnement internes (une chaîne de pensée), et le raisonnement est visible dans la réponse, avec le texte final ; avec Opus 4.7, la réflexion adaptative (thinking: {"type": "adaptive"}, pas de budget de tokens : Claude décide quand réfléchir, et dans quelle mesure) et le paramètre effort, dans output_config, qui en règle la profondeur (low, medium, high par défaut, xhigh, max) ; quand l'utiliser (les mathématiques, la logique en plusieurs étapes, le débogage de code, l'analyse réglementaire, les compromis ; en production, un agent qui relie les problèmes entre eux) et quand la laisser de côté (la classification simple, l'extraction, le code répétitif : elle ne fait qu'ajouter de la latence et du coût).* Source : [thinking.puml](mindmap/thinking.puml)
