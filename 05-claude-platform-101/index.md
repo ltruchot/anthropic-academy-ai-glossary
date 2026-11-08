@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, glossaire]
 created: 2026-11-03
-updated: 2026-11-06
+updated: 2026-11-08
 ---
 # Glossaire et mindmap Anthropic
 
@@ -27,7 +27,7 @@ The console of the [Claude Platform](#claude-platform-claude-platform), where yo
 
 ### Primitives *(Primitives)*
 
-The API building blocks tuned to Claude, the pieces you actually call from your code: the [Messages API](#messages-api-api-messages), [tool use](#tool-use-utilisation-doutils), files, web search, code execution, MCP servers, skills. What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
+The API building blocks tuned to Claude, the pieces you actually call from your code: the [Messages API](#messages-api-api-messages), [tool use](#tool-use-utilisation-doutils), files, [web search, code execution](#server-tools-outils-serveur), MCP servers, skills. What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
 
 → [schéma des trois couches](mindmap/three-layers.png)
 
@@ -192,3 +192,21 @@ How [extended thinking](#extended-thinking-réflexion-étendue) works with Opus 
 What you use to control how much Claude thinks with [adaptive thinking](#adaptive-thinking-réflexion-adaptative): dial the depth with it. One gotcha: it goes inside `output_config`, not next to the `thinking` block (`output_config={"effort": "high"}`). The levels are `low`, `medium`, `high` (the default), `xhigh` (extra high), and `max`.
 
 → [schéma de la réflexion](mindmap/thinking.png)
+
+### Built-in tools *(Outils intégrés)*
+
+You can build your own custom [tools](#tool-outil), but some capabilities are common enough that Anthropic ships them pre-built. You don't write the code. You don't host the sandbox. You just declare the tool, and Anthropic runs it. Two categories: [server tools](#server-tools-outils-serveur), declared by you and run by Anthropic, and [client tools](#client-tools-outils-client), which run where your code runs. In a production app, this is the shortest path to features that would otherwise take weeks: in the course's proposal review app, web search can power a fact-check endpoint that verifies every numeric and regulatory claim in a draft against the live web. One reminder, though: just because something is validated on the internet doesn't mean it's true. Always double-check Claude's work. The "hosted by Anthropic" idea scales all the way up: [managed agents](#managed-agents-agents-gérés) apply it to the entire agent, not just one tool.
+
+→ [schéma des outils intégrés](mindmap/built-in-tools.png)
+
+### Server tools *(Outils serveur)*
+
+Built-in [tools](#tool-outil) declared by you, run by Anthropic: they run on Anthropic's infrastructure, and you don't execute these, Anthropic does. They are declared in your [tools array](#tools-array-tableau-tools) (`{"type": "web_search_20260209", "name": "web_search"}`, `{"type": "code_execution_20260120", "name": "code_execution"}`). That means you don't need an [agent loop](#agent-loop-boucle-dagent) for these calls: no switch on the [stop reason](#stop-reason-raison-darrêt), no pushing [tool results](#tool-result-résultat-doutil) back. Claude calls the tools on its own, and the result comes back inside the same response, with new block types: a `server_tool_use` block for the tool call, a code execution tool result block for the output, plus the regular text blocks. The main ones are web search (searches the internet and returns results with citations), code execution (writes and runs Python in a sandbox) and web fetch (retrieves full content from URLs). In the course's demo, two `messages.create` calls: for web search, Claude's tool call printed, then a one-sentence answer with the search citations folded in; for code execution, the Python Claude wrote, the stdout from the sandbox running it, and a final text answer. No search crawler to spin up, no Python sandbox to run: two tools declared, both for free. The other category: [client tools](#client-tools-outils-client).
+
+→ [schéma des outils intégrés](mindmap/built-in-tools.png)
+
+### Client tools *(Outils client)*
+
+The other category of [built-in tools](#built-in-tools-outils-intégrés): they run where your code runs. They're shipped in the Claude SDK, so you don't have to define the schema yourself. Two examples: memory (Claude reads and writes memory across sessions) and bash (a persistent bash shell so Claude can execute commands). They have the same shape as a custom [tool](#tool-outil), but the SDK gives you the schema and a sensible runner (the Anthropic docs table of built-in tools lists memory and bash as client tools, alongside server tools like web fetch and code execution). Unlike [server tools](#server-tools-outils-serveur), which Anthropic runs, your code runs these.
+
+→ [schéma des outils intégrés](mindmap/built-in-tools.png)

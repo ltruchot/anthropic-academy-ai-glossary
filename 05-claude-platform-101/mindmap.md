@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, mindmap]
 created: 2026-11-03
-updated: 2026-11-06
+updated: 2026-11-08
 ---
 # Schémas du cours « Claude Platform 101 »
 
@@ -15,6 +15,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 4. [Schéma de la boucle d'agent](#schéma-de-la-boucle-dagent)
 5. [Schéma de l'utilisation d'outils](#schéma-de-lutilisation-doutils)
 6. [Schéma de la réflexion](#schéma-de-la-réflexion)
+7. [Schéma des outils intégrés](#schéma-des-outils-intégrés)
 
 ## Schéma des trois couches
 
@@ -51,3 +52,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma de la réflexion](mindmap/thinking.png)
 
 *La réflexion étendue : Claude raisonne étape par étape avant sa réponse finale, avec des tokens de raisonnement internes (une chaîne de pensée), et le raisonnement est visible dans la réponse, avec le texte final ; avec Opus 4.7, la réflexion adaptative (thinking: {"type": "adaptive"}, pas de budget de tokens : Claude décide quand réfléchir, et dans quelle mesure) et le paramètre effort, dans output_config, qui en règle la profondeur (low, medium, high par défaut, xhigh, max) ; quand l'utiliser (les mathématiques, la logique en plusieurs étapes, le débogage de code, l'analyse réglementaire, les compromis ; en production, un agent qui relie les problèmes entre eux) et quand la laisser de côté (la classification simple, l'extraction, le code répétitif : elle ne fait qu'ajouter de la latence et du coût).* Source : [thinking.puml](mindmap/thinking.puml)
+
+## Schéma des outils intégrés
+
+![Schéma des outils intégrés](mindmap/built-in-tools.png)
+
+*Les outils intégrés : des capacités qu'Anthropic fournit prêtes à l'emploi (vous n'écrivez pas le code, vous n'hébergez pas l'environnement isolé : vous déclarez l'outil) ; les outils serveur, déclarés dans votre tableau tools et exécutés par Anthropic (la recherche web, l'exécution de code, la récupération web), sans boucle d'agent : le résultat revient dans la même réponse, avec un bloc server_tool_use ; les outils client, qui s'exécutent là où s'exécute votre code (la mémoire, bash), avec le schéma et un runner fournis par le SDK ; l'idée « hébergé par Anthropic » va jusqu'au bout, avec les agents gérés qui l'appliquent à tout l'agent.* Source : [built-in-tools.puml](mindmap/built-in-tools.puml)

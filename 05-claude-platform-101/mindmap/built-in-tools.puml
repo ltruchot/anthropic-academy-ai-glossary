@@ -1,0 +1,43 @@
+@startuml built-in-tools
+' Render: java -jar plantuml.jar -tsvg built-in-tools.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Built-in tools\n<size:12><color:#777>Outils intégrés</color></size>
+
+rectangle "**Built-in tools**\n<size:11><color:#777>Outils intégrés</color></size>\nAnthropic ships them pre-built\n<size:11><color:#777>Anthropic les fournit prêts à l'emploi</color></size>\nYou don't write the code, you don't host the sandbox: you declare the tool\n<size:11><color:#777>Vous n'écrivez pas le code, vous n'hébergez pas l'environnement isolé : vous déclarez l'outil</color></size>" as BUILTIN #CFCBDD
+
+' Side by side, declared last to first (smetana reverses their order): client tools, then server tools.
+rectangle "**Client tools**\n<size:11><color:#777>Outils client</color></size>\nRun where your code runs\n<size:11><color:#777>S'exécutent là où s'exécute votre code</color></size>" as CLIENT #F9F8F4 {
+  rectangle "**Memory**\n<size:11><color:#777>La mémoire</color></size>\nClaude reads and writes memory across sessions\n<size:11><color:#777>Claude lit et écrit la mémoire d'une session à l'autre</color></size>" as MEMORY #BCD3CB
+  rectangle "**Bash**\n<size:11><color:#777>Bash</color></size>\nA persistent bash shell so Claude can execute commands\n<size:11><color:#777>Un shell bash persistant, pour que Claude puisse exécuter des commandes</color></size>" as BASH #BCD3CB
+  rectangle "**Shipped in the Claude SDK**\n<size:11><color:#777>Inclus dans le SDK Claude</color></size>\nThe SDK gives you the schema and a sensible runner\n<size:11><color:#777>Le SDK vous fournit le schéma et un runner adapté</color></size>" as SDK #E8E2D0
+}
+
+rectangle "**Server tools**\n<size:11><color:#777>Outils serveur</color></size>\nDeclared in your tools array, run by Anthropic\n<size:11><color:#777>Déclarés dans votre tableau tools, exécutés par Anthropic</color></size>" as SERVER #F9F8F4 {
+  rectangle "**Web search**\n<size:11><color:#777>La recherche web</color></size>\nSearches the internet, returns results with citations\n<size:11><color:#777>Cherche sur Internet, renvoie des résultats accompagnés de références</color></size>" as SEARCH #BCD3CB
+  rectangle "**Code execution**\n<size:11><color:#777>L'exécution de code</color></size>\nWrites and runs Python in a sandbox\n<size:11><color:#777>Écrit et exécute du Python dans un environnement isolé</color></size>" as CODE #BCD3CB
+  rectangle "**Web fetch**\n<size:11><color:#777>La récupération web</color></size>\nRetrieves full content from URLs\n<size:11><color:#777>Récupère le contenu complet d'URL</color></size>" as FETCH #BCD3CB
+  rectangle "**No agent loop**\n<size:11><color:#777>Pas de boucle d'agent</color></size>\nThe result comes back inside the same response: a server_tool_use block, a tool result block, text blocks\n<size:11><color:#777>Le résultat revient dans la même réponse : un bloc server_tool_use, un bloc de résultat d'outil, des blocs de texte</color></size>" as RESPONSE #E8E2D0
+}
+
+rectangle "**Hosted by Anthropic, all the way up**\n<size:11><color:#777>Hébergé par Anthropic, jusqu'au bout</color></size>\nManaged agents apply it to the entire agent, not just one tool\n<size:11><color:#777>Les agents gérés l'appliquent à tout l'agent, et pas à un seul outil</color></size>" as MANAGED #E8E2D0
+
+BUILTIN --> SERVER
+BUILTIN --> CLIENT
+SERVER --> MANAGED
+
+@enduml
