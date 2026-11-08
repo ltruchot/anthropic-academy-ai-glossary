@@ -27,7 +27,7 @@ The console of the [Claude Platform](#claude-platform-claude-platform), where yo
 
 ### Primitives *(Primitives)*
 
-The API building blocks tuned to Claude, the pieces you actually call from your code: the [Messages API](#messages-api-api-messages), [tool use](#tool-use-utilisation-doutils), files, [web search, code execution](#server-tools-outils-serveur), MCP servers, skills. What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
+The API building blocks tuned to Claude, the pieces you actually call from your code: the [Messages API](#messages-api-api-messages), [tool use](#tool-use-utilisation-doutils), files, [web search, code execution](#server-tools-outils-serveur), MCP servers, [skills](#skills-skills). What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
 
 → [schéma des trois couches](mindmap/three-layers.png)
 
@@ -210,3 +210,9 @@ Built-in [tools](#tool-outil) declared by you, run by Anthropic: they run on Ant
 The other category of [built-in tools](#built-in-tools-outils-intégrés): they run where your code runs. They're shipped in the Claude SDK, so you don't have to define the schema yourself. Two examples: memory (Claude reads and writes memory across sessions) and bash (a persistent bash shell so Claude can execute commands). They have the same shape as a custom [tool](#tool-outil), but the SDK gives you the schema and a sensible runner (the Anthropic docs table of built-in tools lists memory and bash as client tools, alongside server tools like web fetch and code execution). Unlike [server tools](#server-tools-outils-serveur), which Anthropic runs, your code runs these.
 
 → [schéma des outils intégrés](mindmap/built-in-tools.png)
+
+### Skills *(Skills)*
+
+Folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. At the core of every Skill is a SKILL.md file, a packaged set of instructions you upload once and then attach to any messages.create call: you're teaching Claude how you do something (your status report format, your review checklist, your release notes), and Claude reads the Skill, follows the procedure, and produces output in your shape. Where [tools](#tool-outil) connect Claude to data and actions (Claude calls the tool, and something else runs), Skills teach Claude a procedure: a playbook Claude reads and follows, which sometimes means running bundled scripts itself. Tools are about what Claude can do, Skills are about how you want it done. Skills load progressively: only the name and description load at startup, and the full Skill loads into context when the agent decides it is relevant, which keeps context lean even when many Skills are available. A Skill is uploaded once to your workspace (on the Claude Platform, or programmatically with client.beta.skills.create) and then referenced by ID; it attaches to a request through container.skills, a list whose entries name a skill_id and version, so several Skills can be layered onto one call. Skills often pair well with [code execution](#server-tools-outils-serveur), because a Skill's procedure can do real work, like running scripts in a terminal. As of the course's video, Skills are still a beta feature, called through client.beta.messages.create. In production, this is how a team standardizes output across an entire feature, with the same structure, tone and sections for everyone and no template copy-pasted into a prompt. One of the building blocks of the [primitives](#primitives-primitives).
+
+→ [schéma des Skills](mindmap/skills.png)

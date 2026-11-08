@@ -16,6 +16,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 5. [Schéma de l'utilisation d'outils](#schéma-de-lutilisation-doutils)
 6. [Schéma de la réflexion](#schéma-de-la-réflexion)
 7. [Schéma des outils intégrés](#schéma-des-outils-intégrés)
+8. [Schéma des Skills](#schéma-des-skills)
 
 ## Schéma des trois couches
 
@@ -58,3 +59,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma des outils intégrés](mindmap/built-in-tools.png)
 
 *Les outils intégrés : des capacités qu'Anthropic fournit prêtes à l'emploi (vous n'écrivez pas le code, vous n'hébergez pas l'environnement isolé : vous déclarez l'outil) ; les outils serveur, déclarés dans votre tableau tools et exécutés par Anthropic (la recherche web, l'exécution de code, la récupération web), sans boucle d'agent : le résultat revient dans la même réponse, avec un bloc server_tool_use ; les outils client, qui s'exécutent là où s'exécute votre code (la mémoire, bash), avec le schéma et un runner fournis par le SDK ; l'idée « hébergé par Anthropic » va jusqu'au bout, avec les agents gérés qui l'appliquent à tout l'agent.* Source : [built-in-tools.puml](mindmap/built-in-tools.puml)
+
+## Schéma des Skills
+
+![Schéma des Skills](mindmap/skills.png)
+
+*Les Skills : des dossiers d'instructions, de scripts et de ressources que Claude charge dynamiquement, au cœur desquels se trouve un fichier SKILL.md, importé une seule fois dans votre espace de travail puis référencé par ID ; les outils contre les Skills (les outils connectent Claude à des données et à des actions, ce que Claude peut faire ; les Skills lui apprennent une procédure, la façon dont vous voulez que ce soit fait) ; le chargement progressif (au démarrage, seuls le nom et la description ; le Skill complet quand l'agent le juge pertinent) ; l'attache à une requête via container.skills, une liste, donc plusieurs Skills sur un même appel, souvent avec l'exécution de code.* Source : [skills.puml](mindmap/skills.puml)

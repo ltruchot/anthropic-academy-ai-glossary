@@ -1,0 +1,39 @@
+@startuml skills
+' Render: java -jar plantuml.jar -tsvg skills.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Skills\n<size:12><color:#777>Skills</color></size>
+
+rectangle "**Skills**\n<size:11><color:#777>Skills</color></size>\nFolders of instructions, scripts, and resources Claude loads dynamically\n<size:11><color:#777>Des dossiers d'instructions, de scripts et de ressources que Claude charge dynamiquement</color></size>\nAt the core: a SKILL.md file\n<size:11><color:#777>Au cœur : un fichier SKILL.md</color></size>" as SKILLS #CFCBDD
+
+' Side by side, declared last to first (smetana reverses their order): Skills, then tools.
+rectangle "**Skills**\n<size:11><color:#777>Les Skills</color></size>\nTeach a procedure: how you want it done\n<size:11><color:#777>Apprennent une procédure : la façon dont vous voulez que ce soit fait</color></size>" as VSSKILLS #BCD3CB
+rectangle "**Tools**\n<size:11><color:#777>Les outils</color></size>\nConnect Claude to data and actions: what Claude can do\n<size:11><color:#777>Connectent Claude à des données et à des actions : ce que Claude peut faire</color></size>" as VSTOOLS #F9F8F4
+
+rectangle "**Progressive loading**\n<size:11><color:#777>Chargement progressif</color></size>\nAt startup: only the name and description\n<size:11><color:#777>Au démarrage : seuls le nom et la description</color></size>\nThe full Skill loads when the agent decides it is relevant\n<size:11><color:#777>Le Skill complet se charge quand l'agent le juge pertinent</color></size>" as LOAD #E8E2D0
+
+rectangle "**Upload once, attach to any call**\n<size:11><color:#777>Importer une fois, attacher à tout appel</color></size>\nUploaded once to your workspace, referenced by ID\n<size:11><color:#777>Importé une seule fois dans votre espace de travail, référencé par ID</color></size>\ncontainer.skills: a list, so Skills can be layered\n<size:11><color:#777>container.skills : une liste, donc des Skills superposables</color></size>" as ATTACH #E8E2D0
+
+rectangle "**Pairs well with code execution**\n<size:11><color:#777>S'associe bien à l'exécution de code</color></size>\nA procedure can run scripts in a terminal\n<size:11><color:#777>Une procédure peut exécuter des scripts dans un terminal</color></size>" as CODE #BCD3CB
+
+SKILLS --> VSTOOLS
+SKILLS --> VSSKILLS
+SKILLS --> LOAD
+SKILLS --> ATTACH
+ATTACH --> CODE
+
+@enduml
