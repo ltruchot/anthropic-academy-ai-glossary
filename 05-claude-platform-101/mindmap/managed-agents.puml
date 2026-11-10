@@ -1,0 +1,45 @@
+@startuml managed-agents
+' Render: java -jar plantuml.jar -tsvg managed-agents.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Managed agents\n<size:12><color:#777>Agents gérés</color></size>
+
+rectangle "**Managed agents**\n<size:11><color:#777>Agents gérés</color></size>\nA suite of APIs for building and deploying agents at scale\n<size:11><color:#777>Une suite d'API pour créer et déployer des agents à grande échelle</color></size>\nThe agent loop, hosted on Anthropic's infrastructure\n<size:11><color:#777>La boucle d'agent, hébergée sur l'infrastructure d'Anthropic</color></size>\nAn isolated container: file system, bash, web search\n<size:11><color:#777>Un conteneur isolé : système de fichiers, bash, recherche web</color></size>" as MA #CFCBDD
+
+rectangle "**Agents**\n<size:11><color:#777>Les agents</color></size>\nSpecific tools, personas, and capabilities\n<size:11><color:#777>Des outils, des personas et des capacités spécifiques</color></size>" as AGENTS #E8E2D0
+
+rectangle "**Environments**\n<size:11><color:#777>Les environnements</color></size>\nSandboxes with the right packages and network controls\n<size:11><color:#777>Des bacs à sable avec les bons paquets et contrôles réseau</color></size>" as ENVS #E8E2D0
+
+rectangle "**Sessions**\n<size:11><color:#777>Les sessions</color></size>\nRuns you fire off from your own application\n<size:11><color:#777>Des exécutions lancées depuis votre application</color></size>\nIn parallel, two containers; tool calls streamed in real time\n<size:11><color:#777>En parallèle, deux conteneurs ; appels d'outils diffusés en temps réel</color></size>" as SESSIONS #E8E2D0
+
+rectangle "**Tools and MCP**\n<size:11><color:#777>Les outils et MCP</color></size>\nCustom tools on your back end; Slack and Asana through MCP\n<size:11><color:#777>Outils personnalisés sur votre back end ; Slack et Asana via MCP</color></size>" as TOOLS #BCD3CB
+
+rectangle "**Outcomes**\n<size:11><color:#777>Les résultats attendus</color></size>\nA rubric defines what done looks like\n<size:11><color:#777>Une grille d'évaluation définit à quoi ressemble « terminé »</color></size>\nA separate grader, in its own context window, checks the output; Claude iterates\n<size:11><color:#777>Un évaluateur distinct, dans sa propre fenêtre de contexte, vérifie la sortie ; Claude itère</color></size>" as OUTCOMES #BCD3CB
+
+rectangle "**Memory**\n<size:11><color:#777>La mémoire</color></size>\nA store read before starting, written to when done\n<size:11><color:#777>Un magasin lu avant de démarrer, où l'on écrit une fois terminé</color></size>" as MEMORY #BCD3CB
+
+rectangle "**Multi-agent coordination**\n<size:11><color:#777>La coordination multi-agents</color></size>\nA coordinator delegates to specialists, each in its own context window\n<size:11><color:#777>Un coordinateur délègue à des spécialistes, chacun dans sa fenêtre de contexte</color></size>\nThe permissions policy: sensitive actions wait for a human\n<size:11><color:#777>La politique d'autorisation : les actions sensibles attendent un humain</color></size>" as MULTI #F9F8F4
+
+MA --> AGENTS
+MA --> ENVS
+MA --> SESSIONS
+AGENTS --> TOOLS
+SESSIONS --> OUTCOMES
+SESSIONS --> MEMORY
+SESSIONS --> MULTI
+
+@enduml

@@ -57,9 +57,9 @@ The `system` parameter of a `messages.create` call ([Messages API](#messages-api
 
 ### Managed agents *(Agents gérés)*
 
-When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream. When you don't want to own the [agent loop](#agent-loop-boucle-dagent), managed agents run this exact loop for you on Anthropic's infrastructure. In [tool use](#tool-use-utilisation-doutils), you execute, or you delegate the loop (the [tool runner](#tool-runner-tool-runner)): at the far end of that spectrum, managed agents delegate the whole agent to Anthropic.
+When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream. When you don't want to own the [agent loop](#agent-loop-boucle-dagent), managed agents run this exact loop for you on Anthropic's infrastructure. In [tool use](#tool-use-utilisation-doutils), you execute, or you delegate the loop (the [tool runner](#tool-runner-tool-runner)): at the far end of that spectrum, managed agents delegate the whole agent to Anthropic. Claude Managed Agents is a suite of APIs for building and deploying agents at scale: you define [agents](#agent-agent) with specific tools, personas, and capabilities, you configure [environments](#environment-environnement) with the right packages and network controls, and you fire off [sessions](#session-session) from your own application; Claude then does the work inside an isolated container with full file system access, bash execution, and web search. You'll find Managed Agents in its own section of the Claude Console. It is built on agents, [sessions](#session-session), [environments](#environment-environnement), [tools](#tool-outil) (including custom tools on your back end), [MCP](#mcp-mcp) (connections to services like Slack and Asana), [memory](#memory-store-magasin-de-mémoire), [outcomes](#outcome-résultat-attendu) and [multi-agent coordination](#multi-agent-coordination-coordination-multi-agents).
 
-→ [schéma des trois couches](mindmap/three-layers.png) · [schéma de la boucle d'agent](mindmap/agent-loop.png) · [schéma de l'utilisation d'outils](mindmap/tool-use.png)
+→ [schéma des trois couches](mindmap/three-layers.png) · [schéma de la boucle d'agent](mindmap/agent-loop.png) · [schéma de l'utilisation d'outils](mindmap/tool-use.png) · [schéma des agents gérés](mindmap/managed-agents.png)
 
 ### API key *(Clé API)*
 
@@ -228,3 +228,39 @@ Why MCP exists, when there are already tools, skills and connectors: at first gl
 How a request reaches an [MCP](#mcp-mcp) server. Two pieces work together: the mcp_servers key declares the connection (a type, a URL, a name to refer to it by, and optionally an auth token), and a tool of type mcp_toolset, in the tools array, configures which of that server's tools Claude can use. The default is all of them. You never write a tool schema: Claude introspects the server, gets the list of tools and their schemas back, and picks the right one for the prompt, and the same works for basically any compliant server. Since servers often expose many, many tools, and you may not want write permissions or all those tool definitions taking up context, you can scope access down: disable everything by default (default_config with enabled False), then enable only the specific tools you want in configs. With a Slack server, Claude can then search messages and list channels but can't post or delete: useful when you trust a service for reads but don't want Claude writing on your behalf by accident, handy for keeping a server read-only.
 
 → [schéma de MCP](mindmap/mcp.png)
+
+### Session *(Session)*
+
+An individual run you fire off from your own application: your back end creates a session (in the course's Kanban board, dragging a ticket into the "in progress" column fires one off automatically). It points to an [environment](#environment-environnement) you configured, and Claude does the work inside an isolated container. Every tool call streams back to your app in real time, through the event stream, so you can watch the work as it happens. Sessions work in parallel: two sessions, two containers, two separate tasks running at the same time. A custom [tool](#tool-outil) on your back end can also send an alert payload into a new session as a tool result. One of the building blocks of [managed agents](#managed-agents-agents-gérés).
+
+→ [schéma des agents gérés](mindmap/managed-agents.png)
+
+### Environment *(Environnement)*
+
+A sandbox you configure with the right packages and network controls (in the course's Kanban demo: Lighthouse and Puppeteer pre-installed, and the GitHub repo mounted into the container). A [session](#session-session) points to one, and Claude does the work inside an isolated container with full file system access, bash execution, and web search. One of the building blocks of [managed agents](#managed-agents-agents-gérés).
+
+→ [schéma des agents gérés](mindmap/managed-agents.png)
+
+### Outcome *(Résultat attendu)*
+
+Rubrics and graders that define and check what done looks like. The rubric defines what done looks like (in the course's Kanban demo: a Lighthouse score above 90, no render-blocking resources, all images lazy loaded). Then it kicks in: a separate grader, running in its own context window, evaluates the output against your criteria, and Claude reads that feedback, goes back in, fixes what it missed, and resubmits. Claude iterates until it meets the criteria: in the demo, that loop takes the Lighthouse score up to 96. You define what done looks like, and Claude works until it gets there. One of the building blocks of [managed agents](#managed-agents-agents-gérés).
+
+→ [schéma des agents gérés](mindmap/managed-agents.png)
+
+### Memory store *(Magasin de mémoire)*
+
+A store the agent reads before starting and writes to when done. In the course's pricing research agent, it checks what it found last week before it starts, and after it finishes it stores what changed: so next Monday's report can say compute costs are 15% lower since last week, instead of listing the same static pricing data every time. In the incident response example, the coordinator checks past incidents in the memory store and flags a pattern (the DNS resolution issue from two weeks ago, caused by a misconfigured TTL): the next time a similar alert fires, the agent starts with that context instead of diagnosing from scratch. One of the building blocks of [managed agents](#managed-agents-agents-gérés).
+
+→ [schéma des agents gérés](mindmap/managed-agents.png)
+
+### Multi-agent coordination *(Coordination multi-agents)*
+
+Coordinators delegating to specialists. In the course's incident response example, a coordinator agent receives the alert and delegates to three specialists; each specialist runs in its own context window on the same shared file system. The specialists report back, and the coordinator synthesizes their findings into a single incident summary. Before that summary goes to Slack, the [permissions policy](#permissions-policy-politique-dautorisation) fires. One of the building blocks of [managed agents](#managed-agents-agents-gérés).
+
+→ [schéma des agents gérés](mindmap/managed-agents.png)
+
+### Permissions policy *(Politique d'autorisation)*
+
+What fires before a sensitive action goes out. In the course's incident response example, before the summary goes to Slack, the permissions policy fires: you see the draft on screen, approve it, and the message goes out. Sensitive actions wait for a human.
+
+→ [schéma des agents gérés](mindmap/managed-agents.png)

@@ -18,6 +18,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 7. [Schéma des outils intégrés](#schéma-des-outils-intégrés)
 8. [Schéma des Skills](#schéma-des-skills)
 9. [Schéma de MCP](#schéma-de-mcp)
+10. [Schéma des agents gérés](#schéma-des-agents-gérés)
 
 ## Schéma des trois couches
 
@@ -72,3 +73,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma de MCP](mindmap/mcp.png)
 
 *MCP : il connecte Claude à des services tiers, dont le fournisseur maintient l'intégration (chaque service publie son propre serveur MCP, qui expose ses outils, leurs descriptions, leurs schémas et l'authentification via un protocole standard : quand son API change, il met à jour son serveur et vous ne changez rien) ; les outils, les Skills et MCP (les outils pour vos systèmes, dont vous maintenez le code, les Skills pour vos procédures, MCP pour les systèmes de tous les autres) ; la connexion (mcp_servers : un type, une URL, un nom, un token d'authentification facultatif ; mcp_toolset dans tools : les outils que Claude peut utiliser, tous par défaut, sans aucun schéma d'outil à écrire) ; la restriction de l'accès (tout désactiver par défaut, activer des outils précis dans configs, par exemple pour garder un serveur en lecture seule).* Source : [mcp.puml](mindmap/mcp.puml)
+
+## Schéma des agents gérés
+
+![Schéma des agents gérés](mindmap/managed-agents.png)
+
+*Les agents gérés : une suite d'API pour créer et déployer des agents à grande échelle, qui héberge la boucle d'agent sur l'infrastructure d'Anthropic, dans un conteneur isolé (système de fichiers, bash, recherche web) ; les briques de base : les agents (outils, personas et capacités spécifiques), les environnements (bacs à sable, paquets et contrôles réseau), les sessions (lancées depuis votre application, en parallèle, appels d'outils diffusés en temps réel), les outils et MCP, les résultats attendus (une grille d'évaluation, un évaluateur distinct dans sa propre fenêtre de contexte, Claude itère), la mémoire (un magasin lu avant de démarrer, écrit une fois terminé), la coordination multi-agents (un coordinateur qui délègue à des spécialistes) et la politique d'autorisation (les actions sensibles attendent un humain).* Source : [managed-agents.puml](mindmap/managed-agents.puml)
