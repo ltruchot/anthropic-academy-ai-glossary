@@ -1,0 +1,41 @@
+@startuml mcp
+' Render: java -jar plantuml.jar -tsvg mcp.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title MCP\n<size:12><color:#777>MCP</color></size>
+
+rectangle "**MCP**\n<size:11><color:#777>MCP</color></size>\nConnects Claude to third-party services\n<size:11><color:#777>Connecte Claude à des services tiers</color></size>\nThe service provider maintains the integration\n<size:11><color:#777>Le fournisseur du service maintient l'intégration</color></size>" as MCP #CFCBDD
+
+' Side by side, declared last to first (smetana reverses their order): tools, Skills, MCP.
+rectangle "**MCP**\n<size:11><color:#777>MCP</color></size>\nEveryone else's stuff\n<size:11><color:#777>Les systèmes de tous les autres</color></size>" as VSMCP #CFCBDD
+rectangle "**Skills**\n<size:11><color:#777>Les Skills</color></size>\nYour processes\n<size:11><color:#777>Vos procédures</color></size>" as VSSKILLS #BCD3CB
+rectangle "**Tools**\n<size:11><color:#777>Les outils</color></size>\nYour stuff: you own the code and the maintenance\n<size:11><color:#777>Vos systèmes : le code et la maintenance vous reviennent</color></size>" as VSTOOLS #F9F8F4
+
+rectangle "**A server per service**\n<size:11><color:#777>Un serveur par service</color></size>\nAsana, Slack, Google each publish one\n<size:11><color:#777>Asana, Slack, Google en publient chacun un</color></size>\nTools, descriptions, schemas, authentication, standard protocol\n<size:11><color:#777>Outils, descriptions, schémas, authentification, protocole standard</color></size>\nTheir API changes: they update, you change nothing\n<size:11><color:#777>Leur API change : ils mettent à jour, vous ne changez rien</color></size>" as SERVER #E8E2D0
+
+rectangle "**Connection**\n<size:11><color:#777>Connexion</color></size>\nmcp_servers: type, URL, name, optional auth token\n<size:11><color:#777>mcp_servers : type, URL, nom, token d'authentification facultatif</color></size>\nmcp_toolset in tools: which tools Claude can use (all by default)\n<size:11><color:#777>mcp_toolset dans tools : les outils utilisables (tous par défaut)</color></size>\nNo tool schema to write: Claude discovers them\n<size:11><color:#777>Aucun schéma d'outil à écrire : Claude les découvre</color></size>" as CONN #E8E2D0
+
+rectangle "**Scope it down**\n<size:11><color:#777>Restreindre l'accès</color></size>\nDisable everything by default, enable specific tools in configs\n<size:11><color:#777>Tout désactiver par défaut, activer des outils précis dans configs</color></size>\nA server kept read-only\n<size:11><color:#777>Un serveur gardé en lecture seule</color></size>" as SCOPE #BCD3CB
+
+MCP --> VSTOOLS
+MCP --> VSSKILLS
+MCP --> VSMCP
+MCP --> SERVER
+SERVER --> CONN
+CONN --> SCOPE
+
+@enduml

@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, mindmap]
 created: 2026-11-03
-updated: 2026-11-08
+updated: 2026-11-10
 ---
 # Schémas du cours « Claude Platform 101 »
 
@@ -17,6 +17,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 6. [Schéma de la réflexion](#schéma-de-la-réflexion)
 7. [Schéma des outils intégrés](#schéma-des-outils-intégrés)
 8. [Schéma des Skills](#schéma-des-skills)
+9. [Schéma de MCP](#schéma-de-mcp)
 
 ## Schéma des trois couches
 
@@ -65,3 +66,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma des Skills](mindmap/skills.png)
 
 *Les Skills : des dossiers d'instructions, de scripts et de ressources que Claude charge dynamiquement, au cœur desquels se trouve un fichier SKILL.md, importé une seule fois dans votre espace de travail puis référencé par ID ; les outils contre les Skills (les outils connectent Claude à des données et à des actions, ce que Claude peut faire ; les Skills lui apprennent une procédure, la façon dont vous voulez que ce soit fait) ; le chargement progressif (au démarrage, seuls le nom et la description ; le Skill complet quand l'agent le juge pertinent) ; l'attache à une requête via container.skills, une liste, donc plusieurs Skills sur un même appel, souvent avec l'exécution de code.* Source : [skills.puml](mindmap/skills.puml)
+
+## Schéma de MCP
+
+![Schéma de MCP](mindmap/mcp.png)
+
+*MCP : il connecte Claude à des services tiers, dont le fournisseur maintient l'intégration (chaque service publie son propre serveur MCP, qui expose ses outils, leurs descriptions, leurs schémas et l'authentification via un protocole standard : quand son API change, il met à jour son serveur et vous ne changez rien) ; les outils, les Skills et MCP (les outils pour vos systèmes, dont vous maintenez le code, les Skills pour vos procédures, MCP pour les systèmes de tous les autres) ; la connexion (mcp_servers : un type, une URL, un nom, un token d'authentification facultatif ; mcp_toolset dans tools : les outils que Claude peut utiliser, tous par défaut, sans aucun schéma d'outil à écrire) ; la restriction de l'accès (tout désactiver par défaut, activer des outils précis dans configs, par exemple pour garder un serveur en lecture seule).* Source : [mcp.puml](mindmap/mcp.puml)

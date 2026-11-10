@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, glossaire]
 created: 2026-11-03
-updated: 2026-11-08
+updated: 2026-11-10
 ---
 # Glossaire et mindmap Anthropic
 
@@ -27,7 +27,7 @@ The console of the [Claude Platform](#claude-platform-claude-platform), where yo
 
 ### Primitives *(Primitives)*
 
-The API building blocks tuned to Claude, the pieces you actually call from your code: the [Messages API](#messages-api-api-messages), [tool use](#tool-use-utilisation-doutils), files, [web search, code execution](#server-tools-outils-serveur), MCP servers, [skills](#skills-skills). What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
+The API building blocks tuned to Claude, the pieces you actually call from your code: the [Messages API](#messages-api-api-messages), [tool use](#tool-use-utilisation-doutils), files, [web search, code execution](#server-tools-outils-serveur), [MCP servers](#mcp-mcp), [skills](#skills-skills). What you build with. One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
 
 → [schéma des trois couches](mindmap/three-layers.png)
 
@@ -216,3 +216,15 @@ The other category of [built-in tools](#built-in-tools-outils-intégrés): they 
 Folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. At the core of every Skill is a SKILL.md file, a packaged set of instructions you upload once and then attach to any messages.create call: you're teaching Claude how you do something (your status report format, your review checklist, your release notes), and Claude reads the Skill, follows the procedure, and produces output in your shape. Where [tools](#tool-outil) connect Claude to data and actions (Claude calls the tool, and something else runs), Skills teach Claude a procedure: a playbook Claude reads and follows, which sometimes means running bundled scripts itself. Tools are about what Claude can do, Skills are about how you want it done. Skills load progressively: only the name and description load at startup, and the full Skill loads into context when the agent decides it is relevant, which keeps context lean even when many Skills are available. A Skill is uploaded once to your workspace (on the Claude Platform, or programmatically with client.beta.skills.create) and then referenced by ID; it attaches to a request through container.skills, a list whose entries name a skill_id and version, so several Skills can be layered onto one call. Skills often pair well with [code execution](#server-tools-outils-serveur), because a Skill's procedure can do real work, like running scripts in a terminal. As of the course's video, Skills are still a beta feature, called through client.beta.messages.create. In production, this is how a team standardizes output across an entire feature, with the same structure, tone and sections for everyone and no template copy-pasted into a prompt. One of the building blocks of the [primitives](#primitives-primitives).
 
 → [schéma des Skills](mindmap/skills.png)
+
+### MCP *(MCP)*
+
+Why MCP exists, when there are already tools, skills and connectors: at first glance it looks like a second API stacked on top of the API, but the answer comes down to who maintains the integration code. With custom [tools](#tool-outil), pulling tasks from Asana, checking a Google Calendar and searching Slack in one go means writing three integrations and maintaining each of them every time the service changes its API, which happens often: a pile of third-party API wrappers. MCP shifts that maintenance to the service provider: Asana, Slack and Google each publish an MCP server, which exposes its own tools, with descriptions, schemas and authentication, through a standard protocol. When their API changes, they update their server, and you change nothing. You don't write the Asana wrapper, Asana did. The three features do different jobs: tools connect Claude to your internal systems (you own the code, so you own the maintenance), [Skills](#skills-skills) teach Claude a procedure (instructions, not necessarily integrations), and MCP connects Claude to third-party services, where the service provider maintains the integration. The short version: tools are for your stuff, skills are for your processes, MCP is for everyone else's stuff. You reach a server with an [MCP connection](#mcp-connection-connexion-mcp). As of the course's lesson, the MCP connector is in beta, so requests carry the beta header. One of the building blocks of the [primitives](#primitives-primitives).
+
+→ [schéma de MCP](mindmap/mcp.png)
+
+### MCP connection *(Connexion MCP)*
+
+How a request reaches an [MCP](#mcp-mcp) server. Two pieces work together: the mcp_servers key declares the connection (a type, a URL, a name to refer to it by, and optionally an auth token), and a tool of type mcp_toolset, in the tools array, configures which of that server's tools Claude can use. The default is all of them. You never write a tool schema: Claude introspects the server, gets the list of tools and their schemas back, and picks the right one for the prompt, and the same works for basically any compliant server. Since servers often expose many, many tools, and you may not want write permissions or all those tool definitions taking up context, you can scope access down: disable everything by default (default_config with enabled False), then enable only the specific tools you want in configs. With a Slack server, Claude can then search messages and list channels but can't post or delete: useful when you trust a service for reads but don't want Claude writing on your behalf by accident, handy for keeping a server read-only.
+
+→ [schéma de MCP](mindmap/mcp.png)
