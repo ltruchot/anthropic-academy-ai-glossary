@@ -18,7 +18,8 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 7. [Schéma des outils intégrés](#schéma-des-outils-intégrés)
 8. [Schéma des Skills](#schéma-des-skills)
 9. [Schéma de MCP](#schéma-de-mcp)
-10. [Schéma des agents gérés](#schéma-des-agents-gérés)
+10. [Schéma de la gestion du contexte](#schéma-de-la-gestion-du-contexte)
+11. [Schéma des agents gérés](#schéma-des-agents-gérés)
 
 ## Schéma des trois couches
 
@@ -73,6 +74,12 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma de MCP](mindmap/mcp.png)
 
 *MCP : il connecte Claude à des services tiers, dont le fournisseur maintient l'intégration (chaque service publie son propre serveur MCP, qui expose ses outils, leurs descriptions, leurs schémas et l'authentification via un protocole standard : quand son API change, il met à jour son serveur et vous ne changez rien) ; les outils, les Skills et MCP (les outils pour vos systèmes, dont vous maintenez le code, les Skills pour vos procédures, MCP pour les systèmes de tous les autres) ; la connexion (mcp_servers : un type, une URL, un nom, un token d'authentification facultatif ; mcp_toolset dans tools : les outils que Claude peut utiliser, tous par défaut, sans aucun schéma d'outil à écrire) ; la restriction de l'accès (tout désactiver par défaut, activer des outils précis dans configs, par exemple pour garder un serveur en lecture seule).* Source : [mcp.puml](mindmap/mcp.puml)
+
+## Schéma de la gestion du contexte
+
+![Schéma de la gestion du contexte](mindmap/context-management.png)
+
+*La gestion du contexte : rester dans la fenêtre de contexte sans perdre ce qui compte, en y faisant tenir les bonnes choses ; le contexte (tout ce que Claude voit à un tour donné, payé à l'entrée comme à la sortie, la requête échoue une fois la fenêtre pleine) ; les quatre patrons : le contexte juste à temps (le patron de conception des quatre), la compaction côté serveur (elle résume les anciens tours en un seul bloc), la mise en cache des prompts (le contenu stable réutilisé pour une fraction du coût) et l'outil de mémoire (un répertoire de mémoire, le stockage côté client) ; leur combinaison en production, chacun traitant un mode de défaillance différent.* Source : [context-management.puml](mindmap/context-management.puml)
 
 ## Schéma des agents gérés
 

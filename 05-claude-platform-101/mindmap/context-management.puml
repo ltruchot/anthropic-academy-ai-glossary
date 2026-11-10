@@ -1,0 +1,46 @@
+@startuml context-management
+' Render: java -jar plantuml.jar -tsvg context-management.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+  MaximumWidth 300
+}
+</style>
+
+title Context management\n<size:12><color:#777>Gestion du contexte</color></size>
+
+rectangle "**Context management**\n<size:11><color:#777>Gestion du contexte</color></size>\nStay inside the window without losing what matters\n<size:11><color:#777>Rester dans la fenêtre sans perdre ce qui compte</color></size>\nFit the right things in, not everything\n<size:11><color:#777>Y faire tenir les bonnes choses, pas tout</color></size>" as CM #CFCBDD
+
+rectangle "**Context**\n<size:11><color:#777>Le contexte</color></size>\nEverything Claude sees on a given turn\n<size:11><color:#777>Tout ce que Claude voit à un tour donné</color></size>\nSystem prompt, message history, tool definitions and results, attached files and skills, thinking blocks\n<size:11><color:#777>Prompt système, historique des messages, définitions et résultats d'outils, fichiers joints et Skills, blocs de réflexion</color></size>\nPaid for on the way in and on the way out\n<size:11><color:#777>Payé à l'entrée et à la sortie</color></size>\nOnce the window is full, the request fails\n<size:11><color:#777>Une fois la fenêtre pleine, la requête échoue</color></size>" as CTX #E8E2D0
+
+rectangle "**Just-in-time context**\n<size:11><color:#777>Le contexte juste à temps</color></size>\nLoad what is needed now; tools pull in the rest\n<size:11><color:#777>Charger ce qui est nécessaire maintenant ; les outils apportent le reste</color></size>\nThe design pattern of the four\n<size:11><color:#777>Le patron de conception des quatre</color></size>" as JIT #BCD3CB
+
+rectangle "**Server-side compaction**\n<size:11><color:#777>La compaction côté serveur</color></size>\nSummarizes old turns into a single block\n<size:11><color:#777>Résume les anciens tours en un seul bloc</color></size>\nA context_management key; starts at the trigger threshold\n<size:11><color:#777>Une clé context_management ; se déclenche au seuil de déclenchement</color></size>" as COMP #BCD3CB
+
+rectangle "**Prompt caching**\n<size:11><color:#777>La mise en cache des prompts</color></size>\nMark the stable parts of a request, reuse them across calls at a fraction of the cost\n<size:11><color:#777>Marquer le contenu stable d'une requête, le réutiliser d'un appel à l'autre pour une fraction du coût</color></size>" as CACHE #BCD3CB
+
+rectangle "**Memory tool**\n<size:11><color:#777>L'outil de mémoire</color></size>\nClaude reads and writes a memory directory via tool calls\n<size:11><color:#777>Claude lit et écrit dans un répertoire de mémoire via des appels d'outils</color></size>\nYou implement the storage backend client-side\n<size:11><color:#777>Vous mettez en œuvre le stockage côté client</color></size>" as MEM #BCD3CB
+
+rectangle "**Layering the patterns**\n<size:11><color:#777>Combiner les patrons</color></size>\nIn production, usually all four at once\n<size:11><color:#777>En production, généralement les quatre à la fois</color></size>\nEach handles a different failure mode: cost, window size, statelessness\n<size:11><color:#777>Chacun traite un mode de défaillance différent : le coût, la taille de la fenêtre, l'absence d'état</color></size>" as LAYER #F9F8F4
+
+CM --> CTX
+CM --> JIT
+CM --> COMP
+CM --> CACHE
+CM --> MEM
+JIT --> LAYER
+COMP --> LAYER
+CACHE --> LAYER
+MEM --> LAYER
+
+@enduml

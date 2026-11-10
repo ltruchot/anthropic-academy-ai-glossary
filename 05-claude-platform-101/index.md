@@ -33,7 +33,7 @@ The API building blocks tuned to Claude, the pieces you actually call from your 
 
 ### Infrastructure *(Infrastructure)*
 
-What you need to build and scale agentic systems past a prototype: [managed agents](#managed-agents-agents-gérés), retries, queues, observability (the diagram adds prompt caching and memory), the plumbing that keeps things running when one Claude call becomes a thousand. What you scale on. It lives, with [controls](#controls-pilotage), in the [Claude Console](#claude-console-claude-console). One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
+What you need to build and scale agentic systems past a prototype: [managed agents](#managed-agents-agents-gérés), retries, queues, observability (the diagram adds [prompt caching](#prompt-caching-mise-en-cache-des-prompts) and memory), the plumbing that keeps things running when one Claude call becomes a thousand. What you scale on. It lives, with [controls](#controls-pilotage), in the [Claude Console](#claude-console-claude-console). One of the three layers of the [Claude Platform](#claude-platform-claude-platform).
 
 → [schéma des trois couches](mindmap/three-layers.png)
 
@@ -57,7 +57,7 @@ The `system` parameter of a `messages.create` call ([Messages API](#messages-api
 
 ### Managed agents *(Agents gérés)*
 
-When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream. When you don't want to own the [agent loop](#agent-loop-boucle-dagent), managed agents run this exact loop for you on Anthropic's infrastructure. In [tool use](#tool-use-utilisation-doutils), you execute, or you delegate the loop (the [tool runner](#tool-runner-tool-runner)): at the far end of that spectrum, managed agents delegate the whole agent to Anthropic. Claude Managed Agents is a suite of APIs for building and deploying agents at scale: you define [agents](#agent-agent) with specific tools, personas, and capabilities, you configure [environments](#environment-environnement) with the right packages and network controls, and you fire off [sessions](#session-session) from your own application; Claude then does the work inside an isolated container with full file system access, bash execution, and web search. You'll find Managed Agents in its own section of the Claude Console. It is built on agents, [sessions](#session-session), [environments](#environment-environnement), [tools](#tool-outil) (including custom tools on your back end), [MCP](#mcp-mcp) (connections to services like Slack and Asana), [memory](#memory-store-magasin-de-mémoire), [outcomes](#outcome-résultat-attendu) and [multi-agent coordination](#multi-agent-coordination-coordination-multi-agents).
+When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream. When you don't want to own the [agent loop](#agent-loop-boucle-dagent), managed agents run this exact loop for you on Anthropic's infrastructure. In [tool use](#tool-use-utilisation-doutils), you execute, or you delegate the loop (the [tool runner](#tool-runner-tool-runner)): at the far end of that spectrum, managed agents delegate the whole agent to Anthropic. Claude Managed Agents is a suite of APIs for building and deploying agents at scale: you define [agents](#agent-agent) with specific tools, personas, and capabilities, you configure [environments](#environment-environnement) with the right packages and network controls, and you fire off [sessions](#session-session) from your own application; Claude then does the work inside an isolated container with full file system access, bash execution, and web search. You'll find Managed Agents in its own section of the Claude Console. It is built on agents, [sessions](#session-session), [environments](#environment-environnement), [tools](#tool-outil) (including custom tools on your back end), [MCP](#mcp-mcp) (connections to services like Slack and Asana), [memory](#memory-store-magasin-de-mémoire), [outcomes](#outcome-résultat-attendu) and [multi-agent coordination](#multi-agent-coordination-coordination-multi-agents). They ship with [prompt caching](#prompt-caching-mise-en-cache-des-prompts) and [compaction](#server-side-compaction-compaction-côté-serveur) on by default.
 
 → [schéma des trois couches](mindmap/three-layers.png) · [schéma de la boucle d'agent](mindmap/agent-loop.png) · [schéma de l'utilisation d'outils](mindmap/tool-use.png) · [schéma des agents gérés](mindmap/managed-agents.png)
 
@@ -228,6 +228,48 @@ Why MCP exists, when there are already tools, skills and connectors: at first gl
 How a request reaches an [MCP](#mcp-mcp) server. Two pieces work together: the mcp_servers key declares the connection (a type, a URL, a name to refer to it by, and optionally an auth token), and a tool of type mcp_toolset, in the tools array, configures which of that server's tools Claude can use. The default is all of them. You never write a tool schema: Claude introspects the server, gets the list of tools and their schemas back, and picks the right one for the prompt, and the same works for basically any compliant server. Since servers often expose many, many tools, and you may not want write permissions or all those tool definitions taking up context, you can scope access down: disable everything by default (default_config with enabled False), then enable only the specific tools you want in configs. With a Slack server, Claude can then search messages and list channels but can't post or delete: useful when you trust a service for reads but don't want Claude writing on your behalf by accident, handy for keeping a server read-only.
 
 → [schéma de MCP](mindmap/mcp.png)
+
+### Context management *(Gestion du contexte)*
+
+How you stay inside the [context window](#context-window-fenêtre-de-contexte) without losing what matters: the goal isn't to fit everything in, it's to fit the right things in. Anthropic publishes four patterns for managing context in long-running agents: [just-in-time context](#just-in-time-context-contexte-juste-à-temps), [server-side compaction](#server-side-compaction-compaction-côté-serveur), [prompt caching](#prompt-caching-mise-en-cache-des-prompts) and the [memory tool](#memory-tool-outil-de-mémoire). Three are first-class API features, and one is a design pattern (just-in-time context). In a production app, you'll usually layer all four at once: each pattern handles a different failure mode (cost, window size, statelessness), so pick the ones that match what's breaking for you. Wire them up by hand, or use [managed agents](#managed-agents-agents-gérés), which ship with caching and compaction on by default.
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Context *(Contexte)*
+
+Everything Claude sees on a given turn: the [system prompt](#system-prompt-prompt-système), the message history, tool definitions and [tool results](#tool-result-résultat-doutil), attached files and [skills](#skills-skills), thinking blocks. It's the input to every single API call: you pay for it on the way in, and you pay for it on the way out. Once the [context window](#context-window-fenêtre-de-contexte) is full, the request fails. So the goal isn't to fit everything in; the goal is to fit the right things in ([context management](#context-management-gestion-du-contexte)).
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Context window *(Fenêtre de contexte)*
+
+The limit that every request you send Claude has. A million tokens sounds like a lot, but it runs out faster than you think once you're shipping a real agent, and once the window is full, the request fails. [Context management](#context-management-gestion-du-contexte) is how you stay inside it without losing what matters. What counts against it is the [context](#context-contexte).
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Just-in-time context *(Contexte juste à temps)*
+
+Don't load everything upfront: load what the agent needs now, and let it pull more in via tools when it asks. A compliance review agent doesn't get the entire building code book stuffed into its system prompt: it calls a `lookup_building_code` tool when it needs a specific section. This is the design pattern of the four [context management](#context-management-gestion-du-contexte) patterns: nothing special in the API, just a deliberate choice about what you load and when.
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Server-side compaction *(Compaction côté serveur)*
+
+When a conversation runs long, Anthropic's server-side compaction summarizes old turns into a single block. You opt in by adding a `context_management` key to your request, holding an edit with a type. The API auto-summarizes when the input crosses the trigger threshold, so you don't have to track conversation length yourself. One of the four [context management](#context-management-gestion-du-contexte) patterns, and a first-class API feature.
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Prompt caching *(Mise en cache des prompts)*
+
+Lets you mark the stable parts of a request (the system prompt, the tool definitions, a long document) and reuse them across calls at a fraction of the cost. If your system prompt is 4,000 tokens and you call it 100 times an hour, caching is the difference between a usable bill and a phone call from finance. One of the four [context management](#context-management-gestion-du-contexte) patterns, and a first-class API feature.
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
+
+### Memory tool *(Outil de mémoire)*
+
+The recommended primitive for context that needs to survive across sessions: user preferences, the agent's running notes, what was decided last week. Claude reads and writes to a memory directory via tool calls. You implement the storage backend client-side: a file system, a database, an encrypted store, whatever you want. Anthropic auto-injects a system instruction telling Claude to check the memory directory before starting work. One of the four [context management](#context-management-gestion-du-contexte) patterns, and a first-class API feature.
+
+→ [schéma de la gestion du contexte](mindmap/context-management.png)
 
 ### Session *(Session)*
 
