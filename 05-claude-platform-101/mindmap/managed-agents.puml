@@ -32,7 +32,9 @@ rectangle "**Outcomes**\n<size:11><color:#777>Les résultats attendus</color></s
 
 rectangle "**Memory**\n<size:11><color:#777>La mémoire</color></size>\nA store read before starting, written to when done\n<size:11><color:#777>Un magasin lu avant de démarrer, où l'on écrit une fois terminé</color></size>" as MEMORY #BCD3CB
 
-rectangle "**Multi-agent coordination**\n<size:11><color:#777>La coordination multi-agents</color></size>\nA coordinator delegates to specialists, each in its own context window\n<size:11><color:#777>Un coordinateur délègue à des spécialistes, chacun dans sa fenêtre de contexte</color></size>\nThe permissions policy: sensitive actions wait for a human\n<size:11><color:#777>La politique d'autorisation : les actions sensibles attendent un humain</color></size>" as MULTI #F9F8F4
+rectangle "**Multi-agent coordination**\n<size:11><color:#777>La coordination multi-agents</color></size>\nA coordinator delegates to specialists, each in its own context window\n<size:11><color:#777>Un coordinateur délègue à des spécialistes, chacun dans sa fenêtre de contexte</color></size>" as MULTI #F9F8F4
+
+rectangle "**Permissions policy**\n<size:11><color:#777>La politique d'autorisation</color></size>\nSensitive actions wait for a human\n<size:11><color:#777>Les actions sensibles attendent un humain</color></size>" as PERM #F9F8F4
 
 MA --> AGENTS
 MA --> ENVS
@@ -41,5 +43,6 @@ AGENTS --> TOOLS
 SESSIONS --> OUTCOMES
 SESSIONS --> MEMORY
 SESSIONS --> MULTI
+SESSIONS --> PERM
 
 @enduml
