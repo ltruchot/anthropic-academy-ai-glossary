@@ -26,7 +26,7 @@ rectangle "**Environments**\n<size:11><color:#777>Les environnements</color></si
 
 rectangle "**Sessions**\n<size:11><color:#777>Les sessions</color></size>\nRuns you fire off from your own application\n<size:11><color:#777>Des exécutions lancées depuis votre application</color></size>\nIn parallel, two containers; tool calls streamed in real time\n<size:11><color:#777>En parallèle, deux conteneurs ; appels d'outils diffusés en temps réel</color></size>" as SESSIONS #E8E2D0
 
-rectangle "**Tools and MCP**\n<size:11><color:#777>Les outils et MCP</color></size>\nCustom tools on your back end; Slack and Asana through MCP\n<size:11><color:#777>Outils personnalisés sur votre back end ; Slack et Asana via MCP</color></size>" as TOOLS #BCD3CB
+rectangle "**Tools and MCP**\n<size:11><color:#777>Les outils et MCP</color></size>\nCustom tools on your back end; Slack and Asana through MCP\n<size:11><color:#777>Outils personnalisés sur votre back-end ; Slack et Asana via MCP</color></size>" as TOOLS #BCD3CB
 
 rectangle "**Outcomes**\n<size:11><color:#777>Les résultats attendus</color></size>\nA rubric defines what done looks like\n<size:11><color:#777>Une grille d'évaluation définit à quoi ressemble « terminé »</color></size>\nA separate grader, in its own context window, checks the output; Claude iterates\n<size:11><color:#777>Un évaluateur distinct, dans sa propre fenêtre de contexte, vérifie la sortie ; Claude itère</color></size>" as OUTCOMES #BCD3CB
 

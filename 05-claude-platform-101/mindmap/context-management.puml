@@ -29,7 +29,7 @@ rectangle "**Server-side compaction**\n<size:11><color:#777>La compaction côté
 
 rectangle "**Prompt caching**\n<size:11><color:#777>La mise en cache des prompts</color></size>\nMark the stable parts of a request, reuse them across calls at a fraction of the cost\n<size:11><color:#777>Marquer le contenu stable d'une requête, le réutiliser d'un appel à l'autre pour une fraction du coût</color></size>" as CACHE #BCD3CB
 
-rectangle "**Memory tool**\n<size:11><color:#777>L'outil de mémoire</color></size>\nClaude reads and writes a memory directory via tool calls\n<size:11><color:#777>Claude lit et écrit dans un répertoire de mémoire via des appels d'outils</color></size>\nYou implement the storage backend client-side\n<size:11><color:#777>Vous mettez en œuvre le stockage côté client</color></size>" as MEM #BCD3CB
+rectangle "**Memory tool**\n<size:11><color:#777>L'outil de mémoire</color></size>\nClaude reads and writes a memory directory via tool calls\n<size:11><color:#777>Claude lit et écrit dans un répertoire de mémoire via des appels d'outils</color></size>\nYou implement the storage backend client-side\n<size:11><color:#777>Vous implémentez le stockage côté client</color></size>" as MEM #BCD3CB
 
 rectangle "**Layering the patterns**\n<size:11><color:#777>Combiner les patrons</color></size>\nIn production, usually all four at once\n<size:11><color:#777>En production, généralement les quatre à la fois</color></size>\nEach handles a different failure mode: cost, window size, statelessness\n<size:11><color:#777>Chacun traite un mode de défaillance différent : le coût, la taille de la fenêtre, l'absence d'état</color></size>" as LAYER #F9F8F4
 
