@@ -171,9 +171,9 @@ What your code feeds back to Claude after it runs a [tool](#tool-outil) Claude r
 
 ### Tool runner *(Tool runner)*
 
-Ships in the Claude SDK for TypeScript, Python, and Ruby. The runner takes your actual functions, reads the types and docs to build the schema for you, and handles the entire tool use / [tool result](#tool-result-résultat-doutil) loop internally: your code shrinks down to describe the tool, send the prompt, wait for the result. No while loop, no stop reason switch, no manually pushing tool results back into messages; no JSON schemas, so you don't write things twice (handwriting a JSON schema for every function is like writing your code twice). `runner.untilDone()` returns the final assistant message once everything has settled (after all the tool ping-pong). Or you can run the [loop](#agent-loop-boucle-dagent) yourself: you execute, or you delegate the loop; at the far end of that spectrum, [managed agents](#managed-agents-agents-gérés) delegate the whole agent to Anthropic.
+Ships in the Claude SDK for TypeScript, Python, and Ruby. The runner takes your actual functions, reads the types and docs to build the schema for you, and handles the entire tool use / [tool result](#tool-result-résultat-doutil) loop internally: your code shrinks down to describe the tool, send the prompt, wait for the result. No while loop, no stop reason switch, no manually pushing tool results back into messages; no JSON schemas, so you don't write things twice (handwriting a JSON schema for every function is like writing your code twice). `runner.untilDone()` returns the final assistant message once everything has settled (after all the tool ping-pong). Or you can run the [loop](#agent-loop-boucle-dagent) yourself: you execute, or you delegate the loop; at the far end of that spectrum, [managed agents](#managed-agents-agents-gérés) delegate the whole agent to Anthropic. The tool runner is the piece that handles tool calling and the agent loop for you, so you don't have to wire that up manually: most of what you write against the Claude API has a familiar shape (define a tool, hand it to a runner, return the result), which [Claude Code](#claude-code-claude-code) can write for you.
 
-→ [schéma de l'utilisation d'outils](mindmap/tool-use.png)
+→ [schéma de l'utilisation d'outils](mindmap/tool-use.png) · [schéma de Claude Code](mindmap/claude-code.png)
 
 ### Extended thinking *(Réflexion étendue)*
 
@@ -324,3 +324,15 @@ Anthropic's bundled file, bash, and web tools, defined right in the [agent](#age
 Where the [events](#events-événements) of a [session](#session-session) flow back out to your app as Anthropic runs the loop: every tool call streams back in real time, so you can watch the work as it happens. Open it before sending the kickoff message: the stream only delivers events that occur after it opens. Then consume it; three event types matter in the course's demo: `agent.message` (Claude's text), `agent.tool_use` (what tool Claude picked) and `session.status_idle` (the agent is done). Run it, and the output is the agent reasoning out loud: actual text, the tools it picks, and a final answer, all running inside Anthropic's container. With [managed agents](#managed-agents-agents-gérés), you just consume the event stream as it comes in.
 
 → [schéma du premier agent géré](mindmap/first-managed-agent.png)
+
+### Claude Code *(Claude Code)*
+
+An agent that edits files and runs commands inside your terminal. Writing code that calls the Claude API by hand works fine, but there's an even faster path: have Claude write it for you, filling in an API integration from a stubbed-out file with the same primitives as the rest of the course. Open the project folder in your terminal and launch Claude Code; from there, it takes a single prompt. A good prompt does three things: it names the file you want changed, the pattern you want used, and the end state you expect. Claude Code then fills in the stubs against the types, appends a call at the bottom of the file, executes the script, and reports the output; if something errors out, it reads the error message and patches the code in place. In the course's demo (a TypeScript file that gets weather, with two stubs: getWeather, and run, which should use the [tool runner](#tool-runner-tool-runner)), it created a Zod tool and the tool runner, and printed the final results of the [agent loop](#agent-loop-boucle-dagent). It comes with a built-in [Claude API skill](#claude-api-skill-skill-claude-api). Most of what you write against the Claude API has a familiar shape: define a [tool](#tool-outil), hand it to a runner, return the result. You don't need to type that from memory every single time: stub it, delegate it, review the diff. Which is also why the rest of the course matters: you need to know what good code looks like to review what an agent writes for you.
+
+→ [schéma de Claude Code](mindmap/claude-code.png)
+
+### Claude API skill *(Skill Claude API)*
+
+A built-in skill that comes with [Claude Code](#claude-code-claude-code). You can invoke it directly with `/claude-api`, or Claude Code invokes it automatically when it detects that you're using the TypeScript SDK. If you don't see the skill, you can add it from the marketplace (the course's command: `/plugin marketplace add AnthropicsSkills`); note the s at the end of Anthropics, it's easy to miss.
+
+→ [schéma de Claude Code](mindmap/claude-code.png)

@@ -21,6 +21,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 10. [Schéma de la gestion du contexte](#schéma-de-la-gestion-du-contexte)
 11. [Schéma des agents gérés](#schéma-des-agents-gérés)
 12. [Schéma du premier agent géré](#schéma-du-premier-agent-géré)
+13. [Schéma de Claude Code](#schéma-de-claude-code)
 
 ## Schéma des trois couches
 
@@ -93,3 +94,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma du premier agent géré](mindmap/first-managed-agent.png)
 
 *Le premier agent géré : la boucle d'agent exécutée pour vous sur l'infrastructure d'Anthropic, activée par défaut pour chaque compte API ; les quatre primitives, dans l'ordre : l'agent (le persona, réutilisable), l'environnement (où l'agent s'exécute, le bac à sable), la session (une exécution unique, l'unité de travail), les événements (les messages qui entrent et qui sortent) ; le flux d'événements, ouvert avant le message de lancement, et ses trois types d'événements ; le compromis : déléguer la boucle, le bac à sable et la capacité de reprise, ou garder une boucle manuelle pour un contrôle total.* Source : [first-managed-agent.puml](mindmap/first-managed-agent.puml)
+
+## Schéma de Claude Code
+
+![Schéma de Claude Code](mindmap/claude-code.png)
+
+*Claude Code : un agent qui modifie des fichiers et exécute des commandes dans votre terminal ; son skill intégré Claude API, lancé automatiquement quand il détecte le SDK TypeScript, ou avec /claude-api ; un seul prompt, qui nomme le fichier à modifier, l'approche à suivre et l'état final attendu ; du code qui fonctionne : il complète le squelette, exécute le script, affiche la sortie et corrige les erreurs directement dans le fichier ; la structure habituelle du code de l'API Claude : définir un outil, le confier à un runner, renvoyer le résultat — écrire le squelette, déléguer, examiner le diff.* Source : [claude-code.puml](mindmap/claude-code.puml)

@@ -1,0 +1,36 @@
+@startuml claude-code
+' Render: java -jar plantuml.jar -tsvg claude-code.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Building with Claude Code\n<size:12><color:#777>Développer avec Claude Code</color></size>
+
+rectangle "**Claude Code**\n<size:11><color:#777>Claude Code</color></size>\nAn agent that edits files and runs commands\ninside your terminal\n<size:11><color:#777>Un agent qui modifie des fichiers et exécute des commandes</color></size>\n<size:11><color:#777>dans votre terminal</color></size>" as CC #CFCBDD
+
+rectangle "**Claude API skill**\n<size:11><color:#777>Skill Claude API</color></size>\nBuilt in\n<size:11><color:#777>Intégré</color></size>\nAutomatic when it detects the TypeScript SDK\n<size:11><color:#777>Automatique quand il détecte le SDK TypeScript</color></size>\nOr invoke it with /claude-api\n<size:11><color:#777>Ou le lancer avec /claude-api</color></size>" as SKILL #E8E2D0
+
+rectangle "**One prompt**\n<size:11><color:#777>Un seul prompt</color></size>\nNames the file you want changed\n<size:11><color:#777>Nomme le fichier à modifier</color></size>\nThe pattern you want used\n<size:11><color:#777>Indique l'approche à suivre</color></size>\nThe end state you expect\n<size:11><color:#777>Décrit l'état final attendu</color></size>" as PROMPT #E8E2D0
+
+rectangle "**Working code**\n<size:11><color:#777>Du code qui fonctionne</color></size>\nFills in the stubs, runs the script, reports the output\n<size:11><color:#777>Complète le squelette, exécute le script, affiche la sortie</color></size>\nPatches errors in place\n<size:11><color:#777>Corrige les erreurs directement dans le fichier</color></size>" as WORK #BCD3CB
+
+rectangle "**The familiar shape**\n<size:11><color:#777>La structure habituelle</color></size>\nDefine a tool, hand it to a runner, return the result\n<size:11><color:#777>Définir un outil, le confier à un runner, renvoyer le résultat</color></size>\nStub it, delegate it, review the diff\n<size:11><color:#777>Écrire le squelette, déléguer, examiner le diff</color></size>" as SHAPE #F9F8F4
+
+CC --> SKILL
+CC --> PROMPT
+PROMPT --> WORK
+WORK --> SHAPE
+
+@enduml
