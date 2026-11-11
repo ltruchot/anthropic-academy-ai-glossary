@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, glossaire]
 created: 2026-11-03
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 # Glossaire et mindmap Anthropic
 
@@ -57,9 +57,9 @@ The `system` parameter of a `messages.create` call ([Messages API](#messages-api
 
 ### Managed agents *(Agents gérés)*
 
-When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream. When you don't want to own the [agent loop](#agent-loop-boucle-dagent), managed agents run this exact loop for you on Anthropic's infrastructure. In [tool use](#tool-use-utilisation-doutils), you execute, or you delegate the loop (the [tool runner](#tool-runner-tool-runner)): at the far end of that spectrum, managed agents delegate the whole agent to Anthropic. Claude Managed Agents is a suite of APIs for building and deploying agents at scale: you define [agents](#agent-agent) with specific tools, personas, and capabilities, you configure [environments](#environment-environnement) with the right packages and network controls, and you fire off [sessions](#session-session) from your own application; Claude then does the work inside an isolated container with full file system access, bash execution, and web search. You'll find Managed Agents in its own section of the Claude Console. It is built on agents, [sessions](#session-session), [environments](#environment-environnement), [tools](#tool-outil) (including custom tools on your back end), [MCP](#mcp-mcp) (connections to services like Slack and Asana), [memory](#memory-store-magasin-de-mémoire), [outcomes](#outcome-résultat-attendu) and [multi-agent coordination](#multi-agent-coordination-coordination-multi-agents). They ship with [prompt caching](#prompt-caching-mise-en-cache-des-prompts) and [compaction](#server-side-compaction-compaction-côté-serveur) on by default.
+When your product needs agents, the [Claude Platform](#claude-platform-claude-platform) doesn't just hand you the model: with managed agents, it runs them for you. They are part of the [infrastructure](#infrastructure-infrastructure) layer, and you deploy them from the [Claude Console](#claude-console-claude-console). A managed agent is sandboxed: Anthropic runs the loop and reports back, and you consume its event stream. When you don't want to own the [agent loop](#agent-loop-boucle-dagent), managed agents run this exact loop for you on Anthropic's infrastructure. In [tool use](#tool-use-utilisation-doutils), you execute, or you delegate the loop (the [tool runner](#tool-runner-tool-runner)): at the far end of that spectrum, managed agents delegate the whole agent to Anthropic. Claude Managed Agents is a suite of APIs for building and deploying agents at scale: you define [agents](#agent-agent) with specific tools, personas, and capabilities, you configure [environments](#environment-environnement) with the right packages and network controls, and you fire off [sessions](#session-session) from your own application; Claude then does the work inside an isolated container with full file system access, bash execution, and web search. You'll find Managed Agents in its own section of the Claude Console. It is built on agents, [sessions](#session-session), [environments](#environment-environnement), [tools](#tool-outil) (including custom tools on your back end), [MCP](#mcp-mcp) (connections to services like Slack and Asana), [memory](#memory-store-magasin-de-mémoire), [outcomes](#outcome-résultat-attendu) and [multi-agent coordination](#multi-agent-coordination-coordination-multi-agents). They ship with [prompt caching](#prompt-caching-mise-en-cache-des-prompts) and [compaction](#server-side-compaction-compaction-côté-serveur) on by default. A managed agent is an agent loop that runs on Anthropic's infrastructure instead of yours: you describe the agent once, you give it an environment to work in, and you start a session; Anthropic runs the loop, and you just stream the events back out as it works. Four primitives, and they come in order: the [agent](#agent-agent), the [environment](#environment-environnement), the [session](#session-session), the [events](#events-événements). You're not running a while loop: you're sending events and reading events. The flow: create an agent, create an environment, create a session, send events in, and stream events out. Managed agents are enabled by default for every API account, no special access needed. The trade: usually with agents, we have our own loop where we have to control everything; with managed agents, you delegate that loop, the sandbox, and the resumability, and just consume the [event stream](#event-stream-flux-dévénements) as it comes in. A loop by hand works, and for a lot of features it's actually the right shape; but sometimes that loop is going to run for a very long time (minutes, maybe even hours) across many tools, with state to keep, files to write, and work to resume after a network hiccup, and at that point you want to delegate it. Reach for managed agents when the loop would run too long, do too much, or need to survive a hiccup; reach for a manual loop when you want full control. In a production app, this is the shape for long-running, file-touching, "go organize this for me" tasks (the course's file share cleanup: a session that can run for minutes against thousands of files).
 
-→ [schéma des trois couches](mindmap/three-layers.png) · [schéma de la boucle d'agent](mindmap/agent-loop.png) · [schéma de l'utilisation d'outils](mindmap/tool-use.png) · [schéma des agents gérés](mindmap/managed-agents.png)
+→ [schéma des trois couches](mindmap/three-layers.png) · [schéma de la boucle d'agent](mindmap/agent-loop.png) · [schéma de l'utilisation d'outils](mindmap/tool-use.png) · [schéma des agents gérés](mindmap/managed-agents.png) · [schéma du premier agent géré](mindmap/first-managed-agent.png)
 
 ### API key *(Clé API)*
 
@@ -123,9 +123,9 @@ A single API call ([Messages API](#messages-api-api-messages)) only returns one 
 
 ### Agent *(Agent)*
 
-An autonomous version of Claude, running both sides of the messaging loop without a human in the middle. An agent receives a task, picks a tool, and executes code in a loop until Claude decides the task is done (the video: "until Claude deems the task done"). Claude in a loop: observe, decide, act, repeat. You own the [loop](#agent-loop-boucle-dagent) and the tools; Claude owns the reasoning. When you don't want to own the loop, [managed agents](#managed-agents-agents-gérés) run this exact loop for you on Anthropic's infrastructure.
+An autonomous version of Claude, running both sides of the messaging loop without a human in the middle. An agent receives a task, picks a tool, and executes code in a loop until Claude decides the task is done (the video: "until Claude deems the task done"). Claude in a loop: observe, decide, act, repeat. You own the [loop](#agent-loop-boucle-dagent) and the tools; Claude owns the reasoning. When you don't want to own the loop, [managed agents](#managed-agents-agents-gérés) run this exact loop for you on Anthropic's infrastructure. There, the agent is the first of the four primitives: the persona, its model, [system prompt](#system-prompt-prompt-système), and toolset (like the [agent toolset](#agent-toolset-ensemble-doutils-de-lagent)). It is reusable across many runs: create it once and run it across many [sessions](#session-session).
 
-→ [schéma de la boucle d'agent](mindmap/agent-loop.png)
+→ [schéma de la boucle d'agent](mindmap/agent-loop.png) · [schéma du premier agent géré](mindmap/first-managed-agent.png)
 
 ### Agent loop *(Boucle d'agent)*
 
@@ -273,15 +273,15 @@ The recommended primitive for context that needs to survive across sessions: use
 
 ### Session *(Session)*
 
-An individual run you fire off from your own application: your back end creates a session (in the course's Kanban board, dragging a ticket into the "in progress" column fires one off automatically). It points to an [environment](#environment-environnement) you configured, and Claude does the work inside an isolated container. Every tool call streams back to your app in real time, through the event stream, so you can watch the work as it happens. Sessions work in parallel: two sessions, two containers, two separate tasks running at the same time. A custom [tool](#tool-outil) on your back end can also send an alert payload into a new session as a tool result. One of the building blocks of [managed agents](#managed-agents-agents-gérés).
+An individual run you fire off from your own application: your back end creates a session (in the course's Kanban board, dragging a ticket into the "in progress" column fires one off automatically). It points to an [environment](#environment-environnement) you configured, and Claude does the work inside an isolated container. Every tool call streams back to your app in real time, through the [event stream](#event-stream-flux-dévénements), so you can watch the work as it happens. Sessions work in parallel: two sessions, two containers, two separate tasks running at the same time. A custom [tool](#tool-outil) on your back end can also send an alert payload into a new session as a tool result. A single run of an [agent](#agent-agent) inside a certain environment: the session is the unit of work. You create it with your agent and environment, plus an optional title. One of the building blocks of [managed agents](#managed-agents-agents-gérés), and the third of its four primitives.
 
-→ [schéma des agents gérés](mindmap/managed-agents.png)
+→ [schéma des agents gérés](mindmap/managed-agents.png) · [schéma du premier agent géré](mindmap/first-managed-agent.png)
 
 ### Environment *(Environnement)*
 
-A sandbox you configure with the right packages and network controls (in the course's Kanban demo: Lighthouse and Puppeteer pre-installed, and the GitHub repo mounted into the container). A [session](#session-session) points to one, and Claude does the work inside an isolated container with full file system access, bash execution, and web search. One of the building blocks of [managed agents](#managed-agents-agents-gérés).
+A sandbox you configure with the right packages and network controls (in the course's Kanban demo: Lighthouse and Puppeteer pre-installed, and the GitHub repo mounted into the container). A [session](#session-session) points to one, and Claude does the work inside an isolated container with full file system access, bash execution, and web search. Where the agent runs: cloud or local, networking config, and so on. In the course's smallest managed agent, creating the environment spins up the container template (cloud, with unrestricted networking): the sandbox where the file actually gets written. One of the building blocks of [managed agents](#managed-agents-agents-gérés), and the second of its four primitives.
 
-→ [schéma des agents gérés](mindmap/managed-agents.png)
+→ [schéma des agents gérés](mindmap/managed-agents.png) · [schéma du premier agent géré](mindmap/first-managed-agent.png)
 
 ### Outcome *(Résultat attendu)*
 
@@ -306,3 +306,21 @@ Coordinators delegating to specialists. In the course's incident response exampl
 What fires before a sensitive action goes out. In the course's incident response example, before the summary goes to Slack, the permissions policy fires: you see the draft on screen, approve it, and the message goes out. Sensitive actions wait for a human.
 
 → [schéma des agents gérés](mindmap/managed-agents.png)
+
+### Events *(Événements)*
+
+The messages flowing in and out of a [session](#session-session): the agent's actions, the tool calls, the results, the replies (the video: flowing in, aka your prompts, and out). Events are how everything flows in this API: you're not running a while loop, you're sending events and reading events. You send the user message into the live stream as events (plural), and you read the agent's work from the [event stream](#event-stream-flux-dévénements). The fourth of the four primitives of [managed agents](#managed-agents-agents-gérés).
+
+→ [schéma du premier agent géré](mindmap/first-managed-agent.png)
+
+### Agent toolset *(Ensemble d'outils de l'agent)*
+
+Anthropic's bundled file, bash, and web tools, defined right in the [agent](#agent-agent)'s tools array: that's the bundled toolset, so you don't have to define any [tools](#tool-outil) yourself. In the course's smallest [managed agent](#managed-agents-agents-gérés) (create a file in the temp drive, count its lines, and report back), they work fine.
+
+→ [schéma du premier agent géré](mindmap/first-managed-agent.png)
+
+### Event stream *(Flux d'événements)*
+
+Where the [events](#events-événements) of a [session](#session-session) flow back out to your app as Anthropic runs the loop: every tool call streams back in real time, so you can watch the work as it happens. Open it before sending the kickoff message: the stream only delivers events that occur after it opens. Then consume it; three event types matter in the course's demo: `agent.message` (Claude's text), `agent.tool_use` (what tool Claude picked) and `session.status_idle` (the agent is done). Run it, and the output is the agent reasoning out loud: actual text, the tools it picks, and a final answer, all running inside Anthropic's container. With [managed agents](#managed-agents-agents-gérés), you just consume the event stream as it comes in.
+
+→ [schéma du premier agent géré](mindmap/first-managed-agent.png)

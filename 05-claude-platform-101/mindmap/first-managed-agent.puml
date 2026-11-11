@@ -1,0 +1,42 @@
+@startuml first-managed-agent
+' Render: java -jar plantuml.jar -tsvg first-managed-agent.puml (smetana: no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Building your first managed agent\n<size:12><color:#777>Créer votre premier agent géré</color></size>
+
+rectangle "**Managed agents**\n<size:11><color:#777>Agents gérés</color></size>\nThe agent loop, run for you on Anthropic's infrastructure\n<size:11><color:#777>La boucle d'agent, exécutée pour vous sur l'infrastructure d'Anthropic</color></size>\nEnabled by default for every API account\n<size:11><color:#777>Activés par défaut pour chaque compte API</color></size>" as MA #CFCBDD
+
+rectangle "**1. Agent**\n<size:11><color:#777>L'agent</color></size>\nThe persona: model, system prompt, toolset\n<size:11><color:#777>Le persona : modèle, prompt système, ensemble d'outils</color></size>\nReusable across many runs\n<size:11><color:#777>Réutilisable d'une exécution à l'autre</color></size>" as AGENT #E8E2D0
+
+rectangle "**2. Environment**\n<size:11><color:#777>L'environnement</color></size>\nWhere the agent runs: cloud or local, networking config\n<size:11><color:#777>Où l'agent s'exécute : cloud ou local, configuration réseau</color></size>\nThe sandbox where the file gets written\n<size:11><color:#777>Le bac à sable où le fichier est écrit</color></size>" as ENV #E8E2D0
+
+rectangle "**3. Session**\n<size:11><color:#777>La session</color></size>\nA single run of an agent inside an environment\n<size:11><color:#777>Une exécution unique d'un agent dans un environnement</color></size>\nThe unit of work\n<size:11><color:#777>L'unité de travail</color></size>" as SESSION #E8E2D0
+
+rectangle "**4. Events**\n<size:11><color:#777>Les événements</color></size>\nThe messages flowing in and out\n<size:11><color:#777>Les messages qui entrent et qui sortent</color></size>\nSending events and reading events, not a while loop\n<size:11><color:#777>Envoyer et lire des événements, pas de boucle while</color></size>" as EVENTS #E8E2D0
+
+rectangle "**Event stream**\n<size:11><color:#777>Le flux d'événements</color></size>\nOpen it before sending the kickoff message\n<size:11><color:#777>L'ouvrir avant d'envoyer le message de lancement</color></size>\nagent.message: Claude's text\n<size:11><color:#777>agent.message : le texte de Claude</color></size>\nagent.tool_use: what tool Claude picked\n<size:11><color:#777>agent.tool_use : l'outil choisi par Claude</color></size>\nsession.status_idle: the agent is done\n<size:11><color:#777>session.status_idle : l'agent a terminé</color></size>" as STREAM #BCD3CB
+
+rectangle "**The trade**\n<size:11><color:#777>Le compromis</color></size>\nDelegate the loop, the sandbox, the resumability\n<size:11><color:#777>Déléguer la boucle, le bac à sable, la capacité de reprise</color></size>\nWhen the loop would run too long, do too much,\nor need to survive a hiccup\n<size:11><color:#777>Quand la boucle tournerait trop longtemps, aurait trop à faire</color></size>\n<size:11><color:#777>ou devrait survivre à un incident</color></size>\nA manual loop for full control\n<size:11><color:#777>Une boucle manuelle pour un contrôle total</color></size>" as TRADE #F9F8F4
+
+MA --> AGENT
+AGENT --> ENV
+ENV --> SESSION
+SESSION --> EVENTS
+EVENTS --> STREAM
+MA --> TRADE
+
+@enduml

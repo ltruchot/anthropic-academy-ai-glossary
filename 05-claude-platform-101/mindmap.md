@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, mindmap]
 created: 2026-11-03
-updated: 2026-11-10
+updated: 2026-11-11
 ---
 # Schémas du cours « Claude Platform 101 »
 
@@ -20,6 +20,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 9. [Schéma de MCP](#schéma-de-mcp)
 10. [Schéma de la gestion du contexte](#schéma-de-la-gestion-du-contexte)
 11. [Schéma des agents gérés](#schéma-des-agents-gérés)
+12. [Schéma du premier agent géré](#schéma-du-premier-agent-géré)
 
 ## Schéma des trois couches
 
@@ -86,3 +87,9 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 ![Schéma des agents gérés](mindmap/managed-agents.png)
 
 *Les agents gérés : une suite d'API pour créer et déployer des agents à grande échelle, qui héberge la boucle d'agent sur l'infrastructure d'Anthropic, dans un conteneur isolé (système de fichiers, bash, recherche web) ; les briques de base : les agents (outils, personas et capacités spécifiques), les environnements (bacs à sable, paquets et contrôles réseau), les sessions (lancées depuis votre application, en parallèle, appels d'outils diffusés en temps réel), les outils et MCP, les résultats attendus (une grille d'évaluation, un évaluateur distinct dans sa propre fenêtre de contexte, Claude itère), la mémoire (un magasin lu avant de démarrer, écrit une fois terminé), la coordination multi-agents (un coordinateur qui délègue à des spécialistes) et la politique d'autorisation (les actions sensibles attendent un humain).* Source : [managed-agents.puml](mindmap/managed-agents.puml)
+
+## Schéma du premier agent géré
+
+![Schéma du premier agent géré](mindmap/first-managed-agent.png)
+
+*Le premier agent géré : la boucle d'agent exécutée pour vous sur l'infrastructure d'Anthropic, activée par défaut pour chaque compte API ; les quatre primitives, dans l'ordre : l'agent (le persona, réutilisable), l'environnement (où l'agent s'exécute, le bac à sable), la session (une exécution unique, l'unité de travail), les événements (les messages qui entrent et qui sortent) ; le flux d'événements, ouvert avant le message de lancement, et ses trois types d'événements ; le compromis : déléguer la boucle, le bac à sable et la capacité de reprise, ou garder une boucle manuelle pour un contrôle total.* Source : [first-managed-agent.puml](mindmap/first-managed-agent.puml)
