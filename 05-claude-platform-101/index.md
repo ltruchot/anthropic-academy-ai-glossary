@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, glossaire]
 created: 2026-11-03
-updated: 2026-11-11
+updated: 2026-11-12
 ---
 # Glossaire et mindmap Anthropic
 
@@ -247,7 +247,7 @@ The limit that every request you send Claude has. A million tokens sounds like a
 
 → [schéma de la gestion du contexte](mindmap/context-management.png)
 
-### Just-in-time context *(Contexte juste à temps)*
+### Just-in-time context *(Contexte juste-à-temps)*
 
 Don't load everything upfront: load what the agent needs now, and let it pull more in via tools when it asks. A compliance review agent doesn't get the entire building code book stuffed into its system prompt: it calls a `lookup_building_code` tool when it needs a specific section. This is the design pattern of the four [context management](#context-management-gestion-du-contexte) patterns: nothing special in the API, just a deliberate choice about what you load and when.
 

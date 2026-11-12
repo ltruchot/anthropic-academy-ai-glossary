@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, mindmap]
 created: 2026-11-03
-updated: 2026-11-11
+updated: 2026-11-12
 ---
 # Schémas du cours « Claude Platform 101 »
 
@@ -81,7 +81,7 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 
 ![Schéma de la gestion du contexte](mindmap/context-management.png)
 
-*La gestion du contexte : rester dans la fenêtre de contexte sans perdre ce qui compte, en y faisant tenir les bonnes choses ; le contexte (tout ce que Claude voit à un tour donné, payé à l'entrée comme à la sortie, la requête échoue une fois la fenêtre pleine) ; les quatre patrons : le contexte juste à temps (le patron de conception des quatre), la compaction côté serveur (elle résume les anciens tours en un seul bloc), la mise en cache des prompts (le contenu stable réutilisé pour une fraction du coût) et l'outil de mémoire (un répertoire de mémoire, le stockage côté client) ; leur combinaison en production, chacun traitant un mode de défaillance différent.* Source : [context-management.puml](mindmap/context-management.puml)
+*La gestion du contexte : rester dans la fenêtre de contexte sans perdre ce qui compte, en y faisant tenir les bonnes choses ; le contexte (tout ce que Claude voit à un tour donné, payé à l'entrée comme à la sortie, la requête échoue une fois la fenêtre pleine) ; les quatre patrons : le contexte juste-à-temps (le patron de conception des quatre), la compaction côté serveur (elle résume les anciens tours en un seul bloc), la mise en cache des prompts (le contenu stable réutilisé pour une fraction du coût) et l'outil de mémoire (un répertoire de mémoire, le stockage côté client) ; leur combinaison en production, chacun traitant un mode de défaillance différent.* Source : [context-management.puml](mindmap/context-management.puml)
 
 ## Schéma des agents gérés
 
