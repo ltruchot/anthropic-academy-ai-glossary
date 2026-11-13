@@ -39,7 +39,7 @@ The backbone of how agents work. Most AI assistants simply take text in and retu
 
 ### Permission modes *(Modes de permission)*
 
-What lets you choose how hands-on to be with [Claude Code](#claude-code-claude-code): it can ask you before running commands or making changes, or run in [auto mode](#auto-mode-mode-auto). You're always in control, whether you prefer a hands-on or hands-off approach. Claude Code has several: [manual](#manual-mode-mode-manuel), [auto-accept](#auto-accept-acceptation-automatique), [plan mode](#plan-mode-mode-plan) and [auto mode](#auto-mode-mode-auto). You can use Shift and Tab to toggle between modes. All of this can be configured in your settings file. Be cautious when skipping permissions: giving Claude Code free rein to run commands means a mistake could be harder to catch before it happens.
+What lets you choose how hands-on to be with [Claude Code](#claude-code-claude-code): it can ask you before running commands or making changes, or run in [auto mode](#auto-mode-mode-auto). You're always in control, whether you prefer a hands-on or hands-off approach. Claude Code has several: [manual](#manual-mode-mode-manuel), [auto-accept](#auto-accept-acceptation-automatique), [plan mode](#plan-mode-mode-plan) and [auto mode](#auto-mode-mode-auto). You can use Shift and Tab to toggle between modes (the page says cycle). There is no right or wrong choice: it is whatever you are comfortable with. All of this can be configured in your settings file. Be cautious when skipping permissions: giving Claude Code free rein to run commands means a mistake could be harder to catch before it happens.
 
 ### Manual mode *(Mode manuel)*
 
@@ -51,7 +51,7 @@ A [permission mode](#permission-modes-modes-de-permission) of [Claude Code](#cla
 
 ### Plan mode *(Mode Plan)*
 
-A [permission mode](#permission-modes-modes-de-permission) of [Claude Code](#claude-code-claude-code) in which Claude reads files and runs shell commands to explore, without editing your source files, and compiles a plan of action before starting any work.
+A [permission mode](#permission-modes-modes-de-permission) of [Claude Code](#claude-code-claude-code) in which Claude reads files and runs shell commands to explore, without editing your source files, and compiles a plan of action before starting any work. It takes your prompt, then analyzes your codebase and researches your suggested implementation; it asks clarifying questions along the way, then returns a detailed plan it can execute. It is great for planning complex changes or doing a safe code review, and excels at multi-step implementations toward a feature. After reviewing the plan, if it looks good, you accept it and let Claude work through it; depending on your permission mode, it may check in with you along the way.
 
 ### Auto mode *(Mode auto)*
 
