@@ -27,15 +27,27 @@ How [Claude Code](#claude-code-claude-code) is best explained. You enter a promp
 
 ### Context window *(Fenêtre de contexte)*
 
-Claude's working memory. It can hold a lot, but not everything at once. This is where the "agentic" aspect of [Claude Code](#claude-code-claude-code) comes in: Claude finds strategic ways to locate answers within your codebase without loading the entire thing into context. It determines how much of your conversation, file contents, command outputs, and more Claude can store and reference. Once you reach that limit, Claude Code [compacts](#compaction-compaction) your conversation.
+Claude's working memory. It can hold a lot, but not everything at once. This is where the "agentic" aspect of [Claude Code](#claude-code-claude-code) comes in: Claude finds strategic ways to locate answers within your codebase without loading the entire thing into context. Every file it reads, every command it runs and every message you send takes up space in it, and since the space is finite, it becomes important to optimize how you use it (see [context management](#context-management-gestion-du-contexte)). It determines how much of your conversation, file contents, command outputs, and more Claude can store and reference. Once you reach that limit, Claude Code [compacts](#compaction-compaction) your conversation.
 
 ### Compaction *(Compaction)*
 
-What [Claude Code](#claude-code-claude-code) does once you reach the limit of the [context window](#context-window-fenêtre-de-contexte): it compacts your conversation, automatically determining what it can remove or summarize to bring the context window back down to a usable size.
+What [Claude Code](#claude-code-claude-code) does once you reach the limit of the [context window](#context-window-fenêtre-de-contexte): it compacts your conversation, automatically determining what it can remove or summarize to bring the context window back down to a usable size. Compaction summarizes important details and removes unnecessary tool call results to free up space; this process can potentially lose details. You can also run it manually with the [/compact command](#context-commands-commandes-de-contexte).
+
+### Context commands *(Commandes de contexte)*
+
+Three commands to act on the [context window](#context-window-fenêtre-de-contexte) of [Claude Code](#claude-code-claude-code). `/compact` runs [compaction](#compaction-compaction) manually: it compacts everything up to that point, which is handy to free up context space while keeping a memory of what you previously worked on. `/clear` starts completely from scratch, with no memory of the previous session: it removes everything. `/context` checks the state of your context: a high-level overview of your context size, the categories taking up the most space, and a visual graphic showing the breakdown.
+
+### Context management *(Gestion du contexte)*
+
+Keeping the [context window](#context-window-fenêtre-de-contexte) of [Claude Code](#claude-code-claude-code) useful. A general rule of thumb: use `/compact` when you're working on a specific feature and running up against the context limit but need to continue, because keeping the context relevant to your current feature is important; use `/clear` when you want to start a new feature, because you don't want the previous conversation to introduce bias into something new (see [context commands](#context-commands-commandes-de-contexte)). For things you want Claude to remember across sessions, put them in your [CLAUDE.md file](#claudemd-file-fichier-claudemd). To save context space: be specific (a vague prompt might seem smaller, but it costs more context in the long run, since without clear instructions Claude is forced to explore your codebase more and do its own reasoning); manage your [MCP servers](#mcp-server-serveur-mcp), turning off those unrelated to the current project; and use [subagents](#subagent-sous-agent) for tasks where you only need the answer.
 
 ### Tool *(Outil)*
 
 The backbone of how agents work. Most AI assistants simply take text in and return text out; tools let [Claude Code](#claude-code-claude-code) determine when to execute code to get closer to completing a task. This could be a file-reading tool, a web search tool, or any number of other capabilities. Claude Code uses semantic understanding to determine when to call a tool and how to use the output.
+
+### MCP server *(Serveur MCP)*
+
+By default, a connected MCP server loads only its tool names and instructions into the context, and Claude loads a [tool](#tool-outil)'s full details when it needs that tool. Each server still takes some space, so if you have servers configured for things unrelated to the current project, consider turning them off (see [context management](#context-management-gestion-du-contexte)).
 
 ### Permission modes *(Modes de permission)*
 
@@ -63,4 +75,8 @@ The workflow the course says to take away: Explore, Plan, Code, and Commit. With
 
 ### Subagent *(Sous-agent)*
 
-A reviewer or helper that [Claude Code](#claude-code-claude-code) runs apart from the main agent. A subagent gets a fresh pair of eyes on the codebase: it doesn't carry the bias the main agent might have from the session. The course uses one as a code reviewer before you commit, and the explore subagent to get a general summary of your codebase without being in [plan mode](#plan-mode-mode-plan) and without intending to make changes afterward.
+A reviewer or helper that [Claude Code](#claude-code-claude-code) runs apart from the main agent. A subagent gets a fresh pair of eyes on the codebase: it doesn't carry the bias the main agent might have from the session. The course uses one as a code reviewer before you commit, and the explore subagent to get a general summary of your codebase without being in [plan mode](#plan-mode-mode-plan) and without intending to make changes afterward. A subagent runs in parallel with your main agent but has a completely separate context window: for tasks where you only need the answer, it does the work and returns just a summary to your main agent, keeping your primary context clean (see [context management](#context-management-gestion-du-contexte)).
+
+### CLAUDE.md file *(Fichier CLAUDE.md)*
+
+Where to put what you want Claude to remember across sessions, so it doesn't have to rediscover things from scratch. If Claude keeps running into the same issues, ask it to save the solution to its CLAUDE.md file. See [context management](#context-management-gestion-du-contexte).
