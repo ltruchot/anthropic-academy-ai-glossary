@@ -18,13 +18,13 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 
 ![Schéma du fonctionnement de Claude Code](mindmap/how-claude-code-works.png)
 
-*Claude Code, un outil de codage agentique qui fonctionne comme un agent IA ; la boucle agentique (un prompt, rassembler le contexte, agir, vérifier les résultats, recommencer tant qu'ils ne sont pas complets), que l'on peut orienter à tout moment ; la fenêtre de contexte, les outils et les quatre modes de permission.* Source : [how-claude-code-works.puml](mindmap/how-claude-code-works.puml)
+*Claude Code, un outil de codage agentique qui fonctionne comme un agent IA ; la boucle agentique (un prompt, rassembler le contexte, agir, vérifier les résultats ; s'ils sont bons, attendre le prompt suivant, sinon recommencer), que l'on peut orienter à tout moment ; la fenêtre de contexte, les outils et les quatre modes de permission.* Source : [how-claude-code-works.puml](mindmap/how-claude-code-works.puml)
 
 ## Schéma du flux de travail
 
 ![Schéma du flux de travail](mindmap/workflow.png)
 
-*Le flux de travail Explore, Plan, Code, Commit, la seule chose à retenir du cours : ce que fait chaque étape, le mode Plan pour les deux premières, la relecture du plan comme meilleur moment pour ajuster ; la revue de code avant de conserver un changement (/diff, /code-review, les trois piles de constats, /rewind).* Source : [workflow.puml](mindmap/workflow.puml)
+*Le flux de travail Explore, Plan, Code, Commit, celui qu'il faut retenir s'il ne fallait retenir qu'une chose de ce cours : ce que fait chaque étape, le mode Plan pour les deux premières, l'examen du plan comme meilleur moment pour ajuster ; la revue de code avant de conserver un changement (/diff, /code-review, les trois piles de constats, /rewind).* Source : [workflow.puml](mindmap/workflow.puml)
 
 ## Schéma de la gestion du contexte
 
