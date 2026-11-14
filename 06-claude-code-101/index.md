@@ -79,7 +79,19 @@ A reviewer or helper that [Claude Code](#claude-code-claude-code) runs apart fro
 
 ### CLAUDE.md file *(Fichier CLAUDE.md)*
 
-Where to put what you want Claude to remember across sessions, so it doesn't have to rediscover things from scratch. If Claude keeps running into the same issues, ask it to save the solution to its CLAUDE.md file. See [context management](#context-management-gestion-du-contexte).
+A Markdown file you add to the root of your project: it gives [Claude Code](#claude-code-claude-code) persistent memory about your project, and Claude Code reads it automatically every time you start a session. Without one, it starts fresh every time: it has to re-explore your codebase, figure out what dependencies are needed and understand what features are already implemented, and sometimes it makes assumptions, which makes it harder to steer Claude in the right direction. Think of it as an onboarding script for your codebase: its contents are appended to your prompt. It is where to put what you want Claude to remember across sessions, so it doesn't have to rediscover things from scratch. Start with your stack, your preferences and your commands, then build from there as you go. You can (and should) commit it to version control so your team benefits from it; there is a hierarchy of memory files depending on who they're for: the [project-level CLAUDE.md](#project-level-claudemd-claudemd-au-niveau-du-projet) and the [user-level CLAUDE.md](#user-level-claudemd-claudemd-au-niveau-utilisateur). Save corrections to memory: if you find yourself correcting Claude repeatedly, explicitly ask it to save that rule to memory (if Claude keeps running into the same issues, ask it to save the solution to its CLAUDE.md file), and next time you open the project it will know. To have Claude reference project docs, use the @ symbol with the file path. Start without one, so you can see where you constantly have to course-correct the model: this keeps your CLAUDE.md compact and focused on only the necessary information. See [context management](#context-management-gestion-du-contexte) and the [/init command](#init-command-commande-init).
+
+### Project-level CLAUDE.md *(CLAUDE.md au niveau du projet)*
+
+The [CLAUDE.md file](#claudemd-file-fichier-claudemd) that lives in the root directory of your project. It is shared with the team.
+
+### User-level CLAUDE.md *(CLAUDE.md au niveau utilisateur)*
+
+The [CLAUDE.md file](#claudemd-file-fichier-claudemd) that lives in your configuration folder. It is just for you and applies across all your projects: put your personal preferences here.
+
+### /init command *(Commande /init)*
+
+When you're ready for a [CLAUDE.md file](#claudemd-file-fichier-claudemd), run `/init` to have Claude generate one for you.
 
 ### Diff *(Diff)*
 
