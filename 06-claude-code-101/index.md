@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, glossaire]
 created: 2026-11-12
-updated: 2026-11-13
+updated: 2026-11-14
 ---
 # Glossaire et mindmap Anthropic
 
@@ -80,3 +80,19 @@ A reviewer or helper that [Claude Code](#claude-code-claude-code) runs apart fro
 ### CLAUDE.md file *(Fichier CLAUDE.md)*
 
 Where to put what you want Claude to remember across sessions, so it doesn't have to rediscover things from scratch. If Claude keeps running into the same issues, ask it to save the solution to its CLAUDE.md file. See [context management](#context-management-gestion-du-contexte).
+
+### Diff *(Diff)*
+
+The before-and-after of a change: the lines removed and the lines added, file by file. The `/diff` command opens an interactive viewer of your uncommitted changes in that form, and it can also show what each of Claude's turns changed (the up and down arrows move between files, Enter opens one). `/diff` and `/code-review` read git's record of what changed, so your project needs to be in a git repository. Read the actual diff before you trust Claude's summary alone, and look for changes you didn't ask for, tests that got weaker (skipped, deleted, or loosened until they passed), and new packages and hard-coded values (a dependency added for only one function, a URL or a key written straight into the code). See the [/code-review command](#code-review-command-commande-code-review).
+
+### /code-review command *(Commande /code-review)*
+
+A second reviewer for a change, before you keep it: it reviews the change in a clean context, with none of your session's history, and reports what it finds ([findings](#finding-constat)). It edits nothing unless you ask it to. A long session carries everything it has read and decided, which is exactly the history you don't want in a reviewer (see [context management](#context-management-gestion-du-contexte)). The review runs in the background, anywhere from seconds to a few minutes, and counts against your usage like any other task, so save it for changes that deserve a second look. An effort level goes after the command: `/code-review low` reports only the findings it's most confident about, `/code-review high` casts a wider net and may include findings it's less sure of; the level you type is remembered for later reviews until you type a different one. It is not Claude Code Review, a separate product for teams: an Owner of your Claude organization turns it on for a GitHub repository, and it posts its findings on pull requests. See also [diff](#diff-diff).
+
+### Finding *(Constat)*
+
+What a [/code-review](#code-review-command-commande-code-review) reports: a file location, a tag (correctness or style) and a one-line summary. Sort each finding into one of three piles. Fix now: a real problem, it matters, and it must be fixed. Ask why: findings you can't quite verify or that seem off, since reviewers reading code changes cold can also miss things; quote the finding back to Claude and ask Claude to check again. Leave it: a real problem but small or inconsequential, which can often be batched into a group of fixes covered in one future session. Whenever you ask for a fix, ask for evidence with it; if a fix grows into a large change of its own, run the review again. A human review and a Claude review pay off when a change is bigger than you could hold in your head, when it touches something sensitive or does something destructive, and before you hand the work to a teammate; a simple, one-line change often needs only a quick glance at the [diff](#diff-diff).
+
+### /rewind command *(Commande /rewind)*
+
+The way back when the whole change is wrong: run `/rewind` (or press Esc twice on an empty prompt), pick the prompt that produced it, and choose Restore code and conversation. One limit: files changed by shell commands Claude ran, such as a package install, aren't rolled back. It works on a different version control system too, because Claude tracks its own edits. See the [diff](#diff-diff).
