@@ -148,3 +148,27 @@ The [skills](#skill-skill) that go in the `.claude/skills` folder in your home d
 ### Project skills *(Skills de projet)*
 
 The [skills](#skill-skill) that go in `.claude/skills` inside the root directory of your repository. Anyone who clones the repository gets them automatically. This is where team standards live, like your company's brand guidelines, and the preferred fonts and colors that you use for web design.
+
+### Hook *(Hook)*
+
+A command that runs at a specific point in [Claude Code](#claude-code-claude-code)'s lifecycle. The key difference between hooks and everything else covered in the course is that hooks are deterministic: they always run. You can tell Claude in your [CLAUDE.md file](#claudemd-file-fichier-claudemd) to run Prettier after every file edit, and most of the time it will, but sometimes it won't; a hook makes it happen every single time, no exceptions. Common use cases: auto-formatting after file edits, logging all executed commands for compliance, blocking dangerous operations like modifying production files, and sending yourself notifications when Claude finishes a task. Hooks are configured in your settings.json: you pick a [hook event](#hook-event-événement-de-hook), optionally set a [matcher](#matcher-matcher) for which tools it applies to, and provide a command to run. You configure them by editing settings.json directly; the [/hooks command](#hooks-command-commande-hooks) opens a read-only list of your configured hooks. Hooks configured in .claude/settings.json are project-level and can be checked into your repo, so your entire team gets the same hooks automatically; their commands use [CLAUDE_PROJECT_DIR](#claude_project_dir-claude_project_dir) to reference scripts stored in your project. If something needs to happen every time without fail, don't put it in a prompt: put it in a hook.
+
+### Hook event *(Événement de hook)*
+
+The point in [Claude Code](#claude-code-claude-code)'s lifecycle at which a [hook](#hook-hook) runs; you pick one for each hook. Some of the most common: PreToolUse runs before a tool call; PostToolUse runs after a tool call completes; UserPromptSubmit runs when you submit a prompt, before Claude processes it; Stop runs when Claude finishes responding; Notification runs when Claude sends a notification. These are just a few of the events you can hook into: Claude Code supports many more (the hooks reference lists them all). Use PostToolUse for auto-formatting and logging, and PreToolUse to block dangerous operations (see [exit codes](#exit-codes-codes-de-sortie)).
+
+### Matcher *(Matcher)*
+
+The optional part of a [hook](#hook-hook)'s configuration that sets which tools it applies to. The most common hook, auto-formatting after edits, is a PostToolUse [hook event](#hook-event-événement-de-hook) with a matcher of "Edit|Write", so it fires after Claude uses the Edit or Write tool. Its command checks the file extension and runs the appropriate formatter: Prettier for TypeScript, gofmt for Go, whatever your project uses.
+
+### Exit codes *(Codes de sortie)*
+
+What decides the behavior of a PreToolUse [hook](#hook-hook), which can block tool calls before they execute; it receives the tool name and input as JSON on stdin. Exit code 0: proceed normally. Exit code 2: block the action, and the stderr message gets fed back to Claude as feedback, so it knows why it was blocked and can adjust. Any other exit code: a non-blocking error that gets shown to you but doesn't stop anything. This is how you enforce hard rules: block writes to a production config directory, block bash commands that contain rm -rf, block commits to main, whatever your team needs to be guaranteed, not suggested.
+
+### /hooks command *(Commande /hooks)*
+
+The command inside [Claude Code](#claude-code-claude-code) that opens a read-only list of your configured [hooks](#hook-hook), so you can check that a new one shows up. It doesn't edit them: you configure hooks by editing settings.json directly.
+
+### CLAUDE_PROJECT_DIR *(CLAUDE_PROJECT_DIR)*
+
+The environment variable to use in a [hook](#hook-hook)'s commands to reference scripts stored in your project, so they work regardless of Claude's current working directory. It goes in the commands of hooks configured in .claude/settings.json, which are project-level and can be checked into your repo.
