@@ -45,9 +45,29 @@ Keeping the [context window](#context-window-fenêtre-de-contexte) of [Claude Co
 
 The backbone of how agents work. Most AI assistants simply take text in and return text out; tools let [Claude Code](#claude-code-claude-code) determine when to execute code to get closer to completing a task. This could be a file-reading tool, a web search tool, or any number of other capabilities. Claude Code uses semantic understanding to determine when to call a tool and how to use the output.
 
+### MCP *(MCP)*
+
+Model Context Protocol, an open standard that lets [Claude Code](#claude-code-claude-code) connect to external tools and data sources. When you ask a question, Claude automatically understands when it should use those [tools](#tool-outil) to better handle your query. A lot of your context lives outside your codebase, in databases, productivity apps or public repositories: MCP bridges that gap. For example, a Linear [MCP server](#mcp-server-serveur-mcp) brings in the details of your specific issues, and a docs MCP server like Context7 provides up-to-date documentation for a dependency.
+
 ### MCP server *(Serveur MCP)*
 
-By default, a connected MCP server loads only its tool names and instructions into the context, and Claude loads a [tool](#tool-outil)'s full details when it needs that tool. Each server still takes some space, so if you have servers configured for things unrelated to the current project, consider turning them off (see [context management](#context-management-gestion-du-contexte)).
+What connects [Claude Code](#claude-code-claude-code) to external tools and data sources through [MCP](#mcp-mcp). You add one with the claude mcp add command; it is an [HTTP server](#http-server-serveur-http) or a [stdio server](#stdio-server-serveur-stdio), and it has a [scope](#mcp-server-scopes-portées-des-serveurs-mcp). You manage your servers with /mcp inside a Claude Code session: see what's connected, check status, and disable servers you don't need. By default, a connected MCP server loads only its tool names and instructions into the context, and Claude loads a [tool](#tool-outil)'s full details when it needs that tool ([tool search](#tool-search-recherche-doutils)). It adds them even when you're not actively using it, and each server still takes some space, so if you have servers configured for things unrelated to the current project, consider turning them off (see [context management](#context-management-gestion-du-contexte)). If a tool has a CLI equivalent (like gh for GitHub or aws for AWS), the CLI is more context-efficient because it doesn't add a listing for each tool. You might also pair an MCP server with a [skill](#skill-skill) that teaches Claude how to use the server's tools well.
+
+### HTTP server *(Serveur HTTP)*
+
+A type of [MCP server](#mcp-server-serveur-mcp) for remote services. It is hosted by the service provider and connects over the network. The other main type is the [stdio server](#stdio-server-serveur-stdio).
+
+### Stdio server *(Serveur stdio)*
+
+A type of [MCP server](#mcp-server-serveur-mcp) for local processes that run on your machine. The other main type is the [HTTP server](#http-server-serveur-http).
+
+### MCP server scopes *(Portées des serveurs MCP)*
+
+An [MCP server](#mcp-server-serveur-mcp) can be scoped in three ways. Local: only available in the current project, just for you. User: available across all your projects. Project: uses a .mcp.json file that you check into version control, so anyone on the codebase gets the exact same servers automatically.
+
+### Tool search *(Recherche d'outils)*
+
+On by default: Claude Code keeps the full definition of each [MCP server](#mcp-server-serveur-mcp) tool out of your context until Claude needs it.
 
 ### Permission modes *(Modes de permission)*
 
