@@ -15,7 +15,7 @@ Schémas, avec un sommaire et une légende pour chacun : [mindmap.md](mindmap.md
 
 ### Plan mode *(Mode Plan)*
 
-The way to scope the work before Claude starts, the first of the two habits of a long session (the second: steer it while it runs). Before Claude writes a single line, it lays out a plan: in plan mode, Claude does its research without editing your source files. It reads the code, figures out what needs to change, and hands you a plan to review. Actually read it, don't skim it: the more thorough the plan, the fewer surprises once Claude starts executing. If something's off or missing, ask Claude to add it where you want: iterating on a plan is much faster than letting Claude run and hoping for the best, then cleaning up the mess.
+The way to scope the work before Claude starts, the first of the two habits of a long session (the second: steer it while it runs). Before Claude writes a single line, it lays out a plan: in plan mode, Claude does its research without editing your source files. It reads the code, figures out what needs to change, and hands you a plan to review. Actually read it, don't skim it: the more thorough the plan, the fewer surprises once Claude starts executing. If something's off or missing, ask Claude to add it where you want: iterating on a plan is much faster than letting Claude run and hoping for the best, then cleaning up the mess. One of the [permission modes](#permission-modes-modes-de-permission): reads run freely, and when [auto mode](#auto-mode-mode-auto) is available, auto's [classifier](#classifier-classifieur) reviews the commands Claude runs to explore and lets the approved ones run without a prompt.
 
 ### Compaction *(Compaction)*
 
@@ -68,3 +68,27 @@ A folder with a SKILL.md inside it: a name, a description that triggers it, and 
 ### Verification skill *(Skill de vérification)*
 
 The [skill](#skill-skill) worth building first. Without it, checking Claude's work depends on you remembering to ask for it: skip that step once and bad code slips through. When Claude finishes a change that matches the skill's description, the skill fires on its own and walks the same steps every time: it runs the test suite, reads the diff, checks that no test was weakened just to make things pass, and reports pass or fail, with the evidence attached. Seeing green isn't enough: a test can be quietly loosened so it passes no matter what. "Done" isn't "the code looks right" from reading the diff alone: done is the gates being run and observed, with the results stated explicitly. The same shape carries any procedure your team repeats: a release checklist, a migration recipe, a pre-PR check.
+
+### Permission modes *(Modes de permission)*
+
+They let you decide once what Claude is allowed to run without stopping to ask you: instead of approving every action one prompt at a time, you pick a mode that matches the job and let Claude work at the level of trust you're comfortable with. Each mode draws a different line between what runs freely and what needs your sign-off. The six: Manual reads only, without prompting, and everything else asks first. Accept edits runs reads, file edits, and common file system bash commands without asking: for iterating on code that you review after the fact. [Plan](#plan-mode-mode-plan) researches and proposes changes without editing anything. [Auto](#auto-mode-mode-auto) accepts everything, with a separate [classifier](#classifier-classifieur) model reviewing most actions before they run. [Don't ask](#dont-ask-dont-ask) allows file reads inside your working directories and pre-approved tools; anything that would prompt is auto-denied. [Bypass permissions](#bypass-permissions-bypass-permissions) skips all checks. Press shift-tab to cycle through the everyday ones: manual, accept edits, plan, and auto; the status bar at the bottom always shows which mode you're currently in. Match the mode to the job.
+
+### Auto mode *(Mode auto)*
+
+The hands-off [permission mode](#permission-modes-modes-de-permission), the one to reach for when you leave the everyday, hands-on work. Claude runs on its own, but before most actions execute, a separate [classifier](#classifier-classifieur) model reviews them. The classifier checks intent, not correctness, so pair auto mode with a [stop hook](#stop-hook-hook-stop) that runs your tests: auto mode watches what Claude is trying to do while it runs, the stop hook confirms the code actually runs once Claude finishes. One guards intent before most actions, the other guards correctness after. Auto mode's guardrails are still evolving: check the docs for the current block and allow lists.
+
+### Classifier *(Classifieur)*
+
+The separate model that reviews most actions before they run in [auto mode](#auto-mode-mode-auto). It guards intent: it's watching for moves that escalate beyond what you actually asked for. The kind of thing it's designed to block: production deploys and migrations; force pushing, or piping downloaded code straight into a shell; sending sensitive data to external endpoints; irreversibly destroying files that existed before the session. It waves through the everyday work: local edits in your project, installing dependencies from your lock file, read-only requests, and pushing to your own branch. It won't catch whether the code actually works: if Claude writes broken authentication, the classifier waves it through, because broken isn't dangerous. When auto mode is available, it also reviews the commands Claude runs to explore in [plan mode](#plan-mode-mode-plan).
+
+### Stop hook *(Hook Stop)*
+
+A hook that runs your tests once Claude finishes: it confirms the code actually runs. Paired with [auto mode](#auto-mode-mode-auto), whose [classifier](#classifier-classifieur) checks intent, not correctness: one guards intent before most actions, the other guards correctness after. Like the [pre-tool-use hook](#pre-tool-use-hook-hook-pretooluse), code that actually runs.
+
+### Don't ask *(Don't ask)*
+
+The [permission mode](#permission-modes-modes-de-permission) for unattended runs, the right move whenever no human is around to approve prompts: CI pipelines, scheduled jobs, overnight batches. Claude still runs what needs no approval in Manual mode, such as file reads inside your working directories, plus the tools you pre-approved. Anything that would otherwise prompt gets auto-denied: your pipeline keeps moving instead of hanging on an approval no one is there to give.
+
+### Bypass permissions *(Bypass permissions)*
+
+The [permission mode](#permission-modes-modes-de-permission) that skips all checks: the equivalent of the dangerously-skip-permissions flag. Only run it inside an isolated container or virtual machine.
