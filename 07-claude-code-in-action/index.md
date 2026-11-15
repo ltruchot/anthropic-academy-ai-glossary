@@ -40,3 +40,23 @@ The other way, with the [/goal command](#goal-command-commande-goal), to let Cla
 ### Worktree *(Worktree)*
 
 The way to run parallel work: when you're running multiple agents on the same codebase, two Claude sessions fighting over the same files leads to conflicts (two steering wheels in one car). With worktrees, each session gets its own independent file tree, so they can't clobber each other's changes. When a session exits, a clean worktree is automatically removed. A `.worktreeinclude` file at the repo root lists git-ignored files to copy into each worktree: useful for an environment variable file or a local config that you need in every worktree but don't want to commit to version control.
+
+### CLAUDE.md *(CLAUDE.md)*
+
+Not enforced configuration: guidance. Every line competes with every other line for Claude's attention, so the longer the file gets, the more it competes with itself, and the less reliably Claude follows any single rule. The goal is to keep the file tight: the leaner the file, the more of it Claude actually follows. Before writing a rule, ask whether it belongs in CLAUDE.md at all: a hard rule like "never push to main" belongs in a [pre-tool-use hook](#pre-tool-use-hook-hook-pretooluse); CLAUDE.md handles the softer conventions. It can live in four places, the [CLAUDE.md locations](#claudemd-locations-emplacements-de-claudemd), and a long one can be split with [imports](#import-import). Whether Claude obeys a rule comes down to how you phrase it: specific and checkable ("Put new API routes in src/api/handlers, one per file", not "Follow best practices for API routes"); naming the replacement ("Use named exports, not default exports", not just "Don't use default exports"); emphasis ("IMPORTANT", "YOU MUST") as a budget, spent on the two or three rules that really hurt when they get broken, since it raises a rule's priority only relative to everything quieter around it. The file is never finished: when Claude does the wrong thing, treat it as a bug report against your CLAUDE.md (tell Claude "add that to the CLAUDE.md file", and it'll write the rule). Treat it like production code: if you can't justify a line, delete it.
+
+### Pre-tool-use hook *(Hook PreToolUse)*
+
+Where a hard rule belongs instead of [CLAUDE.md](#claudemd-claudemd), for a line that must never be crossed ("never push to main"): in CLAUDE.md, Claude respects it most of the time, and "most of the time" isn't good enough for something that dangerous. A hook is code that runs before Claude takes an action, and it can actually block the action: even if Claude does try to push to main, the hook stops it. Real enforcement, not a polite request.
+
+### CLAUDE.md locations *(Emplacements de CLAUDE.md)*
+
+The four places a [CLAUDE.md](#claudemd-claudemd) can live. Claude loads all of them together at launch: nothing gets dropped, and they stack. [Managed policy](#managed-policy-politique-gérée): the org-level file your platform team controls. User: your personal preferences that follow you across every project on your machine. Project: the file shared with your team, checked into the repo. Local: ignored by git, your personal notes for this one repository only (say you're refactoring off in your own branch and want Claude to hold some architectural decisions in mind: that goes in local, not in the shared project file where it'd affect your whole team).
+
+### Managed policy *(Politique gérée)*
+
+The org-level [CLAUDE.md](#claudemd-claudemd) file your platform team controls. You can't exclude it, so org policy is always in play. One of the [CLAUDE.md locations](#claudemd-locations-emplacements-de-claudemd).
+
+### Import *(Import)*
+
+The path-to-file import syntax splits a long [CLAUDE.md](#claudemd-claudemd) into pieces: instead of one wall of text, you point to other files (`@.claude/conventions/testing.md`). When Claude launches, it expands those imported files inline, right where you referenced them. So imports help you keep things tidy, but everything still loads up front: they do not reduce the amount of context Claude has to read. Use imports to organize, not to shrink the load.
