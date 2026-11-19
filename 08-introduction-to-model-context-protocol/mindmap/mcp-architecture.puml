@@ -25,6 +25,7 @@ rectangle "**Message types**\n<size:11><color:#777>Types de messages</color></si
 rectangle "**MCP server**\n<size:11><color:#777>Serveur MCP</color></size>\nAccess to data or functionality implemented by an outside service\n<size:11><color:#777>L'accès aux données ou aux fonctionnalités d'un service externe</color></size>\nExposes tools, resources and prompts\n<size:11><color:#777>Expose des outils, des ressources et des prompts</color></size>\nRuns the tool and makes the actual API call\n<size:11><color:#777>Exécute l'outil et effectue lui-même l'appel à l'API</color></size>" as SV #E8E2D0
 rectangle "**Tool use**\n<size:11><color:#777>Utilisation d'outils</color></size>\nHow Claude calls the tools: Claude decides it needs one\n<size:11><color:#777>La façon dont Claude appelle les outils : Claude décide qu'il en a besoin</color></size>\nComplementary to MCP servers, but a different concept\n<size:11><color:#777>Complémentaire des serveurs MCP, mais un concept différent</color></size>" as TU #E8E2D0
 rectangle "**MCP Python SDK**\n<size:11><color:#777>SDK Python de MCP</color></size>\nDefine tools with decorators, no JSON schema written by hand\n<size:11><color:#777>Définir des outils avec des décorateurs, sans schéma JSON écrit à la main</color></size>\nGenerates the schema from type hints and field descriptions\n<size:11><color:#777>Génère le schéma à partir des indications de type et des descriptions de champs</color></size>" as SDK #D9E4D3
+rectangle "**MCP Inspector**\n<size:11><color:#777>MCP Inspector</color></size>\nTests an MCP server in the browser, without a full application\n<size:11><color:#777>Teste un serveur MCP dans le navigateur, sans application complète</color></size>\nRun with mcp dev; keeps the server state between tool calls\n<size:11><color:#777>Se lance avec mcp dev ; conserve l'état du serveur entre les appels d'outils</color></size>" as INS #D9E4D3
 
 ' Lessons 1-3: MCP, its client (transports, messages), its server, and tool use beside it.
 MCP --> CL
@@ -34,5 +35,7 @@ CL --> MT
 SV --> TU
 ' Fifth lesson: the Python SDK that defines a server's tools.
 SV --> SDK
+' Sixth lesson: the SDK's inspector, to test a server.
+SDK --> INS
 
 @enduml
