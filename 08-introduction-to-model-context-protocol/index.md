@@ -22,7 +22,7 @@ Model Context Protocol, an open-source standard for connecting AI applications t
 
 ### MCP server *(Serveur MCP)*
 
-What exposes [tools](#tool-outil), [resources](#resource-ressource) and [prompts](#prompt-prompt), the three basic components of an MCP server, to the [MCP clients](#mcp-client-client-mcp) that consume them. Tools are intended to be consumed by language models; resources allow a server to share data with clients; prompts provide pre-built instructions to language models. MCP servers provide access to data or functionality implemented by outside services: they act as specialized interfaces that expose tools, prompts and resources in a standardized way. The MCP Server for GitHub wraps up tons of functionality around GitHub as a standardized set of tools (like get_repos()), connects directly to GitHub's API and handles all the GitHub-specific implementation details. It provides tool schemas and functions already defined for you: to call an API directly, you would author those tool definitions on your own. Anyone can create an MCP server implementation; often, service providers make their own official MCP implementations (AWS might release one with tools for its various services). On a normal project, you typically implement either a client or an MCP server: a real project might author just an MCP server, to distribute to the world and allow developers to access a service you have built up.
+What exposes [tools](#tool-outil), [resources](#resource-ressource) and [prompts](#prompt-prompt), the three basic components of an MCP server, to the [MCP clients](#mcp-client-client-mcp) that consume them. Tools are intended to be consumed by language models; resources allow a server to share data with clients; prompts provide pre-built instructions to language models. MCP servers provide access to data or functionality implemented by outside services: they act as specialized interfaces that expose tools, prompts and resources in a standardized way. The MCP Server for GitHub wraps up tons of functionality around GitHub as a standardized set of tools (like get_repos()), connects directly to GitHub's API and handles all the GitHub-specific implementation details. It provides tool schemas and functions already defined for you: to call an API directly, you would author those tool definitions on your own. Anyone can create an MCP server implementation; often, service providers make their own official MCP implementations (AWS might release one with tools for its various services). On a normal project, you typically implement either a client or an MCP server: a real project might author just an MCP server, to distribute to the world and allow developers to access a service you have built up. Building an MCP server becomes much simpler with the official [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp).
 
 → [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
 
@@ -34,7 +34,7 @@ The side that communicates with [MCP servers](#mcp-server-serveur-mcp) and consu
 
 ### Tool *(Outil)*
 
-One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): intended to be consumed by language models. Search engines and calculators are examples of tools an AI application can connect to through [MCP](#mcp-mcp). Each tool is a schema and a function: without MCP, your server holds them and you write, test and maintain them; with MCP, the MCP server defines and executes them. Claude calls them through [tool use](#tool-use-utilisation-doutils).
+One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): intended to be consumed by language models. Search engines and calculators are examples of tools an AI application can connect to through [MCP](#mcp-mcp). Each tool is a schema and a function: without MCP, your server holds them and you write, test and maintain them; with MCP, the MCP server defines and executes them. Claude calls them through [tool use](#tool-use-utilisation-doutils). With the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp), you define a tool with a [decorator](#decorator-décorateur) on a Python function, instead of writing its JSON schema by hand.
 
 → [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
 
@@ -83,5 +83,23 @@ One of the main message types the [MCP client](#mcp-client-client-mcp) and the [
 ### CallToolRequest/CallToolResult *(CallToolRequest/CallToolResult)*
 
 One of the main message types the [MCP client](#mcp-client-client-mcp) and the [MCP server](#mcp-server-serveur-mcp) exchange, defined in the MCP specification. With a CallToolRequest, the client asks the server to run a specific [tool](#tool-outil) with given arguments; with a CallToolResult, it receives the results. Sent once Claude has decided to call a tool and your server has asked the MCP client to run it: the MCP server makes the actual call (to GitHub's API, in the course's example), and the data flows back through it as a CallToolResult.
+
+→ [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
+
+### MCP Python SDK *(SDK Python de MCP)*
+
+The official Python SDK that makes building an [MCP server](#mcp-server-serveur-mcp) much simpler: instead of writing complex JSON schemas by hand, you define [tools](#tool-outil) with [decorators](#decorator-décorateur) and let the SDK handle the heavy lifting. It makes server creation straightforward: you can initialize a server with just one line (`mcp = FastMCP("DocumentMCP", log_level="ERROR")`, after `from mcp.server.fastmcp import FastMCP`). Instead of writing JSON schemas manually, you use Python [type hints](#type-hints-indications-de-type) and field descriptions: the SDK automatically generates the proper schema that Claude can understand. The Field class from Pydantic provides argument descriptions that help Claude understand what each parameter expects. Key benefits of the approach: no manual JSON schema writing required; type hints provide automatic validation; clear parameter descriptions help Claude understand tool usage; error handling integrates naturally with Python exceptions (a tool raises a ValueError when a document is not found); tool registration happens automatically through decorators. It transforms tool creation from a complex schema-writing exercise into simple Python function definitions, which makes MCP servers much easier to build and maintain while ensuring Claude receives properly formatted tool specifications. The course's example: a document management server with two core tools, one to read documents and another to update them (a simple find-and-replace), the documents existing in memory as a simple dictionary where keys are document IDs and values are the content.
+
+→ [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
+
+### Decorator *(Décorateur)*
+
+What the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp) uses to define [tools](#tool-outil): `@mcp.tool(…)` above a Python function. The decorator specifies the tool name and description, while the function parameters define the required arguments. Tool registration happens automatically through decorators.
+
+→ [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
+
+### Type hints *(Indications de type)*
+
+The types written on a Python function's parameters (`doc_id: str`). With the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp), you use Python type hints and field descriptions instead of writing JSON schemas manually, and the SDK automatically generates the proper schema that Claude can understand. Type hints provide automatic validation.
 
 → [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
