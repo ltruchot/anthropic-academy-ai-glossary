@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, glossaire]
 created: 2026-11-15
-updated: 2026-11-18
+updated: 2026-11-19
 ---
 # Glossaire et mindmap Anthropic
 
@@ -132,3 +132,16 @@ The --bare flag, for when CI needs the same setup on every machine. It skips aut
 ### Agent SDK *(Agent SDK)*
 
 A library that embeds Claude Code inside your own TypeScript or Python applications: the last step on the spectrum that starts with [cloud scheduled tasks](#cloud-scheduled-task-tâche-planifiée-cloud), for when the work belongs inside your own product. Both languages expose a query function and the same primitives as the CLI. You pass a prompt plus options, like allowedTools to control what Claude can do, a system prompt, and a [permission mode](#permission-modes-modes-de-permission), then iterate over the messages Claude streams back and handle them however your app needs. The same engine as the CLI, just callable from inside your product.
+
+### Code Review *(Code Review)*
+
+The managed path to put Claude to work on the pull request, the best place to hand off repetitive work: an Anthropic-hosted service that reviews your pull requests through the Claude GitHub app, with nothing for you to build or host. An Owner of your Claude organization enables it from the Claude Code admin settings (a Code review section, an Allow code review switch), then installs the Claude GitHub app, picks which repos it watches, and decides when it runs: once when a PR opens, on every push to the PR, or only when someone comments @claude review. Everything runs on Anthropic's infrastructure: a set of review agents analyzes the diff against your full codebase, not just the changed lines in isolation, then posts findings as inline comments on the specific lines, tagged by severity, with a summary table in the check run. It deduplicates and ranks the findings, so instead of a wall of nitpicks, you read a handful of real issues. It never approves or blocks the PR: the judgment call stays with a human. It doesn't push fixes: the service posts findings only, so acting on one is your move, fix the code and push (to check your fix before you push, /code-review in your own terminal runs its own review of your diff, and its --fix flag applies that review's findings to your working tree). Available on Team and Enterprise plans. For PR reviews, take this path; when the job goes beyond review, reach for the [GitHub Action](#github-action-github-action).
+
+### GitHub Action *(GitHub Action)*
+
+The do-it-yourself path, anthropics/claude-code-action@v1, a GitHub Action you wire up yourself: for when the job goes beyond review, into custom CI (implementing changes from a comment, running scheduled reports, anything you'd normally write a workflow for). It runs the agent on PR comments, scheduled jobs, and any GitHub event. Setup starts inside Claude Code with the /install-github-app command (you'll need repo admin): it walks you through installing the GitHub app and setting the Anthropic API key secret on the repo. Its inputs: anthropic_api_key (required when the run calls the Claude API, unless you authenticate with claude_code_oauth_token, from a Claude subscription, or with workload identity federation; not used with the cloud providers), github_token (optional: left out, the action authenticates as the Claude GitHub app), trigger_phrase (what it listens for in comments, @claude by default), use_bedrock / use_vertex / use_foundry (route the run through Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry), prompt (set it and Claude runs on the event without waiting for a mention; left out, the action waits for the trigger phrase), and [claude_args](#claude_args-claude_args). A workflow in .github/workflows/claude.yaml listens for @claude on PR comments and issue comments (grant id-token: write so the action can sign in as the Claude GitHub app): Claude pushes commits and posts comments describing what it did. A cron trigger runs a daily rollup: you read it in that run's log, since a scheduled run doesn't post a comment on its own (a workflow_dispatch trigger kicks it off manually from the Actions tab). Start with the managed service, [Code Review](#code-review-code-review); move to the action the moment you need Claude to actually do something in CI, not just comment on it.
+
+### claude_args *(claude_args)*
+
+The input of the [GitHub Action](#github-action-github-action) that takes a string of CLI arguments passed straight through to Claude Code: where all the fine-tuning of a run lives. Its knobs: --max-turns (`--max-turns 5`) puts a hard cap on the agent loop, so it can't run forever; the [permission mode](#permission-modes-modes-de-permission), for an unattended job one that doesn't stop and ask, since there's no one there to answer; and the allowed tools, exactly what the job needs and nothing more (read-only, for a report).
+
