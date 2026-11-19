@@ -34,13 +34,13 @@ The side that communicates with [MCP servers](#mcp-server-serveur-mcp) and consu
 
 ### Tool *(Outil)*
 
-One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): intended to be consumed by language models. Search engines and calculators are examples of tools an AI application can connect to through [MCP](#mcp-mcp). Each tool is a schema and a function: without MCP, your server holds them and you write, test and maintain them; with MCP, the MCP server defines and executes them. Claude calls them through [tool use](#tool-use-utilisation-doutils). With the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp), you define a tool with a [decorator](#decorator-décorateur) on a Python function, instead of writing its JSON schema by hand.
+One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): intended to be consumed by language models. Search engines and calculators are examples of tools an AI application can connect to through [MCP](#mcp-mcp). Each tool is a schema and a function: without MCP, your server holds them and you write, test and maintain them; with MCP, the MCP server defines and executes them. Claude calls them through [tool use](#tool-use-utilisation-doutils). With the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp), you define a tool with a [decorator](#decorator-décorateur) on a Python function, instead of writing its JSON schema by hand. A [resource](#resource-ressource), by contrast, lets clients fetch information without the complexity of tool calls.
 
 → [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
 
 ### Resource *(Ressource)*
 
-One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): resources allow a server to share data with clients, for direct data access (resources for exposing data).
+One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): resources allow a server to share data with clients, for direct data access (resources for exposing data). Like GET request handlers in a typical HTTP server, they expose data to clients: perfect when you need to fetch information rather than perform actions, a clean way to expose read-only data from your MCP server without the complexity of tool calls. They follow a request-response pattern: when your client needs data, it sends a [ReadResourceRequest](#readresourcerequestreadresourceresult-readresourcerequestreadresourceresult) with a URI that identifies the resource; the MCP server processes the URI, runs the appropriate function and returns the data in a ReadResourceResult. Your code requests a resource from the [MCP client](#mcp-client-client-mcp), which forwards the request to the MCP server. You usually define one resource for each distinct read operation. Two types: [direct resources](#direct-resource-ressource-directe) (a static URI) and [templated resources](#templated-resource-ressource-paramétrée) (parameters in their URI). With the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp), a resource is a Python function under a [decorator](#decorator-décorateur), `@mcp.resource(…)`, that gives its URI and its mime_type. A resource can return any type of data (strings, JSON, binary data); the mime_type parameter gives clients a hint about the kind of data returned: "application/json" for structured data, "text/plain" for plain text, "application/pdf" for binary files. The SDK automatically serializes your return values: you return the data structure, not a JSON string, and the client deserializes it. The [MCP Inspector](#mcp-inspector-mcp-inspector) lists them in two sections, Resources (direct/static) and Resource Templates (templated); click one to test it, and the inspector shows the exact response structure your client will receive, with the MIME type and the serialized data. The course's example: a document mention feature (@document_name), one resource listing all available documents for an autocomplete, another fetching a document's contents, which your system injects into the prompt sent to Claude, so Claude needs no tool to fetch it.
 
 → [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
 
@@ -94,7 +94,7 @@ The official Python SDK that makes building an [MCP server](#mcp-server-serveur-
 
 ### Decorator *(Décorateur)*
 
-What the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp) uses to define [tools](#tool-outil): `@mcp.tool(…)` above a Python function. The decorator specifies the tool name and description, while the function parameters define the required arguments. Tool registration happens automatically through decorators.
+What the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp) uses to define [tools](#tool-outil): `@mcp.tool(…)` above a Python function. The decorator specifies the tool name and description, while the function parameters define the required arguments. Tool registration happens automatically through decorators. A [resource](#resource-ressource) is defined the same way, with `@mcp.resource(…)`: its URI and its mime_type.
 
 → [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
 
@@ -113,5 +113,23 @@ The built-in browser-based inspector of the [MCP Python SDK](#mcp-python-sdk-sdk
 ### Client session *(Session client)*
 
 The actual connection to an [MCP server](#mcp-server-serveur-mcp), part of the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp). The [MCP client](#mcp-client-client-mcp) of the course's project consists of two main components: the MCP Client, a custom class you create to make using the session easier, and the client session. The client session requires careful resource management: connections must be properly cleaned up when you're done. That's why it is wrapped in your own class that handles all the cleanup automatically (the video: a very common practice, rather than using the client session directly). Through the session, the client implements its two essential functions: `list_tools()` accesses the session, calls its built-in `list_tools()` method and returns the [tools](#tool-outil) from the result; `call_tool()` passes the tool name and the input parameters (provided by Claude) to the server and returns the result (`await self.session().call_tool(tool_name, tool_input)`).
+
+→ [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
+
+### ReadResourceRequest/ReadResourceResult *(ReadResourceRequest/ReadResourceResult)*
+
+The message types of a [resource](#resource-ressource) read, in its request-response pattern. When the [MCP client](#mcp-client-client-mcp) needs data, it sends a ReadResourceRequest with a URI to identify which resource it wants (the address of the resource, defined with the resource); the [MCP server](#mcp-server-serveur-mcp) processes the request, runs the function behind that URI and returns the data in a ReadResourceResult. In the course's example, the list of document names for an autocomplete: a ReadResourceRequest for `docs://documents`, a ReadResourceResult with the list of doc names.
+
+→ [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
+
+### Direct resource *(Ressource directe)*
+
+A [resource](#resource-ressource) whose URI is static and never changes, such as `docs://documents`: perfect for operations that don't need parameters. Also called a static resource; the [MCP Inspector](#mcp-inspector-mcp-inspector) lists direct/static resources under Resources. One of the two types of resources, with [templated resources](#templated-resource-ressource-paramétrée).
+
+→ [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
+
+### Templated resource *(Ressource paramétrée)*
+
+A [resource](#resource-ressource) whose URI includes one or more parameters, such as `docs://documents/{doc_id}`: the Python SDK automatically parses them and passes them as keyword arguments to your function, each with the name it has in the URI (`doc_id`). For requests that need more selection or customization of what is asked for. The [MCP Inspector](#mcp-inspector-mcp-inspector) lists them under Resource Templates, where you provide values for the parameters. One of the two types of resources, with [direct resources](#direct-resource-ressource-directe).
 
 → [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
