@@ -10,15 +10,16 @@ glossary and one set of mind maps per course. Not affiliated with or endorsed by
 
 ## Courses
 
-| Course                                                   | Glossary                                                      | Mind maps                                                         |
-| -------------------------------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------- |
-| 01 — AI Capabilities and Limitations (and its PDF annex) | [index.md](01-ai-capabilities-and-limitations/index.md)       | [mindmap.md](01-ai-capabilities-and-limitations/mindmap.md)       |
-| 02 — AI Fluency for Builders                             | [index.md](02-ai-fluency-for-builders/index.md)               | [mindmap.md](02-ai-fluency-for-builders/mindmap.md)               |
-| 03 — Claude Platform and Model Foundations               | [index.md](03-claude-platform-and-model-foundations/index.md) | [mindmap.md](03-claude-platform-and-model-foundations/mindmap.md) |
-| 04 — Choosing the right Claude model                     | [index.md](04-choosing-the-right-claude-model/index.md)       | [mindmap.md](04-choosing-the-right-claude-model/mindmap.md)       |
-| 05 — Claude Platform 101                                 | [index.md](05-claude-platform-101/index.md)                   | [mindmap.md](05-claude-platform-101/mindmap.md)                   |
-| 06 — Claude Code 101                                     | [index.md](06-claude-code-101/index.md)                       | [mindmap.md](06-claude-code-101/mindmap.md)                       |
-| 07 — Claude Code in Action                               | [index.md](07-claude-code-in-action/index.md)                 | [mindmap.md](07-claude-code-in-action/mindmap.md)                 |
+| Course                                                   | Glossary                                                       | Mind maps                                                          |
+| -------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------ |
+| 01 — AI Capabilities and Limitations (and its PDF annex) | [index.md](01-ai-capabilities-and-limitations/index.md)        | [mindmap.md](01-ai-capabilities-and-limitations/mindmap.md)        |
+| 02 — AI Fluency for Builders                             | [index.md](02-ai-fluency-for-builders/index.md)                | [mindmap.md](02-ai-fluency-for-builders/mindmap.md)                |
+| 03 — Claude Platform and Model Foundations               | [index.md](03-claude-platform-and-model-foundations/index.md)  | [mindmap.md](03-claude-platform-and-model-foundations/mindmap.md)  |
+| 04 — Choosing the right Claude model                     | [index.md](04-choosing-the-right-claude-model/index.md)        | [mindmap.md](04-choosing-the-right-claude-model/mindmap.md)        |
+| 05 — Claude Platform 101                                 | [index.md](05-claude-platform-101/index.md)                    | [mindmap.md](05-claude-platform-101/mindmap.md)                    |
+| 06 — Claude Code 101                                     | [index.md](06-claude-code-101/index.md)                        | [mindmap.md](06-claude-code-101/mindmap.md)                        |
+| 07 — Claude Code in Action                               | [index.md](07-claude-code-in-action/index.md)                  | [mindmap.md](07-claude-code-in-action/mindmap.md)                  |
+| 08 — Introduction to Model Context Protocol              | [index.md](08-introduction-to-model-context-protocol/index.md) | [mindmap.md](08-introduction-to-model-context-protocol/mindmap.md) |
 
 Each course folder stands alone, so that one course can be revised without the others: a term two
 courses define has an entry in each (the same text, or this course's own definition), and a mind map
@@ -38,4 +39,3 @@ After editing a `.puml`, render it again from `mindmap/`:
 ```bash
 java -jar plantuml.jar -tpng <name>.puml && java -jar plantuml.jar -tsvg <name>.puml
 ```
-
