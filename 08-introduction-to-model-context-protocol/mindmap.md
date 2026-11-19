@@ -16,4 +16,4 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 
 ![Schéma de l'architecture MCP](mindmap/mcp-architecture.png)
 
-*MCP et ses deux côtés : le client MCP (le pont de communication avec les serveurs MCP, indépendant du transport, ses types de messages ListTools et CallTool) et le serveur MCP (l'accès à un service externe, ses outils, ressources et prompts, le SDK Python de MCP pour définir ses outils, et son MCP Inspector pour les tester), et l'utilisation d'outils à côté, complémentaire mais différente.* Source : [mcp-architecture.puml](mindmap/mcp-architecture.puml)
+*MCP et ses deux côtés : le client MCP (le pont de communication avec les serveurs MCP, indépendant du transport, ses types de messages ListTools et CallTool, sa session client) et le serveur MCP (l'accès à un service externe, ses outils, ressources et prompts, le SDK Python de MCP pour définir ses outils, et son MCP Inspector pour les tester), et l'utilisation d'outils à côté, complémentaire mais différente.* Source : [mcp-architecture.puml](mindmap/mcp-architecture.puml)
