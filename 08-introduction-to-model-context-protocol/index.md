@@ -37,3 +37,7 @@ One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): r
 ### Prompt *(Prompt)*
 
 One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): prompts provide pre-built instructions to language models, for pre-defined workflows. Specialized prompts are the page's example of the workflows an AI application can connect to through [MCP](#mcp-mcp).
+
+### uv *(uv)*
+
+An extremely fast Python package and project manager, written in Rust: the course manages its project with the UV CLI, which needs a local Python installation. A single tool to replace pip, pip-tools, pipx, poetry, pyenv, twine, virtualenv and more; 10-100x faster than pip. It provides comprehensive project management, with a universal lockfile; runs scripts, with support for inline dependency metadata; installs and manages Python versions; runs and installs tools published as Python packages; includes a pip-compatible interface; supports Cargo-style workspaces; is disk-space efficient, with a global cache for dependency deduplication. Installable without Rust or Python via curl or pip, on macOS, Linux and Windows. Backed by Astral, the creators of Ruff.
