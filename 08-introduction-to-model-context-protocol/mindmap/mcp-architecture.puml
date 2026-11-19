@@ -1,0 +1,35 @@
+@startuml mcp-architecture
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title MCP architecture\n<size:12><color:#777>L'architecture MCP</color></size>
+
+rectangle "**MCP**\n<size:11><color:#777>MCP</color></size>\nAn open-source standard for connecting AI applications to external systems\n<size:11><color:#777>Une norme open source pour connecter les applications d'IA à des systèmes externes</color></size>\nShifts tool definitions and execution from your server to MCP servers\n<size:11><color:#777>Déplace la définition et l'exécution des outils de votre serveur vers des serveurs MCP</color></size>" as MCP #CFCBDD
+rectangle "**MCP client**\n<size:11><color:#777>Client MCP</color></size>\nThe communication bridge between your server and MCP servers\n<size:11><color:#777>Le pont de communication entre votre serveur et les serveurs MCP</color></size>\nHandles the message exchange and protocol details\n<size:11><color:#777>Gère l'échange de messages et les détails du protocole</color></size>" as CL #E8E2D0
+rectangle "**Transport agnostic**\n<size:11><color:#777>Indépendant du transport</color></size>\nMost common: same machine, standard input/output\n<size:11><color:#777>Le plus courant : la même machine, l'entrée/sortie standard</color></size>\nAlso HTTP, WebSockets, other network protocols\n<size:11><color:#777>Aussi HTTP, WebSockets, d'autres protocoles réseau</color></size>" as TA #D9E4D3
+rectangle "**Message types**\n<size:11><color:#777>Types de messages</color></size>\nListToolsRequest/ListToolsResult: what tools do you provide?\n<size:11><color:#777>ListToolsRequest/ListToolsResult : « Quels outils fournis-tu ? »</color></size>\nCallToolRequest/CallToolResult: run a tool with given arguments\n<size:11><color:#777>CallToolRequest/CallToolResult : exécute un outil avec les arguments fournis</color></size>" as MT #D9E4D3
+rectangle "**MCP server**\n<size:11><color:#777>Serveur MCP</color></size>\nAccess to data or functionality implemented by an outside service\n<size:11><color:#777>L'accès aux données ou aux fonctionnalités d'un service externe</color></size>\nExposes tools, resources and prompts\n<size:11><color:#777>Expose des outils, des ressources et des prompts</color></size>\nRuns the tool and makes the actual API call\n<size:11><color:#777>Exécute l'outil et effectue lui-même l'appel à l'API</color></size>" as SV #E8E2D0
+rectangle "**Tool use**\n<size:11><color:#777>Utilisation d'outils</color></size>\nHow Claude calls the tools: Claude decides it needs one\n<size:11><color:#777>La façon dont Claude appelle les outils : Claude décide qu'il en a besoin</color></size>\nComplementary to MCP servers, but a different concept\n<size:11><color:#777>Complémentaire des serveurs MCP, mais un concept différent</color></size>" as TU #E8E2D0
+
+' Lessons 1-3: MCP, its client (transports, messages), its server, and tool use beside it.
+MCP --> CL
+MCP --> SV
+CL --> TA
+CL --> MT
+SV --> TU
+
+@enduml

@@ -10,4 +10,10 @@ Les schémas du [glossaire](index.md), un par partie du cours. Chacun est un fic
 
 ## Sommaire
 
-Pas encore de schéma.
+1. [Schéma de l'architecture MCP](#schéma-de-larchitecture-mcp)
+
+## Schéma de l'architecture MCP
+
+![Schéma de l'architecture MCP](mindmap/mcp-architecture.png)
+
+*MCP et ses deux côtés : le client MCP (le pont de communication avec les serveurs MCP, indépendant du transport, ses types de messages ListTools et CallTool) et le serveur MCP (l'accès à un service externe, ses outils, ressources et prompts), et l'utilisation d'outils à côté, complémentaire mais différente.* Source : [mcp-architecture.puml](mindmap/mcp-architecture.puml)
