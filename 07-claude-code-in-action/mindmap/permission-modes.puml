@@ -1,0 +1,37 @@
+@startuml permission-modes
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Permission modes\n<size:12><color:#777>Modes de permission</color></size>
+
+rectangle "**Permission modes**\n<size:11><color:#777>Modes de permission</color></size>\nDecide once what Claude may run without asking you\n<size:11><color:#777>Décider une fois pour toutes ce que Claude peut exécuter sans vous demander</color></size>\nManual: reads run without a prompt, everything else asks first\n<size:11><color:#777>Manuel : les lectures s'exécutent sans demande, pour tout le reste Claude demande d'abord</color></size>\nAccept edits: reads, file edits and common file system commands, no prompt\n<size:11><color:#777>Acceptation automatique des modifications : lectures, modifications de fichiers et commandes courantes sur le système de fichiers, sans demande</color></size>\nShift-tab cycles manual, accept edits, plan and auto\n<size:11><color:#777>Maj+Tab fait défiler manuel, acceptation automatique des modifications, Plan et auto</color></size>" as PMO #CFCBDD
+rectangle "**Plan mode**\n<size:11><color:#777>Mode Plan</color></size>\nResearches and proposes changes without editing anything\n<size:11><color:#777>Fait des recherches et propose des changements sans rien modifier</color></size>" as PL #E8E2D0
+rectangle "**Auto mode**\n<size:11><color:#777>Mode auto</color></size>\nThe hands-off mode: a separate classifier model reviews most actions before they run\n<size:11><color:#777>Le mode où vous restez en retrait : un modèle classifieur distinct examine la plupart des actions avant leur exécution</color></size>" as AU #E8E2D0
+rectangle "**Classifier**\n<size:11><color:#777>Classifieur</color></size>\nGuards intent, not correctness\n<size:11><color:#777>Surveille l'intention, pas le bon fonctionnement</color></size>\nDesigned to block moves like production deploys and migrations, force pushing, piping downloaded code into a shell\n<size:11><color:#777>Conçu pour bloquer, par exemple, les déploiements et migrations en production, le push forcé, l'exécution directe de code téléchargé dans un shell</color></size>\nWaves through everyday work, like pushing to your own branch\n<size:11><color:#777>Laisse passer le travail quotidien, comme les push vers votre propre branche</color></size>" as CL #D9E4D3
+rectangle "**Stop hook**\n<size:11><color:#777>Hook Stop</color></size>\nRuns your tests once Claude finishes: guards correctness after\n<size:11><color:#777>Lance vos tests une fois que Claude a fini : surveille le bon fonctionnement après coup</color></size>" as SH #D9E4D3
+rectangle "**Don't ask**\n<size:11><color:#777>Don't ask</color></size>\nFor unattended runs: file reads in your working directories and pre-approved tools run\n<size:11><color:#777>Pour les exécutions sans surveillance : lectures de fichiers dans vos répertoires de travail et outils préapprouvés passent</color></size>\nAnything that would otherwise prompt is auto-denied\n<size:11><color:#777>Tout ce qui déclencherait sinon une demande est refusé automatiquement</color></size>" as DA #E8E2D0
+rectangle "**Bypass permissions**\n<size:11><color:#777>Bypass permissions</color></size>\nSkips all checks: only inside an isolated container or VM\n<size:11><color:#777>Passe outre tous les contrôles : seulement dans un conteneur isolé ou une machine virtuelle</color></size>" as BP #E8E2D0
+
+' Lesson 4: the six modes, auto mode with its classifier and its stop hook.
+PMO --> PL
+PMO --> AU
+AU --> CL
+AU --> SH
+PMO --> DA
+PMO --> BP
+
+@enduml

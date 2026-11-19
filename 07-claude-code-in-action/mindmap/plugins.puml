@@ -1,0 +1,29 @@
+@startuml plugins
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Plugins\n<size:12><color:#777>Les plugins</color></size>
+
+rectangle "**Plugin**\n<size:11><color:#777>Plugin</color></size>\nOne installable unit: skills, subagents, hooks, MCP server configs and more\n<size:11><color:#777>Une unité installable : skills, sous-agents, hooks, configurations de serveurs MCP et plus encore</color></size>\nRead before you install: it runs code with your privileges\n<size:11><color:#777>Lisez avant d'installer : il exécute du code avec vos privilèges</color></size>\nIts components run alongside yours: its hooks stack with yours\n<size:11><color:#777>Ses composants s'exécutent à côté des vôtres : ses hooks s'additionnent aux vôtres</color></size>" as PG #CFCBDD
+rectangle "**Marketplace**\n<size:11><color:#777>Marketplace</color></size>\nA shared source that plugins resolve through\n<size:11><color:#777>Une source partagée via laquelle les plugins sont résolus</color></size>\nListed isn't the same as trusted\n<size:11><color:#777>Être référencé ne veut pas dire être digne de confiance</color></size>" as MK #E8E2D0
+rectangle "**Manifest**\n<size:11><color:#777>Manifeste</color></size>\nOptional, at .claude-plugin/plugin.json: components are found by convention\n<size:11><color:#777>Facultatif, dans .claude-plugin/plugin.json : les composants sont trouvés par convention</color></size>\nName, the only required field, namespaces the skills: /plugin-name:skill-name\n<size:11><color:#777>Le nom, seul champ obligatoire, préfixe les skills : /plugin-name:skill-name</color></size>" as MF #E8E2D0
+
+' Lesson 9: a plugin's two sides, using one (a marketplace, read before you install) and packaging one (the manifest).
+PG --> MK
+PG --> MF
+
+@enduml

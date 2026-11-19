@@ -1,0 +1,45 @@
+@startuml unattended-work
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Handing off repeat work\n<size:12><color:#777>Confier le travail répétitif</color></size>
+
+rectangle "**Handing off repeat work**\n<size:11><color:#777>Confier le travail répétitif</color></size>\nOnce you trust Claude to do a task, stop doing it by hand\n<size:11><color:#777>Une fois que vous faites confiance à Claude pour une tâche, arrêtez de la faire à la main</color></size>" as HO #CFCBDD
+rectangle "**Cloud scheduled task**\n<size:11><color:#777>Tâche planifiée cloud</color></size>\nThe default for repeat work: on Anthropic's infrastructure, nothing to host\n<size:11><color:#777>Le choix par défaut pour le travail répétitif : sur l'infrastructure d'Anthropic, rien à héberger</color></size>\nFires on a cron schedule, an HTTP POST or a GitHub event\n<size:11><color:#777>Lancée par une planification cron, un HTTP POST ou un événement GitHub</color></size>" as CST #E8E2D0
+rectangle "**Headless mode**\n<size:11><color:#777>Mode headless</color></size>\n-p: a one-shot command for your own pipeline\n<size:11><color:#777>-p : une commande ponctuelle pour votre propre pipeline</color></size>" as HM #E8E2D0
+rectangle "**structured_output**\n<size:11><color:#777>structured_output</color></size>\nThe object that matches your JSON schema\n<size:11><color:#777>L'objet conforme à votre schéma JSON</color></size>" as SO #D9E4D3
+rectangle "**Bare mode**\n<size:11><color:#777>Mode bare</color></size>\n--bare: the same setup on every CI machine\n<size:11><color:#777>--bare : la même configuration sur chaque machine de CI</color></size>" as BM #D9E4D3
+rectangle "**Agent SDK**\n<size:11><color:#777>Agent SDK</color></size>\nClaude Code inside your own product, in TypeScript or Python\n<size:11><color:#777>Claude Code dans votre propre produit, en TypeScript ou en Python</color></size>" as SDK #E8E2D0
+rectangle "**Code Review**\n<size:11><color:#777>Code Review</color></size>\nThe managed path for PR reviews: inline findings, never approves or blocks\n<size:11><color:#777>La voie gérée pour les revues de PR : publie ses constats sur les lignes, n'approuve ni ne bloque jamais la PR</color></size>" as CR #E8E2D0
+rectangle "**GitHub Action**\n<size:11><color:#777>GitHub Action</color></size>\nThe do-it-yourself path, for jobs beyond review\n<size:11><color:#777>La voie « faites-le vous-même », pour les tâches au-delà de la revue</color></size>" as GA #E8E2D0
+rectangle "**claude_args**\n<size:11><color:#777>claude_args</color></size>\nWhere the tuning lives, like --max-turns\n<size:11><color:#777>Là où se fait le réglage, comme --max-turns</color></size>" as CA #D9E4D3
+rectangle "**Unsupervised run**\n<size:11><color:#777>Exécution sans surveillance</color></size>\nThe less you watched, the more you verify\n<size:11><color:#777>Moins vous avez surveillé, plus vous vérifiez</color></size>\nStart with the diff, not the summary; turn the tests into a gate\n<size:11><color:#777>Partir du diff, pas du résumé ; faire de vos tests un contrôle</color></size>" as UR #E8E2D0
+rectangle "**Cold second opinion**\n<size:11><color:#777>Second avis à froid</color></size>\nA fresh session or sub-agent reviews the changed code\n<size:11><color:#777>Une nouvelle session ou un sous-agent relit le code modifié</color></size>" as CSO #D9E4D3
+
+' Lessons 6 to 8: the spectrum from cloud scheduled tasks to the Agent SDK, the two paths for pull requests, then the check of a run nobody watched.
+HO --> CST
+HO --> HM
+HM --> SO
+HM --> BM
+HO --> SDK
+HO --> CR
+HO --> GA
+GA --> CA
+HO --> UR
+UR --> CSO
+
+@enduml

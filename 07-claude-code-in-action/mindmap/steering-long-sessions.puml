@@ -1,0 +1,39 @@
+@startuml steering-long-sessions
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Steering long sessions\n<size:12><color:#777>Orienter les longues sessions</color></size>
+
+rectangle "**Long session**\n<size:11><color:#777>Longue session</color></size>\nTwo habits: scope the work before Claude starts, and steer it while it runs\n<size:11><color:#777>Deux habitudes : délimiter le travail avant que Claude ne commence, et l'orienter pendant qu'il travaille</color></size>" as LS #CFCBDD
+rectangle "**Plan mode**\n<size:11><color:#777>Mode Plan</color></size>\nClaude does its research without editing your source files\n<size:11><color:#777>Claude fait ses recherches sans modifier vos fichiers source</color></size>\nIt hands you a plan to review: actually read it, don't skim it\n<size:11><color:#777>Il vous remet un plan à examiner : lisez-le vraiment, ne le survolez pas</color></size>" as PM #E8E2D0
+rectangle "**Compaction**\n<size:11><color:#777>Compaction</color></size>\n/compact summarizes the conversation, then deletes the old messages\n<size:11><color:#777>/compact résume la conversation, puis supprime les anciens messages</color></size>\nInstructions after the command tell Claude how to summarize\n<size:11><color:#777>Des instructions après la commande disent à Claude comment résumer</color></size>" as CO #E8E2D0
+rectangle "**Rewind menu**\n<size:11><color:#777>Menu de rembobinage</color></size>\nWhen Claude heads down the wrong path: double tap Escape on an empty prompt\n<size:11><color:#777>Quand Claude fait fausse route : deux appuis sur Échap, zone de saisie vide</color></size>\nRestore code, conversation or both; Summarize from here / up to here\n<size:11><color:#777>Restaurer le code, la conversation ou les deux ; Summarize from here / up to here</color></size>" as RW #E8E2D0
+rectangle "**Checkpoint**\n<size:11><color:#777>Checkpoint</color></size>\nEvery user prompt creates one\n<size:11><color:#777>Chaque prompt de l'utilisateur en crée un</color></size>" as CP #D9E4D3
+rectangle "**/goal command**\n<size:11><color:#777>Commande /goal</color></size>\nA completion condition: Claude works across turns until a fast evaluator confirms it\n<size:11><color:#777>Une condition d'achèvement : Claude travaille tour après tour jusqu'à ce qu'un évaluateur rapide la confirme</color></size>\nFor when you can describe “done” better than the steps\n<size:11><color:#777>Quand vous savez mieux décrire « terminé » que les étapes</color></size>" as GO #E8E2D0
+rectangle "**/loop command**\n<size:11><color:#777>Commande /loop</color></size>\nA prompt between turns, on a fixed interval or self-paced\n<size:11><color:#777>Un prompt entre les tours, à intervalle fixe ou à son propre rythme</color></size>\nPoll a CI run or a deploy, act when its state changes\n<size:11><color:#777>Interroger une exécution de CI ou un déploiement, agir quand son état change</color></size>" as LO #E8E2D0
+rectangle "**Worktree**\n<size:11><color:#777>Worktree</color></size>\nEach session gets its own independent file tree\n<size:11><color:#777>Chaque session a sa propre arborescence de fichiers, indépendante</color></size>\nA clean one is removed when its session exits\n<size:11><color:#777>Un worktree propre est supprimé à la fin de sa session</color></size>" as WT #E8E2D0
+
+' Lesson 1, in the course's order: scope first (plan mode), then steer (compact, rewind), then autonomy and parallel work.
+LS --> PM
+LS --> CO
+LS --> RW
+RW --> CP
+LS --> GO
+LS --> LO
+LS --> WT
+
+@enduml

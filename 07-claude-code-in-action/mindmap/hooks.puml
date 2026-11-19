@@ -1,0 +1,37 @@
+@startuml hooks
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Hooks\n<size:12><color:#777>Les hooks</color></size>
+
+rectangle "**Hook**\n<size:11><color:#777>Hook</color></size>\nDeterministic code that runs at a fixed point in the loop\n<size:11><color:#777>Du code déterministe qui s'exécute à un point fixe de la boucle</color></size>\nFrom “Claude usually listens” to “Claude can't skip it”\n<size:11><color:#777>De « Claude écoute en général » à « Claude ne peut pas l'ignorer »</color></size>" as HK #CFCBDD
+rectangle "**Hook event**\n<size:11><color:#777>Événement de hook</color></size>\nAbout 30 in a session; PreToolUse before a tool call, PostToolUse after a successful one\n<size:11><color:#777>Une trentaine par session ; PreToolUse avant un appel d'outil, PostToolUse après un appel réussi</color></size>\nStop when Claude wants to end its turn; SessionStart at the start; InstructionsLoaded\n<size:11><color:#777>Stop quand Claude veut terminer son tour ; SessionStart au démarrage ; InstructionsLoaded</color></size>" as HE #E8E2D0
+rectangle "**Pre-tool-use hook**\n<size:11><color:#777>Hook PreToolUse</color></size>\nThe enforcement primitive: talks back by printing JSON and exiting 0\n<size:11><color:#777>Le mécanisme de base pour faire respecter les règles : répond en affichant du JSON et en sortant avec le code 0</color></size>\npermissionDecision: allow, deny, ask; defer only in -p runs\n<size:11><color:#777>permissionDecision : allow, deny, ask ; defer seulement avec -p</color></size>" as PT #E8E2D0
+rectangle "**updatedInput**\n<size:11><color:#777>updatedInput</color></size>\nRewrites the call instead of blocking it: strips a secret, the command still runs\n<size:11><color:#777>Réécrit l'appel au lieu de le bloquer : retire un secret, la commande s'exécute quand même</color></size>\nEcho back the fields you aren't changing\n<size:11><color:#777>Remettez les champs que vous ne modifiez pas</color></size>" as UI #D9E4D3
+rectangle "**Exit code**\n<size:11><color:#777>Code de sortie</color></size>\n0: success, standard out parsed if it is JSON\n<size:11><color:#777>0 : succès, la sortie standard est analysée si c'est du JSON</color></size>\n2: a blocking error, standard error fed back to Claude\n<size:11><color:#777>2 : une erreur bloquante, l'erreur standard est renvoyée à Claude</color></size>\nAnything else: non-blocking, standard error logged\n<size:11><color:#777>Tout autre code : non bloquant, l'erreur standard est journalisée</color></size>" as EC #E8E2D0
+rectangle "**Stop hook**\n<size:11><color:#777>Hook Stop</color></size>\nGates the turn: exit code 2 tells Claude it's not done\n<size:11><color:#777>Contrôle la fin du tour : le code de sortie 2 dit à Claude qu'il n'a pas fini</color></size>" as SH #E8E2D0
+rectangle "**SessionStart hook**\n<size:11><color:#777>Hook SessionStart</color></size>\nWith the compact matcher, the hook to re-inject context after compaction (not PostCompact)\n<size:11><color:#777>Avec le matcher compact, le hook pour réinjecter du contexte après la compaction (pas PostCompact)</color></size>" as SS #E8E2D0
+
+' Lesson 5: the hook, its events, the two ways it talks back (JSON, exit code), the three hooks the course details.
+HK --> HE
+HK --> PT
+PT --> UI
+HK --> EC
+HK --> SH
+HK --> SS
+
+@enduml

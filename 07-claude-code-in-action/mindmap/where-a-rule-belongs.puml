@@ -1,0 +1,39 @@
+@startuml where-a-rule-belongs
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Where a rule belongs\n<size:12><color:#777>La place d'une règle</color></size>
+
+rectangle "**Where a rule belongs**\n<size:11><color:#777>La place d'une règle</color></size>\nCLAUDE.md and skills are instructions Claude follows; a hook is code that actually runs\n<size:11><color:#777>CLAUDE.md et les skills sont des instructions que Claude suit ; un hook est du code qui s'exécute réellement</color></size>" as RB #CFCBDD
+rectangle "**CLAUDE.md**\n<size:11><color:#777>CLAUDE.md</color></size>\nConventions that apply all the time\n<size:11><color:#777>Les conventions qui s'appliquent en permanence</color></size>\nGuidance, not enforced configuration: the leaner the file, the more Claude follows\n<size:11><color:#777>De la recommandation, pas une configuration appliquée : plus le fichier est court, plus Claude le suit</color></size>" as MD #E8E2D0
+rectangle "**CLAUDE.md locations**\n<size:11><color:#777>Emplacements de CLAUDE.md</color></size>\nFour, loaded together at launch: managed policy, user, project, local\n<size:11><color:#777>Quatre, chargés tous ensemble au lancement : politique gérée, utilisateur, projet, local</color></size>" as LOC #D9E4D3
+rectangle "**Managed policy**\n<size:11><color:#777>Politique gérée</color></size>\nThe org-level file your platform team controls: you can't exclude it\n<size:11><color:#777>Le fichier de l'organisation que contrôle votre équipe plateforme : vous ne pouvez pas l'exclure</color></size>" as MP #D9E4D3
+rectangle "**Import**\n<size:11><color:#777>Import</color></size>\nSplits a long file into pieces; everything still loads up front\n<size:11><color:#777>Découpe un long fichier ; tout se charge quand même dès le lancement</color></size>" as IM #D9E4D3
+rectangle "**Skill**\n<size:11><color:#777>Skill</color></size>\nProcedures tied to a particular kind of task\n<size:11><color:#777>Les procédures liées à un type de tâche particulier</color></size>\nA folder with a SKILL.md; only its description loads until it's needed\n<size:11><color:#777>Un dossier avec un SKILL.md ; seule sa description est chargée tant qu'on n'en a pas besoin</color></size>\nA reference.md and scripts carry the depth\n<size:11><color:#777>Un reference.md et des scripts contiennent le détail</color></size>" as SK #E8E2D0
+rectangle "**Verification skill**\n<size:11><color:#777>Skill de vérification</color></size>\nThe one to build first: runs the tests, reads the diff, checks no test was weakened\n<size:11><color:#777>Le premier à construire : lance les tests, lit le diff, vérifie qu'aucun test n'a été affaibli</color></size>\nReports pass or fail, with the evidence attached\n<size:11><color:#777>Rend son verdict, réussite ou échec, preuves à l'appui</color></size>" as VS #D9E4D3
+rectangle "**Hook**\n<size:11><color:#777>Hook</color></size>\nA rule Claude must not be able to skip\n<size:11><color:#777>Une règle que Claude ne doit pas pouvoir ignorer</color></size>\nLike “never push to main”, in a pre-tool-use hook: it can block the action\n<size:11><color:#777>Comme « ne jamais pousser sur main », dans un hook PreToolUse : il peut bloquer l'action</color></size>" as HKR #E8E2D0
+
+' Lessons 2 and 3: the three places to put instructions, each with its own details.
+RB --> MD
+MD --> LOC
+LOC --> MP
+MD --> IM
+RB --> SK
+SK --> VS
+RB --> HKR
+
+@enduml
