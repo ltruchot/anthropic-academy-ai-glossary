@@ -1,0 +1,33 @@
+@startuml skills-and-other-features
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Skills vs. other Claude Code features\n<size:12><color:#777>Les skills face aux autres fonctionnalités de Claude Code</color></size>
+
+rectangle "**Skill**\n<size:11><color:#777>Skill</color></size>\nRequest-driven: loads on demand, for task-specific expertise\n<size:11><color:#777>Déclenché par vos demandes : se charge à la demande, pour une expertise propre à une tâche</color></size>\nIts instructions join your current conversation\n<size:11><color:#777>Ses instructions s'ajoutent à votre conversation en cours</color></size>\nEach feature handles its own specialty: combine them\n<size:11><color:#777>Chaque fonctionnalité a sa propre spécialité : combinez-les</color></size>" as SK #CFCBDD
+rectangle "**CLAUDE.md**\n<size:11><color:#777>CLAUDE.md</color></size>\nLoads into every conversation, always\n<size:11><color:#777>Se charge dans chaque conversation, toujours</color></size>\nFor always-on project standards\n<size:11><color:#777>Pour les normes de projet toujours actives</color></size>" as CM #E8E2D0
+rectangle "**Subagent**\n<size:11><color:#777>Sous-agent</color></size>\nRuns in an isolated execution context, for delegated work\n<size:11><color:#777>S'exécute dans un contexte d'exécution isolé, pour le travail délégué</color></size>\nDoesn't see the skills you've already invoked\n<size:11><color:#777>Ne voit pas les skills que vous avez déjà lancés</color></size>\nA custom one can preload the skills in its skills field\n<size:11><color:#777>Un sous-agent personnalisé peut précharger les skills de son champ skills</color></size>" as SA #E8E2D0
+rectangle "**Hook**\n<size:11><color:#777>Hook</color></size>\nEvent-driven: fires on file saves, tool calls\n<size:11><color:#777>Déclenché par des événements : enregistrement de fichiers, appels d'outils</color></size>" as HK #E8E2D0
+rectangle "**MCP server**\n<size:11><color:#777>Serveur MCP</color></size>\nProvides external tools and integrations\n<size:11><color:#777>Fournit des outils et des intégrations externes</color></size>\nA different category entirely from skills\n<size:11><color:#777>Une tout autre catégorie que les skills</color></size>" as MC #E8E2D0
+
+' Lesson 4 (and lesson 5's subagents).
+SK --> CM
+SK --> SA
+SK --> HK
+SK --> MC
+
+@enduml

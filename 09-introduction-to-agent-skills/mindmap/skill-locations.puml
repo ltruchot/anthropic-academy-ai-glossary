@@ -1,0 +1,35 @@
+@startuml skill-locations
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Where skills live, and how they are shared\n<size:12><color:#777>Où se trouvent les skills, et comment les partager</color></size>
+
+rectangle "**Skill priority**\n<size:11><color:#777>Priorité des skills</color></size>\nWhen names clash: Enterprise, then Personal, then Project\n<size:11><color:#777>Quand des noms entrent en conflit : Entreprise, puis Personnel, puis Projet</color></size>\nPlugin skills sit outside the order, namespaced: they load beside a skill of the same name\n<size:11><color:#777>Les skills de plugin restent en dehors de cet ordre de priorité, dans leur espace de noms : ils se chargent à côté d'un skill du même nom</color></size>" as PR #CFCBDD
+rectangle "**Managed settings**\n<size:11><color:#777>Paramètres gérés</color></size>\nAdministrators deploy skills organization-wide\n<size:11><color:#777>Les administrateurs déploient des skills dans toute l'organisation</color></size>\nEnterprise skills: the highest priority\n<size:11><color:#777>Les skills d'entreprise : la plus haute priorité</color></size>\nFor mandatory standards and compliance\n<size:11><color:#777>Pour les normes obligatoires et la conformité</color></size>" as MS #E8E2D0
+rectangle "**Personal skills**\n<size:11><color:#777>Skills personnels</color></size>\nIn .claude/skills in your home directory\n<size:11><color:#777>Dans .claude/skills, dans votre répertoire personnel</color></size>\nFollow you across all your projects\n<size:11><color:#777>Vous suivent dans tous vos projets</color></size>" as PE #E8E2D0
+rectangle "**Project skills**\n<size:11><color:#777>Skills de projet</color></size>\nIn .claude/skills at the root of your repository\n<size:11><color:#777>Dans .claude/skills, à la racine de votre dépôt</color></size>\nCommitted with your code: anyone who clones the repo gets them\n<size:11><color:#777>Commités avec votre code : quiconque clone le dépôt les obtient</color></size>\nThe simplest sharing method\n<size:11><color:#777>La méthode de partage la plus simple</color></size>" as PJ #E8E2D0
+rectangle "**Plugin**\n<size:11><color:#777>Plugin</color></size>\nDistributes skills across repositories\n<size:11><color:#777>Distribue des skills entre dépôts</color></size>\nIts skills in a skills/ directory at the plugin root\n<size:11><color:#777>Ses skills dans un répertoire skills/ à la racine du plugin</color></size>\nBest for skills that aren't too project-specific\n<size:11><color:#777>Convient le mieux aux skills pas trop propres à un projet</color></size>" as PL #E8E2D0
+rectangle "**Marketplace**\n<size:11><color:#777>Marketplace</color></size>\nWhere other users discover and install a plugin\n<size:11><color:#777>Là où d'autres utilisateurs découvrent et installent un plugin</color></size>" as MK #D9E4D3
+
+' Lessons 1, 2 and 5: the places, their priority, the three ways to share.
+PR --> MS
+PR --> PE
+PR --> PJ
+PR --> PL
+PL --> MK
+
+@enduml

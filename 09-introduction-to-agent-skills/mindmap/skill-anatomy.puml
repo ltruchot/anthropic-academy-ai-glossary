@@ -1,0 +1,39 @@
+@startuml skill-anatomy
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Creating and configuring a skill\n<size:12><color:#777>Créer et configurer un skill</color></size>
+
+rectangle "**Skill**\n<size:11><color:#777>Skill</color></size>\nA markdown file that teaches Claude how to do something once\n<size:11><color:#777>Un fichier Markdown qui apprend à Claude, une fois pour toutes, à faire quelque chose</color></size>\nA directory with a SKILL.md: frontmatter, then the instructions\n<size:11><color:#777>Un répertoire avec un SKILL.md : le frontmatter, puis les instructions</color></size>" as SK #CFCBDD
+rectangle "**Skill metadata fields**\n<size:11><color:#777>Champs de métadonnées des skills</color></size>\nAll optional in Claude Code; only description is recommended\n<size:11><color:#777>Tous facultatifs dans Claude Code ; seul description est recommandé</color></size>\nname, description, allowed-tools, model: a good place to start\n<size:11><color:#777>name, description, allowed-tools, model : un bon point de départ</color></size>\ndescription: the most important, Claude uses it for matching\n<size:11><color:#777>description : le plus important, Claude s'en sert pour la correspondance</color></size>" as MF #E8E2D0
+rectangle "**allowed-tools**\n<size:11><color:#777>allowed-tools</color></size>\nPre-approves the listed tools for the rest of the turn that invoked the skill\n<size:11><color:#777>Préapprouve les outils listés jusqu'à la fin du tour où le skill a été lancé</color></size>\nDoesn't limit Claude to them; disallowed-tools removes tools\n<size:11><color:#777>Ne limite pas Claude à ces outils ; disallowed-tools en retire</color></size>" as AT #D9E4D3
+rectangle "**Progressive disclosure**\n<size:11><color:#777>Divulgation progressive</color></size>\nEssential instructions in SKILL.md, under 500 lines\n<size:11><color:#777>Les instructions essentielles dans SKILL.md, sous 500 lignes</color></size>\nSupporting files Claude reads only when needed\n<size:11><color:#777>Des fichiers annexes que Claude ne lit qu'en cas de besoin</color></size>\nScripts run: only their output consumes tokens\n<size:11><color:#777>Les scripts s'exécutent : seule leur sortie consomme des tokens</color></size>" as PD #E8E2D0
+rectangle "**Skill matching**\n<size:11><color:#777>Correspondance des skills</color></size>\nAt startup, only names and descriptions load\n<size:11><color:#777>Au démarrage, seuls les noms et les descriptions se chargent</color></size>\nYour request compared to the descriptions, by semantic matching\n<size:11><color:#777>Votre demande comparée aux descriptions, par correspondance sémantique</color></size>\nOn a match, Claude reads the complete SKILL.md\n<size:11><color:#777>Une fois la correspondance trouvée, Claude lit le SKILL.md complet</color></size>" as SM #E8E2D0
+rectangle "**Troubleshooting skills**\n<size:11><color:#777>Dépanner les skills</color></size>\nNot triggering: almost always the description\n<size:11><color:#777>Ne se déclenche pas : presque toujours la description</color></size>\nNot loading: SKILL.md in its own directory, the file named exactly SKILL.md\n<size:11><color:#777>Ne se charge pas : SKILL.md dans son propre répertoire, le fichier nommé exactement SKILL.md</color></size>\nWrong skill used: descriptions too similar\n<size:11><color:#777>Le mauvais skill : des descriptions trop proches</color></size>\nRuntime errors: dependencies, chmod +x, forward slashes\n<size:11><color:#777>Erreurs à l'exécution : dépendances, chmod +x, barres obliques</color></size>" as TS #E8E2D0
+rectangle "**Skills validator**\n<size:11><color:#777>Outil de validation des skills</color></size>\nclaude plugin validate: the first thing to try\n<size:11><color:#777>claude plugin validate : la première chose à essayer</color></size>\nCatches structural problems before other debugging\n<size:11><color:#777>Repère les problèmes de structure avant tout autre débogage</color></size>" as SV #D9E4D3
+
+' Lessons 2 and 3: the file and its fields.
+SK --> MF
+MF --> AT
+SK --> PD
+' Lesson 2: how Claude picks a skill.
+SK --> SM
+' Lesson 6: when a skill doesn't work.
+SK --> TS
+TS --> SV
+
+@enduml
