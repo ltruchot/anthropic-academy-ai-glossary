@@ -1,0 +1,27 @@
+@startuml using-subagents
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Using subagents effectively\n<size:11><color:#777>Bien utiliser les sous-agents</color></size>
+
+rectangle "**Intermediate work**\n<size:11><color:#777>Travail intermédiaire</color></size>\nThe decision rule: does the intermediate work matter?\n<size:11><color:#777>La règle de décision : le travail intermédiaire compte-t-il ?</color></size>\nNo, you just need the final result: delegate the work to a subagent\n<size:11><color:#777>Non, vous avez seulement besoin du résultat final : déléguez ce travail à un sous-agent</color></size>\nYes, you need to see and react along the way: keep the work in your main thread\n<size:11><color:#777>Oui, vous devez voir ce qui se passe en chemin et y réagir : gardez ce travail dans votre fil principal</color></size>\nUse subagents for research, code reviews, tasks that need a custom system prompt\n<size:11><color:#777>Utilisez les sous-agents pour la recherche, la revue de code, les tâches qui demandent un prompt système personnalisé</color></size>" as IW #CFCBDD
+rectangle "**Subagent anti-patterns**\n<size:11><color:#777>Anti-patterns des sous-agents</color></size>\nThe overhead only makes sense when the subagent does something the main thread can't\n<size:11><color:#777>Le coût ne se justifie que si le sous-agent fait ce que le fil principal ne peut pas faire</color></size>\nExpert claims (<U+0022>you are a Python expert<U+0022>): Claude already has that knowledge\n<size:11><color:#777>Les sous-agents qui se présentent comme experts (« you are a Python expert ») : Claude a déjà ces connaissances</color></size>\nSequential pipelines: they fail when each step depends on the previous one's discoveries\n<size:11><color:#777>Les pipelines séquentiels : ils échouent quand chaque étape dépend de ce que la précédente a découvert</color></size>\nTest runners: they tend to hide the full output you need\n<size:11><color:#777>Les sous-agents qui lancent les tests : ils tendent à masquer la sortie complète dont vous avez besoin</color></size>" as AP #E8E2D0
+
+' Lesson 4: the rule and where subagents shine, then where they hurt.
+IW --> AP
+
+@enduml

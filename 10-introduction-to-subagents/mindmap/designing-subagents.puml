@@ -1,0 +1,33 @@
+@startuml designing-subagents
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Designing effective subagents\n<size:11><color:#777>Concevoir des sous-agents efficaces</color></size>
+
+rectangle "**Subagent**\n<size:11><color:#777>Sous-agent</color></size>\nPoorly configured, it wanders, runs too long, or returns output the main agent can't use\n<size:11><color:#777>Mal configuré, il s'égare, tourne trop longtemps ou renvoie une sortie inexploitable par l'agent principal</color></size>" as SA #CFCBDD
+rectangle "**Subagent description**\n<size:11><color:#777>Description d'un sous-agent</color></size>\nIn the main agent's system prompt, with the subagent's name\n<size:11><color:#777>Dans le prompt système de l'agent principal, avec le nom du sous-agent</color></size>\nControls when Claude decides to use the subagent\n<size:11><color:#777>Détermine quand Claude décide d'utiliser le sous-agent</color></size>\nOne line; <U+0022>proactively<U+0022> to delegate without being asked; example conversations\n<size:11><color:#777>Une seule ligne ; « proactively » pour déléguer sans qu'on le demande ; des exemples de conversations</color></size>" as DE #E8E2D0
+rectangle "**Input prompt**\n<size:11><color:#777>Prompt d'entrée</color></size>\nWritten by the main agent to kick off the task\n<size:11><color:#777>Rédigé par l'agent principal pour démarrer la tâche</color></size>\nShaped by the description, which also controls when the subagent is launched\n<size:11><color:#777>Façonné par la description, qui détermine aussi quand le sous-agent est lancé</color></size>" as IP #D9E4D3
+rectangle "**Output format**\n<size:11><color:#777>Format de sortie</color></size>\nDefining one in the system prompt: the single most important improvement\n<size:11><color:#777>En définir un dans le prompt système : l'amélioration la plus importante</color></size>\nNatural stopping points: done when each section is filled in\n<size:11><color:#777>Des points où s'arrêter naturellement : terminé quand chaque section est remplie</color></size>\nKeeps the subagent from running much longer than necessary\n<size:11><color:#777>Évite que le sous-agent tourne bien plus longtemps que nécessaire</color></size>\nAn <U+0022>Obstacles Encountered<U+0022> section: workarounds, quirks, problems\n<size:11><color:#777>Une section « Obstacles Encountered » : solutions de contournement, particularités, problèmes</color></size>" as OF #E8E2D0
+rectangle "**Limited tool access**\n<size:11><color:#777>Accès limité aux outils</color></size>\nOnly the tools the subagent actually needs\n<size:11><color:#777>Seulement les outils dont le sous-agent a réellement besoin</color></size>\nPrevents unintended side effects, makes each role clearer\n<size:11><color:#777>Évite les effets secondaires involontaires, rend chaque rôle plus clair</color></size>\nResearch / read-only: Glob, Grep and Read\n<size:11><color:#777>Recherche / lecture seule : Glob, Grep et Read</color></size>\nCode reviewer: Bash for git diff, no Edit or Write\n<size:11><color:#777>Relecteur de code : Bash pour git diff, ni Edit ni Write</color></size>\nCode modification: Edit and Write\n<size:11><color:#777>Modification du code : Edit et Write</color></size>" as TA #E8E2D0
+
+' Lesson 3: the four characteristics of effective subagents.
+SA --> DE
+DE --> IP
+SA --> OF
+SA --> TA
+
+@enduml

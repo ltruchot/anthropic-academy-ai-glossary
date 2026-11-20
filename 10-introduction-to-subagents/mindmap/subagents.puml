@@ -1,0 +1,34 @@
+@startuml subagents
+' Rendered with PlantUML, smetana layout (no Graphviz needed).
+!pragma layout smetana
+
+skinparam defaultFontName Helvetica
+skinparam shadowing false
+skinparam roundCorner 12
+skinparam ArrowColor #555555
+skinparam rectangle {
+  BorderColor #FFFFFF
+  FontSize 15
+}
+<style>
+rectangle {
+  MinimumWidth 230
+}
+</style>
+
+title Subagents\n<size:11><color:#777>Les sous-agents</color></size>
+
+rectangle "**Subagent**\n<size:11><color:#777>Sous-agent</color></size>\nA specialized assistant Claude Code can delegate tasks to\n<size:11><color:#777>Un assistant spécialisé auquel Claude Code peut déléguer des tâches</color></size>\nRuns in its own conversation context window\n<size:11><color:#777>S'exécute dans sa propre fenêtre de contexte de conversation</color></size>\nStarts with a system prompt from its config file and a task description from the parent agent\n<size:11><color:#777>Démarre avec un prompt système issu de son fichier de configuration et une description de tâche rédigée par l'agent parent</color></size>\nOnly a summary comes back; the rest is saved in a separate transcript file\n<size:11><color:#777>Seul un résumé revient ; le reste est enregistré dans un fichier de transcription distinct</color></size>\nThe tradeoff: your main conversation doesn't see how it reached its conclusions\n<size:11><color:#777>La contrepartie : votre conversation principale ne voit pas comment il est arrivé à ses conclusions</color></size>" as SA #CFCBDD
+rectangle "**Main context window**\n<size:11><color:#777>Fenêtre de contexte principale</color></size>\nEvery tool call, file read and search result is stored there\n<size:11><color:#777>Chaque appel d'outil, chaque lecture de fichier, chaque résultat de recherche y est stocké</color></size>\nFinite: once it fills up, Claude starts losing track of earlier parts of the conversation\n<size:11><color:#777>Limitée : une fois qu'elle est pleine, Claude commence à perdre de vue les parties plus anciennes de la conversation</color></size>\nWith a subagent, it only records your question and the subagent's summary\n<size:11><color:#777>Avec un sous-agent, elle n'enregistre que votre question et le résumé du sous-agent</color></size>" as MC #E8E2D0
+rectangle "**Built-in subagents**\n<size:11><color:#777>Sous-agents intégrés</color></size>\nSeveral, ready to use right away, among them:\n<size:11><color:#777>Plusieurs, utilisables tout de suite, dont :</color></size>\nGeneral purpose: multi-step tasks, both exploration and action\n<size:11><color:#777>À usage général : les tâches en plusieurs étapes, à la fois exploration et action</color></size>\nExplore: fast searching and navigation of codebases\n<size:11><color:#777>Explore : la recherche rapide et la navigation dans les bases de code</color></size>\nPlan: research and analysis of your codebase in plan mode\n<size:11><color:#777>Plan : étudier et analyser votre base de code en mode Plan</color></size>" as BI #E8E2D0
+rectangle "**Custom subagent**\n<size:11><color:#777>Sous-agent personnalisé</color></size>\nYour own, with a custom system prompt and tool access\n<size:11><color:#777>Le vôtre, avec un prompt système personnalisé et l'accès aux outils que vous choisissez</color></size>\nEasiest: ask Claude to write its file for you\n<size:11><color:#777>Le plus simple : demander à Claude d'écrire son fichier pour vous</color></size>\n.claude/agents/: the current project only\n<size:11><color:#777>.claude/agents/ : le projet en cours uniquement</color></size>\n.claude/agents/ in your home directory: all your projects\n<size:11><color:#777>.claude/agents/ dans votre répertoire personnel : tous vos projets</color></size>" as CS #E8E2D0
+rectangle "**Subagent config file**\n<size:11><color:#777>Fichier de configuration d'un sous-agent</color></size>\nA markdown file with YAML frontmatter\n<size:11><color:#777>Un fichier Markdown avec un frontmatter YAML</color></size>\nFields of a typical config: name, description, tools, model, color\n<size:11><color:#777>Champs d'une configuration type : name, description, tools, model, color</color></size>\nIts body, below the frontmatter, is the system prompt\n<size:11><color:#777>Son corps, sous le frontmatter, est le prompt système</color></size>" as CF #D9E4D3
+
+' Lesson 1: what a subagent is, the window it keeps clean, the two kinds.
+SA --> MC
+SA --> BI
+SA --> CS
+' Lesson 2: the file that defines a custom subagent.
+CS --> CF
+
+@enduml
