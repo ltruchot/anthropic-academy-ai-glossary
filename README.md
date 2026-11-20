@@ -20,6 +20,7 @@ glossary and one set of mind maps per course. Not affiliated with or endorsed by
 | 06 — Claude Code 101                                     | [index.md](06-claude-code-101/index.md)                        | [mindmap.md](06-claude-code-101/mindmap.md)                        |
 | 07 — Claude Code in Action                               | [index.md](07-claude-code-in-action/index.md)                  | [mindmap.md](07-claude-code-in-action/mindmap.md)                  |
 | 08 — Introduction to Model Context Protocol              | [index.md](08-introduction-to-model-context-protocol/index.md) | [mindmap.md](08-introduction-to-model-context-protocol/mindmap.md) |
+| 09 — Introduction to agent skills                        | [index.md](09-introduction-to-agent-skills/index.md)           | [mindmap.md](09-introduction-to-agent-skills/mindmap.md)           |
 
 Each course folder stands alone, so that one course can be revised without the others: a term two
 courses define has an entry in each (the same text, or this course's own definition), and a mind map
