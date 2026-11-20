@@ -28,6 +28,7 @@ rectangle "**MCP Python SDK**\n<size:11><color:#777>SDK Python de MCP</color></s
 rectangle "**Client session**\n<size:11><color:#777>Session client</color></size>\nThe actual connection to an MCP server, part of the MCP Python SDK\n<size:11><color:#777>La connexion proprement dite à un serveur MCP, fournie par le SDK Python de MCP</color></size>\nWrapped in your own class, written to handle all its cleanup\n<size:11><color:#777>Encapsulée dans votre propre classe, écrite pour gérer tout son nettoyage</color></size>" as CS #D9E4D3
 rectangle "**MCP Inspector**\n<size:11><color:#777>MCP Inspector</color></size>\nTests an MCP server in the browser, without a full application\n<size:11><color:#777>Teste un serveur MCP dans le navigateur, sans application complète</color></size>\nRun with mcp dev; keeps the server state between tool calls\n<size:11><color:#777>Se lance avec mcp dev ; conserve l'état du serveur entre les appels d'outils</color></size>" as INS #D9E4D3
 rectangle "**Resource**\n<size:11><color:#777>Ressource</color></size>\nExposes data to clients, like a GET request handler\n<size:11><color:#777>Expose des données aux clients, comme un gestionnaire de requêtes GET</color></size>\nDirect (a static URI) or templated (parameters in its URI)\n<size:11><color:#777>Directe (un URI statique) ou paramétrée (des paramètres dans son URI)</color></size>\nRead with a ReadResourceRequest, returned in a ReadResourceResult\n<size:11><color:#777>Lue par une ReadResourceRequest, renvoyée dans un ReadResourceResult</color></size>\nIncluded directly in the prompt, parsed by its MIME type\n<size:11><color:#777>Incluse directement dans le prompt, analysée selon son type MIME</color></size>" as RS #D9E4D3
+rectangle "**Prompt**\n<size:11><color:#777>Prompt</color></size>\nPre-built instructions clients use instead of writing their own\n<size:11><color:#777>Des instructions prédéfinies que les clients utilisent au lieu d'écrire les leurs</color></size>\nA decorator; returns user and assistant messages sent to Claude\n<size:11><color:#777>Un décorateur ; renvoie des messages user et assistant envoyés à Claude</color></size>\nWorks best specialized for its server's domain\n<size:11><color:#777>Fonctionne le mieux spécialisé dans le domaine de son serveur</color></size>" as PR #D9E4D3
 
 ' Lessons 1-3: MCP, its client (transports, messages), its server, and tool use beside it.
 MCP --> CL
@@ -43,5 +44,7 @@ SDK --> INS
 CL --> CS
 ' Eighth and ninth lessons: the resources a server exposes, and how a client reads them.
 SV --> RS
+' Tenth lesson: the prompts a server exposes.
+SV --> PR
 
 @enduml

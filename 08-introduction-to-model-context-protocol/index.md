@@ -1,7 +1,7 @@
 ---
 tags: [ia, anthropic, claude, glossaire]
 created: 2026-11-19
-updated: 2026-11-19
+updated: 2026-11-20
 ---
 
 # Glossaire et mindmap Anthropic
@@ -46,7 +46,7 @@ One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): r
 
 ### Prompt *(Prompt)*
 
-One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): prompts provide pre-built instructions to language models, for pre-defined workflows. Specialized prompts are the page's example of the workflows an AI application can connect to through [MCP](#mcp-mcp).
+One of the three basic components of an [MCP server](#mcp-server-serveur-mcp): prompts provide pre-built instructions to language models, for pre-defined workflows. Specialized prompts are the page's example of the workflows an AI application can connect to through [MCP](#mcp-mcp). Prompts in MCP servers let you define pre-built, high-quality instructions that clients can use instead of writing their own prompts from scratch: carefully crafted templates that give better results than what users might come up with on their own. Users can already ask Claude to do most tasks directly, but they get much better results from a thoroughly tested, specialized prompt that handles edge cases and follows best practices: as the MCP server author, you can spend time crafting, testing and evaluating prompts that work consistently across different scenarios, and users benefit from this expertise without having to become prompt engineering experts. With the [MCP Python SDK](#mcp-python-sdk-sdk-python-de-mcp), prompts use a [decorator](#decorator-décorateur) pattern similar to tools and resources, `@mcp.prompt(…)`, with a name and, optionally, a description; the function returns a list of messages that get sent directly to Claude, and can include multiple user and assistant messages to create more complex conversation flows. The [MCP Inspector](#mcp-inspector-mcp-inspector) shows exactly what messages will be sent to Claude, including how variables get interpolated into the prompt template, before users start relying on it. Key benefits: consistency (users get reliable results every time), expertise (domain knowledge encoded into prompts), reusability (multiple client applications can use the same prompts), maintenance (update prompts in one place to improve all clients). Prompts work best when they are specialized for your MCP server's domain: a document management server might have prompts for formatting, summarizing or analyzing documents. The course's example: a format command, `/format doc_id`, whose pre-built prompt has Claude read a document and rewrite it in Markdown.
 
 → [schéma de l'architecture MCP](mindmap/mcp-architecture.png)
 
